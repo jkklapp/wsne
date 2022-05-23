@@ -7,6 +7,7 @@ name: Preview functions in firebase
 
 jobs:
   build:
+    if: ${{ false }}
     name: Build
     runs-on: ubuntu-latest
     steps:
@@ -22,6 +23,7 @@ jobs:
           name: dist
           path: dist
   deploy:
+    if: ${{ false }}
     name: Deploy
     needs: build
     runs-on: ubuntu-latest

@@ -10,6 +10,7 @@ name: Deploy functions to firebase
 jobs:
   #this workfloe has only one job
   deploy_to_production:
+    if: ${{ false }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2

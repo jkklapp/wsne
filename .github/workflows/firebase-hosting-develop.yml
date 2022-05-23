@@ -16,4 +16,5 @@ jobs:
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_WSNE_28B5B }}'
+          channelId: preview
           projectId: wsne-28b5b

@@ -25,20 +25,12 @@
     <script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
     <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css" />
     <script type="text/javascript">
-      // FirebaseUI config.
-      setTimeout(() => {
-
+      document.addEventListener('DOMContentLoaded', function() {
+        let app = firebase.app();
         var uiConfig = {
-          signInSuccessUrl: '<url-to-redirect-to-on-success>',
+          signInSuccessUrl: '/',
           signInOptions: [
-            // Leave the lines as is for the providers you want to offer your users.
-            firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-            firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-            firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-            firebase.auth.GithubAuthProvider.PROVIDER_ID,
             firebase.auth.EmailAuthProvider.PROVIDER_ID,
-            firebase.auth.PhoneAuthProvider.PROVIDER_ID,
-            firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID
           ],
           // tosUrl and privacyPolicyUrl accept either url string or a callback
           // function.
@@ -54,12 +46,65 @@
         var ui = new firebaseui.auth.AuthUI(firebase.auth());
         // The start method will wait until the DOM is loaded.
         ui.start('#firebaseui-auth-container', uiConfig);
-      }, 0);
+      });
+    </script>
+    <script type="module">
+      import { createApp } from 'https://unpkg.com/petite-vue?module'
+
+      const initApp = function() {
+        firebase.auth().onAuthStateChanged(function(user) {
+          console.log(user);
+          if (user) {
+            // User is signed in.
+            var displayName = user.displayName;
+            var email = user.email;
+            var emailVerified = user.emailVerified;
+            var photoURL = user.photoURL;
+            var uid = user.uid;
+            var phoneNumber = user.phoneNumber;
+            var providerData = user.providerData;
+            user.getIdToken().then(function(accessToken) {
+              createApp({
+                displayName: displayName,
+                email: email,
+                emailVerified: emailVerified,
+                phoneNumber: phoneNumber,
+                photoURL: photoURL,
+                uid: uid,
+                accessToken: accessToken,
+                providerData: providerData,
+                show: false,
+                hide: true,
+                logout: function() {
+                  firebase.auth().signOut();
+                }
+              }).mount('#app')
+            });
+          } else {
+            createApp({
+              show: true,
+              hide: false,
+            }).mount('#app')
+          }
+
+        }, function(error) {
+          console.log(error);
+        });
+      };
+
+      window.addEventListener('load', function() {
+        initApp()
+      });
     </script>
   </head>
   <body>
-    <script src="https://unpkg.com/petite-vue" defer init></script>
-    <h1>Welcome to My Awesome App</h1>
-    <div id="firebaseui-auth-container"></div>
+    <div id="app">
+      <h1>Welcome to My Awesome App</h1>
+      <div v-if="show" id="firebaseui-auth-container"></div>
+      <pre v-if="hide" id="account-details">
+        <h2>Username {{ displayName }}</h2>
+        <button @click="logout">Logout</button>
+      </pre>
+    </div>
   </body>
 </html>

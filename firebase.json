@@ -1,6 +1,6 @@
 {
   "functions": {
-    "source": "functions"
+    "source": "src/functions"
   },
   "hosting": {
     "public": "public",

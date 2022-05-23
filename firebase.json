@@ -4,5 +4,13 @@
       "npm --prefix \"$RESOURCE_DIR\" run lint"
     ],
     "source": "."
+  },
+  "hosting": {
+    "public": "dist",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
   }
 }

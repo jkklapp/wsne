@@ -1,6 +1,6 @@
 {
   "functions": {
-    "source": "."
+    "source": "functions"
   },
   "hosting": {
     "public": "dist",

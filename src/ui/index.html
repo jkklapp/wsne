@@ -1,0 +1,23 @@
+<script type="module">
+    import { createApp } from 'https://unpkg.com/petite-vue?module'
+  
+    createApp({
+      // exposed to all expressions
+      count: 0,
+      // getters
+      get plusOne() {
+        return this.count + 1
+      },
+      // methods
+      increment() {
+        this.count++
+      }
+    }).mount()
+  </script>
+  
+  <!-- v-scope value can be omitted -->
+  <div v-scope>
+    <p>{{ count }}</p>
+    <p>{{ plusOne }}</p>
+    <button @click="increment">increment</button>
+  </div>

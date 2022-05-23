@@ -8,7 +8,7 @@ name: Release
     branches:
       - master
 jobs:
-  build_and_deploy:
+  release:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

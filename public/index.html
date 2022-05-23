@@ -53,6 +53,7 @@
                 loggedIn: true,
                 logout: function() {
                   firebase.auth().signOut();
+                  this.loggedIn = false;
                 }
               }).mount('#app')
             });

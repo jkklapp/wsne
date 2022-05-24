@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/jkklapp/wsne/compare/v1.1.0...v1.2.0) (2022-05-23)
+
+
+### Features
+
+* add posts api ([37587eb](https://github.com/jkklapp/wsne/commit/37587eb1e204b416a1c30b434acd3a8c312b0ac4))
+
 # [1.1.0](https://github.com/jkklapp/wsne/compare/v1.0.1...v1.1.0) (2022-05-23)
 
 

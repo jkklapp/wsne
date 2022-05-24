@@ -4,6 +4,9 @@
   "description": "",
   "author": "",
   "private": true,
+  "scripts": {
+    "semantic-release": "semantic-release"
+  },
   "release": {
     "branches": [
         "master"
@@ -16,6 +19,13 @@
       "@semantic-release/changelog",
       "@semantic-release/git"
     ]
+  },
+  "devDependencies": {
+    "@semantic-release/commit-analyzer": "^9.0.2",
+    "@semantic-release/github": "^8.0.4",
+    "@semantic-release/npm": "^9.0.1",
+    "@semantic-release/release-notes-generator": "^10.0.3",
+    "semantic-release": "^19.0.2"
   },
   "repository": {
     "type": "git",

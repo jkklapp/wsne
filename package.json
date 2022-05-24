@@ -5,17 +5,17 @@
   "author": "",
   "private": true,
   "release": {
-  "branches": [
-      "master"
-  ],
-  "plugins": [
-    "@semantic-release/commit-analyzer",
-    "@semantic-release/release-notes-generator",
-    "@semantic-release/npm",
-    "@semantic-release/github",
-    "@semantic-release/changelog",
-    "@semantic-release/git"
-  ]
+    "branches": [
+        "master"
+    ],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/npm",
+      "@semantic-release/github",
+      "@semantic-release/changelog",
+      "@semantic-release/git"
+    ]
   },
   "repository": {
     "type": "git",

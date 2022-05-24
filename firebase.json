@@ -3,6 +3,7 @@
     "source": "backend/src"
   },
   "hosting": {
+    "site": "wsne-28b5b",
     "public": "frontend/dist",
     "ignore": [
       "firebase.json",

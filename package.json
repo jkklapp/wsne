@@ -1,6 +1,6 @@
 {
   "name": "wsne",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "",
   "author": "",
   "private": true,
@@ -9,7 +9,7 @@
   },
   "release": {
     "branches": [
-        "master"
+      "master"
     ],
     "plugins": [
       "@semantic-release/commit-analyzer",

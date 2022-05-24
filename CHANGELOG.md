@@ -1,3 +1,20 @@
+# [1.3.0](https://github.com/jkklapp/wsne/compare/v1.2.0...v1.3.0) (2022-05-24)
+
+
+### Bug Fixes
+
+* backend CI flow ([f591380](https://github.com/jkklapp/wsne/commit/f59138012dd9fcebb3f52463ab609e89fe552cc7))
+* ci flow ([f5a9194](https://github.com/jkklapp/wsne/commit/f5a919432a3086e43fc82e94b3b9311cb1909b8d))
+* create package json module in api ([8ee5dea](https://github.com/jkklapp/wsne/commit/8ee5deac93b5b031a5806255187ffd4f627eb4df))
+* github actions on different folders ([943d5b2](https://github.com/jkklapp/wsne/commit/943d5b25d378652bb786e8be2896a81e8040172c))
+
+
+### Features
+
+* add guards for posts service ([4fa3ddf](https://github.com/jkklapp/wsne/commit/4fa3ddfc8fab29f8e66dff04db832862e4f814b6))
+* add vue to firebase hosting ([f6143ca](https://github.com/jkklapp/wsne/commit/f6143ca20e6c878aceed98821ad55e3f9e56d4b5))
+* added vue and login with firebase ([c9183a5](https://github.com/jkklapp/wsne/commit/c9183a589469c51b56e42ae426789883cc37aa11))
+
 # [1.2.0](https://github.com/jkklapp/wsne/compare/v1.1.0...v1.2.0) (2022-05-23)
 
 

@@ -1,0 +1,24 @@
+{
+  "name": "wsne",
+  "version": "1.2.0",
+  "description": "",
+  "author": "",
+  "private": true,
+  "release": {
+  "branches": [
+      "master"
+  ],
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    "@semantic-release/npm",
+    "@semantic-release/github",
+    "@semantic-release/changelog",
+    "@semantic-release/git"
+  ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jkklapp/wsne.git"
+  }
+}

@@ -28,4 +28,16 @@ describe('Controller', () => {
       expect(await c.findAll()).toBe(result);
     });
   });
+  describe('create', () => {
+    it('should return a new post', async () => {
+      const post = {
+        title: 'test',
+        message: 'test',
+        date: Timestamp.fromMillis(100000),
+      };
+      jest.spyOn(s, 'create').mockImplementation(() => Promise.resolve(post));
+
+      expect(await c.create(post)).toBe(post);
+    });
+  });
 });

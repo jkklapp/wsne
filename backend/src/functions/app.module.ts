@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { FirebaseAuthStrategy } from './firebase/firebase-auth.strategy';
 import { FirestoreModule } from './firestore/firestore.module';
 import { PostsModule } from './posts/module';
 
@@ -18,6 +19,6 @@ import { PostsModule } from './posts/module';
     PostsModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [FirebaseAuthStrategy],
 })
 export class AppModule {}

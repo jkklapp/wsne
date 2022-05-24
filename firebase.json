@@ -1,9 +1,10 @@
 {
   "functions": {
-    "source": "src/functions"
+    "source": "backend/src"
   },
   "hosting": {
-    "public": "public",
+    "site": "wsne-28b5b",
+    "public": "frontend/dist",
     "ignore": [
       "firebase.json",
       "**/.*",

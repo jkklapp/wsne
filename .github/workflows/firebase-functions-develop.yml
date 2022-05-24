@@ -14,9 +14,9 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@master
       - name: Install Dependencies
-        run: yarn
+        run: yarn --cwd backend
       - name: Build
-        run: yarn build
+        run: yarn --cwd backend build
       - name: Archive Production Artifact
         uses: actions/upload-artifact@master
         with:

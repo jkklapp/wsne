@@ -1,6 +1,6 @@
 # compiled output
-/dist
-/node_modules
+dist
+node_modules
 
 # Logs
 logs
@@ -35,3 +35,4 @@ lerna-debug.log*
 !.vscode/extensions.json
 
 firebase-debug.log
+backend/.env.local

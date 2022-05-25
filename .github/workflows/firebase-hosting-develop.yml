@@ -8,12 +8,10 @@ jobs:
     name: Lint
     runs-on: ubuntu-latest
     steps:
-      - name: ls
-        run: ls -la
-      - name: pwd
-        run: pwd
+      - name: Checkout Repo
+        uses: actions/checkout@v2
       - name: Lint Check
-        working-directory: /home/runner/work/wsne/frontend
+        working-directory: frontend
         run: yarn && yarn lint
 
   
@@ -21,6 +19,8 @@ jobs:
     name: Test
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
       - name: Test
         run: yarn --cwd frontend && yarn --cwd frontend test
   
@@ -30,7 +30,7 @@ jobs:
     needs: [lint, test]
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@master
+        uses: actions/checkout@v2
       - name: Install Dependencies
         run: yarn --cwd frontend
       - name: Build

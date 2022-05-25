@@ -7,8 +7,7 @@ process.env.FIREBASE_PARAMS_PRIVATE_KEY =
 process.env.FB_PARAMS_CLIENT_EMAIL =
   'firebase-adminsdk-j8wbf@wsne-28b5b.iam.gserviceaccount.com';
 process.env.FB_PARAMS_CLIENT_ID = '107235746829504040378';
-process.env.FB_PARAMS_AUTH_URI =
-  'https://accounts.google.com/o/oauth2/auth';
+process.env.FB_PARAMS_AUTH_URI = 'https://accounts.google.com/o/oauth2/auth';
 process.env.FB_PARAMS_TOKEN_URI = 'https://oauth2.googleapis.com/token';
 process.env.FB_PARAMS_AUTH_PROVIDER_X509_CERT_URL =
   'https://www.googleapis.com/oauth2/v1/certs';

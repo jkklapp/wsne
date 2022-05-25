@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Lint Check
-        working-directory: frontend
+        working-directory: /home/runner/work/wsne/frontend
         run: yarn && yarn lint
   
   test:

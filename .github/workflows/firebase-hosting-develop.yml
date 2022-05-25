@@ -10,7 +10,7 @@ jobs:
     steps:
       - run: ls -la
       - name: Lint Check
-        run: yarn --cwd frontend && yarn --cwd frontend lint
+        run: yarn --cwd ./frontend && yarn --cwd ./frontend lint
   
   test:
     name: Test

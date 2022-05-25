@@ -43,7 +43,7 @@ jobs:
         run: yarn && yarn test:e2e
   
   build_and_deploy:
-    name: Deploy
+    name: Build & Deploy
     needs: [lint, test, e2e-test]
     runs-on: ubuntu-latest
     steps:
@@ -54,7 +54,7 @@ jobs:
           node-version: '14'
       - name: Build
         working-directory: backend
-        run: yarn
+        run: yarn && yarn build
       - name: Deploy to Firebase
         uses: docker://w9jds/firebase-action:master
         with:

@@ -14,7 +14,6 @@ jobs:
         working-directory: frontend
         run: yarn && yarn lint
 
-  
   test:
     name: Test
     runs-on: ubuntu-latest
@@ -34,7 +33,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Build
         working-directory: frontend
-        run: yarn && yarn build
+        run: yarn && yarn build:preview
       - name: Archive Production Artifact
         uses: actions/upload-artifact@master
         with:

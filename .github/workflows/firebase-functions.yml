@@ -8,7 +8,8 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@master
       - name: Lint Check
-        run: yarn --cwd backend && yarn --cwd backend lint
+        working-directory: backend
+        run: yarn && yarn lint
   test:
     name: Test
     runs-on: ubuntu-latest
@@ -16,7 +17,8 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@master
       - name: Test
-        run: yarn --cwd backend && yarn --cwd backend test
+        working-directory: backend
+        run: yarn && yarn test
   
   e2e-test:
     name: E2E Test
@@ -25,7 +27,8 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@master
       - name: E2E Test
-        run: yarn --cwd backend && yarn --cwd backend test:e2e
+        working-directory: backend
+        run: yarn && yarn test:e2e
   
   build:
     name: Build
@@ -35,9 +38,11 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@master
       - name: Install Dependencies
+        working-directory: backend
         run: yarn --cwd backend
       - name: Build
-        run: yarn --cwd backend build
+        working-directory: backend
+        run: yarn build
       - name: Archive Production Artifact
         uses: actions/upload-artifact@master
         with:

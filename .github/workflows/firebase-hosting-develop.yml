@@ -22,7 +22,8 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v2
       - name: Test
-        run: yarn --cwd frontend && yarn --cwd frontend test
+        working-directory: frontend
+        run: yarn && yarn test
   
   build:
     name: Build
@@ -31,10 +32,9 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
-      - name: Install Dependencies
-        run: yarn --cwd frontend
       - name: Build
-        run: yarn --cwd frontend build
+        working-directory: frontend
+        run: yarn && yarn build
       - name: Archive Production Artifact
         uses: actions/upload-artifact@master
         with:

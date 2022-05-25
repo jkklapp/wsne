@@ -38,6 +38,7 @@ const store = createStore({
     },
     async fetchPosts({ commit }) {
       try {
+        console.log(process.env);
         const data = await axios.get(`${process.env.VUE_APP_API_BASE}/posts`);
         commit('SET_POSTS', data.data);
       } catch (error) {

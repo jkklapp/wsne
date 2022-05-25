@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
     <div class="container">
-      <router-link to="/dashboard" class="navbar-brand">
+      <router-link to="/" class="navbar-brand">
         {{ appName }}
       </router-link>
       <button
@@ -64,7 +64,7 @@ export default {
         .signOut()
         .then(() => {
           this.$router.replace({
-            name: 'home',
+            name: '',
           });
         })
         .catch((err) => {

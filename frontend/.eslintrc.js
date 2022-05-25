@@ -23,13 +23,6 @@ module.exports = {
     jest: true,
   },
 
-  extends: [
-    'plugin:vue/recommended',
-    'eslint:recommended',
-    'prettier',
-    'prettier/vue',
-  ],
-
   ignorePatterns: ['.eslintrc.js'],
 
   extends: [

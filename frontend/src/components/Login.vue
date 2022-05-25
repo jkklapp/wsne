@@ -68,7 +68,7 @@ export default {
     return {
       form: {
         email: '',
-        password: ''
+        password: '',
       },
       error: null,
     };
@@ -78,11 +78,11 @@ export default {
       firebase
         .auth()
         .signInWithEmailAndPassword(this.form.email, this.form.password)
-        .then((data) => {
+        .then(() => {
           this.$router.replace({ name: 'Dashboard' });
         })
         .catch((err) => {
-            this.error = err.message;
+          this.error = err.message;
           console.log(err);
         });
     },

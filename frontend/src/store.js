@@ -23,6 +23,9 @@ const store = createStore({
     SET_USER(state, data) {
       state.user.data = data;
     },
+    SET_POSTS(state, data) {
+      state.posts = data;
+    },
   },
   actions: {
     fetchUser({ commit }, user) {
@@ -35,12 +38,9 @@ const store = createStore({
     },
     async fetchPosts({ commit }) {
       try {
-        const data = await axios.get(
-          'https://jsonplaceholder.typicode.com/users',
-        );
+        const data = await axios.get(`${process.env.VUE_APP_API_BASE}/posts`);
         commit('SET_POSTS', data.data);
       } catch (error) {
-        alert(error);
         console.log(error);
       }
     },

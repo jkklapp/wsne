@@ -16,7 +16,7 @@ const createNestServer = async (expressInstance) => {
 };
 
 createNestServer(server)
-  .then((_) => console.log('Nest ready'))
+  .then(() => console.log('Nest ready'))
   .catch((err) => console.log('Nest broken', err));
 
 export const api = functions.region('europe-west2').https.onRequest(server);

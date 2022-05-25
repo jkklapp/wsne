@@ -10,7 +10,11 @@ jobs:
     steps:
       - name: Lint Check
         working-directory: /home/runner/work/wsne/frontend
-        run: yarn && yarn lint
+        run: |
+          ls -la &&
+          pwd &&
+          yarn && yarn lint
+
   
   test:
     name: Test

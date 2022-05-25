@@ -1,10 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
     <div class="container">
-      <router-link
-        to="/"
-        class="navbar-brand"
-      >
+      <router-link to="/dashboard" class="navbar-brand">
         {{ appName }}
       </router-link>
       <button
@@ -18,10 +15,7 @@
       >
         <span class="navbar-toggler-icon" />
       </button>
-      <div
-        id="navbarSupportedContent"
-        class="collapse navbar-collapse"
-      >
+      <div id="navbarSupportedContent" class="collapse navbar-collapse">
         <ul class="navbar-nav mr-auto" />
         <ul class="navbar-nav ml-auto">
           <template v-if="user.loggedIn">
@@ -29,26 +23,15 @@
               {{ user.data.displayName }}
             </div>
             <li class="nav-item">
-              <a
-                class="nav-link"
-                @click.prevent="signOut"
-              >Sign out</a>
+              <a class="nav-link" @click.prevent="signOut">Sign out</a>
             </li>
           </template>
           <template v-else>
             <li class="nav-item">
-              <router-link
-                to="login"
-                class="nav-link"
-              >
-                Login
-              </router-link>
+              <router-link to="login" class="nav-link"> Login </router-link>
             </li>
             <li class="nav-item">
-              <router-link
-                to="register"
-                class="nav-link"
-              >
+              <router-link to="register" class="nav-link">
                 Register
               </router-link>
             </li>
@@ -61,6 +44,8 @@
 <script>
 import { mapGetters } from 'vuex';
 import firebase from 'firebase/compat/app';
+import store from '../store';
+
 export default {
   computed: {
     appName: () => process.env.VUE_APP_NAME,
@@ -68,6 +53,9 @@ export default {
       // map `this.user` to `this.$store.getters.user`
       user: 'user',
     }),
+  },
+  mounted() {
+    store.dispatch('fetchPosts');
   },
   methods: {
     signOut() {

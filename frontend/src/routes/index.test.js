@@ -1,3 +1,3 @@
 describe('index', () => {
-    it('should pass', () => {});
+  it('should pass', () => {});
 });

@@ -1,15 +1,19 @@
 import { createStore } from 'vuex';
-
+import axios from 'axios';
 const store = createStore({
   state: {
     user: {
       loggedIn: false,
       data: null,
     },
+    posts: [],
   },
   getters: {
     user(state) {
       return state.user;
+    },
+    getPosts(state) {
+      return state.posts;
     },
   },
   mutations: {
@@ -27,6 +31,17 @@ const store = createStore({
         commit('SET_USER', user);
       } else {
         commit('SET_USER', null);
+      }
+    },
+    async fetchPosts({ commit }) {
+      try {
+        const data = await axios.get(
+          'https://jsonplaceholder.typicode.com/users',
+        );
+        commit('SET_POSTS', data.data);
+      } catch (error) {
+        alert(error);
+        console.log(error);
       }
     },
   },

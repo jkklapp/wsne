@@ -9,7 +9,9 @@ import { PostsModule } from './posts/module';
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: [
-        `.env${process.env.NODE_ENV ? `.${process.env.NODE_ENV}` : ``}`,
+        `.env${
+          process.env.NODE_ENV !== undefined ? `.${process.env.NODE_ENV}` : ``
+        }`,
         '.secrets.local',
       ],
     }),

@@ -13,7 +13,7 @@ describe('AppController (e2e)', () => {
       imports: [AppModule],
     })
       // .overrideGuard(FirebaseAuthGuard)
-      // .useValue({ canActivate: jest.fn(() => true) })
+      // .useValue({ canActivate: jest.fn(() => Promise.resolve(true)) })
       .compile();
 
     app = moduleFixture.createNestApplication();

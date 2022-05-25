@@ -16,7 +16,6 @@ export class Controller {
   @Get()
   @UseGuards(FirebaseAuthGuard)
   findAll(): Promise<PostDocument[]> {
-    console.log('findAll');
     return this.service.findAll();
   }
   @Post()

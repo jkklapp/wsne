@@ -19,4 +19,4 @@ createNestServer(server)
   .then((_) => console.log('Nest ready'))
   .catch((err) => console.log('Nest broken', err));
 
-export const api = functions.https.onRequest(server);
+export const api = functions.region('europe-west2').https.onRequest(server);

@@ -8,6 +8,7 @@ import { PostsModule } from './posts/module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+      envFilePath: `.env.${process.env.NODE_ENV}`,
     }),
     FirestoreModule.forRoot({
       imports: [ConfigModule],

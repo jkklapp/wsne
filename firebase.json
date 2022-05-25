@@ -1,6 +1,6 @@
 {
   "functions": {
-    "source": "backend/src"
+    "source": "backend"
   },
   "hosting": {
     "site": "wsne-28b5b",

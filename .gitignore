@@ -36,3 +36,4 @@ lerna-debug.log*
 
 firebase-debug.log
 backend/.env.local
+backend/.secrets.local

@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from '../functions/app.module';
-import { FirebaseAuthGuard } from '../functions/firebase/firebase-auth.guard';
+import { FirebaseAuthGuard } from '../firebase/firebase-auth.guard';
 import { CanActivate } from '@nestjs/common';
 
 describe('AppController (e2e)', () => {

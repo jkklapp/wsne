@@ -5,7 +5,7 @@
         to="/"
         class="navbar-brand"
       >
-        Vue Firebase Auth
+        {{ appName }}
       </router-link>
       <button
         class="navbar-toggler"
@@ -63,6 +63,7 @@ import { mapGetters } from 'vuex';
 import firebase from 'firebase/compat/app';
 export default {
   computed: {
+    appName: () => process.env.VUE_APP_NAME,
     ...mapGetters({
       // map `this.user` to `this.$store.getters.user`
       user: 'user',

@@ -61,5 +61,5 @@ jobs:
           args: deploy --only functions:api_test --debug
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-          FIREBASE_PARAMS_PRIVATE_KEY_ID: ${{ secrets.FIREBASE_PARAMS_PRIVATE_KEY_ID }}
-          FIREBASE_PARAMS_PRIVATE_KEY: ${{ secrets.FIREBASE_PARAMS_PRIVATE_KEY }}
+          FB_PARAMS_PRIVATE_KEY_ID: ${{ secrets.FB_PARAMS_PRIVATE_KEY_ID }}
+          FB_PARAMS_PRIVATE_KEY: ${{ secrets.FB_PARAMS_PRIVATE_KEY }}

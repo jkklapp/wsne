@@ -16,8 +16,8 @@ export class FirebaseAuthStrategy extends PassportStrategy(
     const firebase_params = {
       type: process.env.FB_PARAMS_TYPE,
       projectId: process.env.FB_PARAMS_PROJECT_ID,
-      privateKeyId: process.env.FIREBASE_PARAMS_PRIVATE_KEY_ID,
-      privateKey: process.env.FIREBASE_PARAMS_PRIVATE_KEY.replace(/\\n/g, '\n'),
+      privateKeyId: process.env.FB_PARAMS_PRIVATE_KEY_ID,
+      privateKey: process.env.FB_PARAMS_PRIVATE_KEY.replace(/\\n/g, '\n'),
       clientEmail: process.env.FB_PARAMS_CLIENT_EMAIL,
       clientId: process.env.FB_PARAMS_CLIENT_ID,
       authUri: process.env.FB_PARAMS_AUTH_URI,

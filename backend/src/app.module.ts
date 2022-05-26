@@ -8,7 +8,7 @@ import { PostsModule } from './posts/module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: ['.env', '.secrets.local'],
+      envFilePath: ['.env', '.secret.local'],
     }),
     FirestoreModule.forRoot({
       imports: [ConfigModule],

@@ -35,4 +35,4 @@ lerna-debug.log*
 !.vscode/extensions.json
 
 firebase-debug.log
-backend/.secrets.local
+backend/.secret.local

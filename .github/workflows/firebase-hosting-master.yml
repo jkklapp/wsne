@@ -8,7 +8,11 @@ jobs:
     name: Build & Deploy
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - uses: actions/setup-node@v2-beta
+        with:
+          node-version: '14'
       - name: Build
         working-directory: backend
         run: yarn && yarn build

@@ -22,7 +22,7 @@ export default {
         );
         commit('SET_POSTS', response.data);
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error);
       });
   },

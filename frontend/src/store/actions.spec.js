@@ -40,6 +40,14 @@ const testAction = (action, payload, state, expectedMutations, done) => {
   }
 };
 
+const POSTS_RESPONSE_FIXTURE = [
+  {
+    id: '1',
+    title: 'Hello World',
+    content: 'Lorem ipsum dolor sit amet',
+  },
+];
+
 describe('actions', () => {
   describe('fetchUser', () => {
     it('makes the expected mutations', (done) => {
@@ -68,19 +76,6 @@ describe('actions', () => {
       process.env = {
         VUE_APP_API_BASE: 'https://my-api.com',
       };
-    });
-    afterEach(() => {
-      process.env = old_env;
-    });
-    it('fetches posts from the API', (done) => {
-      const postsFixture = [
-        {
-          id: '1',
-          title: 'Hello World',
-          content: 'Lorem ipsum dolor sit amet',
-        },
-      ];
-      axios.get.mockResolvedValueOnce({ data: postsFixture });
       firebase.auth.mockReturnValue({
         currentUser: {
           email: 'example@gmail.com',
@@ -88,6 +83,14 @@ describe('actions', () => {
           getIdToken: jest.fn().mockReturnValue(Promise.resolve('token')),
         },
       });
+    });
+    afterEach(() => {
+      process.env = old_env;
+      jest.resetAllMocks();
+    });
+    it('fetches posts from the API', (done) => {
+      axios.get.mockResolvedValueOnce({ data: POSTS_RESPONSE_FIXTURE });
+
       testAction(
         actions.fetchPosts,
         null,
@@ -95,7 +98,31 @@ describe('actions', () => {
         [
           {
             type: 'SET_POSTS',
-            payload: postsFixture,
+            payload: POSTS_RESPONSE_FIXTURE,
+          },
+        ],
+        () => {
+          expect(axios.get).toHaveBeenCalledWith('https://my-api.com/posts', {
+            headers: {
+              Authorization: 'Bearer token',
+              ContentType: 'application/json',
+            },
+          });
+          done();
+        },
+      );
+    });
+    xit('handles rejection when something fails', (done) => {
+      axios.get.mockResolvedValueOnce({});
+
+      testAction(
+        actions.fetchPosts,
+        null,
+        { posts: [] },
+        [
+          {
+            type: 'SET_POSTS',
+            payload: POSTS_RESPONSE_FIXTURE,
           },
         ],
         () => {

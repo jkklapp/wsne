@@ -25,6 +25,7 @@ describe('Dashboard', () => {
         uid: 1,
         getIdToken: jest.fn().mockReturnValue(Promise.resolve('token')),
       },
+      onAuthStateChanged: jest.fn(() => ({ email: 'test' })),
     });
     axios.get.mockResolvedValueOnce({ data: POSTS_RESPONSE_FIXTURE });
     axios.post.mockResolvedValueOnce({ data: POSTS_RESPONSE_FIXTURE[0] });

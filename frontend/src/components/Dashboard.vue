@@ -19,6 +19,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import store from '../store';
+import firebase from 'firebase/compat/app';
 
 export default {
   computed: {
@@ -37,10 +38,13 @@ export default {
       },
     },
   },
-  updated() {
-    if (this.isLoggedIn) {
-      store.dispatch('fetchPosts');
-    }
+  mounted() {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        store.dispatch('fetchUser', user);
+        store.dispatch('fetchPosts');
+      }
+    });
   },
   methods: {
     submitMessage() {

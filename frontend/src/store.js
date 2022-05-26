@@ -38,9 +38,17 @@ const store = createStore({
     },
     async fetchPosts({ commit }) {
       try {
-        console.log(process.env);
-        const data = await axios.get(`${process.env.VUE_APP_API_BASE}/posts`);
-        commit('SET_POSTS', data.data);
+        // make get request with bearer token authentication
+        const response = await axios.get(
+          `${process.env.VUE_APP_API_URL}/posts`,
+          {
+            headers: {
+              Authorization: `Bearer ${this.state.user.data.accessToken}`,
+            },
+          },
+        );
+        console.log(response);
+        commit('SET_POSTS', response.data);
       } catch (error) {
         console.log(error);
       }

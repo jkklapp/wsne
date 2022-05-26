@@ -2,13 +2,9 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-8">
-        <div class="card">
+        <div v-if="isLoggedIn" class="card">
           <div class="card-header">Dashboard</div>
-          <div class="card-body">
-            <div v-if="isLoggedIn" class="alert alert-success" role="alert">
-              You are logged in!
-            </div>
-          </div>
+          <input v-model="message" />
         </div>
       </div>
     </div>
@@ -23,7 +19,16 @@ export default {
     ...mapGetters({
       user: 'user',
       isLoggedIn: 'isLoggedIn',
+      message: 'message',
     }),
+    message: {
+      get() {
+        return this.message;
+      },
+      set(value) {
+        store.dispatch('setMessage', value);
+      },
+    },
   },
   updated() {
     if (this.isLoggedIn) {

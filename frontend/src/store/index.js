@@ -8,6 +8,7 @@ const store = createStore({
   state: {
     user: null,
     posts: [],
+    message: null,
   },
   getters,
   mutations,

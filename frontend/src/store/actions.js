@@ -26,4 +26,7 @@ export default {
         console.log(error);
       });
   },
+  setMessage({ commit }, message) {
+    commit('SET_MESSAGE', message);
+  },
 };

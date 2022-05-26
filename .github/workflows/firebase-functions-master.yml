@@ -1,4 +1,4 @@
-name: Update Firebase Function api
+name: Update Function api
 on:
   push:
     branches:

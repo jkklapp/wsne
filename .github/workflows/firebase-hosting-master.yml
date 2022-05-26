@@ -1,4 +1,4 @@
-name: Deploy to Firebase Hosting
+name: Update Firebase Hosting (live)
 on:
   push:
     branches:

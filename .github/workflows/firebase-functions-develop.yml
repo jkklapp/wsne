@@ -58,7 +58,7 @@ jobs:
       - name: Deploy to Firebase
         uses: docker://w9jds/firebase-action:master
         with:
-          args: deploy --only functions:api_test --debug
+          args: functions:config:set ${{ secrets.FIREBASE_FUNCTIONS_ENV_VARIABLES }} ; firebase deploy --only functions:api_test --debug
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
           FB_PARAMS_PRIVATE_KEY_ID: ${{ secrets.FB_PARAMS_PRIVATE_KEY_ID }}

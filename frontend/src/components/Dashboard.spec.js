@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils';
 import Dashboard from './Dashboard.vue';
-import { createStore } from 'vuex';
+import firebase from 'firebase/compat/app';
+import axios from 'axios';
 
 jest.mock('firebase/compat/app', () => {
   return {
@@ -9,19 +10,30 @@ jest.mock('firebase/compat/app', () => {
 });
 jest.mock('axios');
 
+const POSTS_RESPONSE_FIXTURE = [
+  {
+    id: '1',
+    message: 'Hello World',
+  },
+];
+
 describe('Dashboard', () => {
-  let store;
   beforeEach(() => {
-    store = createStore({
-      actions: {
-        fetchPosts: jest.fn(),
-        postMessage: jest.fn(),
+    firebase.auth.mockReturnValue({
+      currentUser: {
+        email: 'example@gmail.com',
+        uid: 1,
+        getIdToken: jest.fn().mockReturnValue(Promise.resolve('token')),
       },
     });
+    axios.get.mockResolvedValueOnce({ data: POSTS_RESPONSE_FIXTURE });
+    axios.post.mockResolvedValueOnce({ data: POSTS_RESPONSE_FIXTURE[0] });
   });
-  test('displays "Dashboard" when "isLoggedIn" is true', () => {
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
+  it('displays "Dashboard" when "isLoggedIn" is true', () => {
     const wrapper = mount(Dashboard, {
-      store,
       data() {
         return {
           isLoggedIn: true,
@@ -35,9 +47,8 @@ describe('Dashboard', () => {
     expect(wrapper.text()).toContain('Dashboard');
   });
 
-  test('displays an input field when "isLoggedIn" is true', () => {
+  it('displays an input field when "isLoggedIn" is true', () => {
     const wrapper = mount(Dashboard, {
-      store,
       data() {
         return {
           isLoggedIn: true,
@@ -51,9 +62,8 @@ describe('Dashboard', () => {
     expect(wrapper.find('input').exists()).toBe(true);
   });
 
-  test('can input message in input field', () => {
+  it('can input message in input field', () => {
     const wrapper = mount(Dashboard, {
-      store,
       data() {
         return {
           isLoggedIn: true,
@@ -73,9 +83,8 @@ describe('Dashboard', () => {
     expect(input.element.value).toBe('Hello World!');
   });
 
-  test('will render posts', () => {
+  it('will render posts', () => {
     const wrapper = mount(Dashboard, {
-      store,
       data() {
         return {
           isLoggedIn: true,

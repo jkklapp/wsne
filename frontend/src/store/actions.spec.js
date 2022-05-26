@@ -44,7 +44,6 @@ const POSTS_RESPONSE_FIXTURE = [
   {
     id: '1',
     message: 'Hello World',
-    content: 'Lorem ipsum dolor sit amet',
   },
 ];
 

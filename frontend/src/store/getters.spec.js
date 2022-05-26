@@ -42,7 +42,6 @@ describe('getters', () => {
           {
             id: '1',
             message: 'Hello World',
-            content: 'Lorem ipsum dolor sit amet',
           },
         ],
       };

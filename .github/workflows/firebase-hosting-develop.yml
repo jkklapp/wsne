@@ -1,4 +1,4 @@
-name: Update Firebase Hosting
+name: Update Firebase Hosting (preview)
 on:
   push:
     branches:

@@ -36,3 +36,5 @@ lerna-debug.log*
 
 firebase-debug.log
 backend/.secret.local
+
+coverage

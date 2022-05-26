@@ -1,4 +1,4 @@
-name: Preview functions in firebase
+name: Update Firebase Function api_test
 on:
   push:
     branches:

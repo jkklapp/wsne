@@ -1,4 +1,3 @@
-// mutations.spec.js
 import mutations from './mutations';
 
 // destructure assign `mutations`

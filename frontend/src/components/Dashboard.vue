@@ -27,7 +27,6 @@ export default {
     }),
   },
   updated() {
-    console.log(this.isLoggedIn, this.user);
     if (this.isLoggedIn) {
       store.dispatch('fetchPosts');
     }

@@ -1,6 +1,5 @@
 import { mount } from '@vue/test-utils';
 import Dashboard from './Dashboard.vue';
-import store from '../store';
 
 test('displays "Dashboard" when "isLoggedIn" is true', () => {
   const wrapper = mount(Dashboard, {
@@ -35,7 +34,6 @@ test('can input message in input field', () => {
         isLoggedIn: true,
       };
     },
-    store,
   });
 
   // Find the input element

@@ -1,3 +1,30 @@
+# [1.4.0](https://github.com/jkklapp/wsne/compare/v1.3.0...v1.4.0) (2022-05-26)
+
+
+### Bug Fixes
+
+* avoid running replace on undefined ([6757797](https://github.com/jkklapp/wsne/commit/67577975b53d67ca602241ab3f6734474dc67479))
+* avoid using updated hook ([c3f74b4](https://github.com/jkklapp/wsne/commit/c3f74b4f4710a2995cfa0f816398b51318189c18))
+* call /posts with access token ([b1b9d00](https://github.com/jkklapp/wsne/commit/b1b9d006e4f36d2f84844e90da467ab3d2c0b05c))
+* cwd path with yarn ([a4a2187](https://github.com/jkklapp/wsne/commit/a4a21874b25382ff25578ea9bfed7dae8887f302))
+* e2e tests breaking ([f0e04d7](https://github.com/jkklapp/wsne/commit/f0e04d762d23ae9403dee54f2273b5929a0e22da))
+* linting ([672fd69](https://github.com/jkklapp/wsne/commit/672fd691f26bcc93b493f77ead445a152d069243))
+* linting ([e818c4c](https://github.com/jkklapp/wsne/commit/e818c4cc492b63601606013d9de3ee9adbfda629))
+* loading env variables for credentials ([d675530](https://github.com/jkklapp/wsne/commit/d675530c89440727127f19887eec100340cccf8e))
+* no need to default private key ([8d26d41](https://github.com/jkklapp/wsne/commit/8d26d41bd39eb8bba1f3160c7d76793dcc84f13c))
+* redirect to dashboard after registration ([169444c](https://github.com/jkklapp/wsne/commit/169444c4fdba7adfb8ae1162552f3b67133a8e04))
+* show submit button ([c48e523](https://github.com/jkklapp/wsne/commit/c48e52306160939a61be81c936f9b7b897a86a7a))
+* use action to fix node version ([fd5b54c](https://github.com/jkklapp/wsne/commit/fd5b54cc8e26a5d9bb93b87f7505332399bddf55))
+* use correct env variable file ([765aee7](https://github.com/jkklapp/wsne/commit/765aee71809e8d68cbccf15789506a3f550030cc))
+
+
+### Features
+
+* add env variables to frontend app ([f264e29](https://github.com/jkklapp/wsne/commit/f264e29ccd51626c0053612d44fd0a04e1edefeb))
+* **Dashboard:** add input value to enter a message ([9a27589](https://github.com/jkklapp/wsne/commit/9a27589e59c91f2c5a069e5808abab19e5667e03))
+* display messages in dashboard ([28af781](https://github.com/jkklapp/wsne/commit/28af781ad2aa52d19ffef238026b416a30515e86))
+* fetch posts after fetching user ([f2fcf8f](https://github.com/jkklapp/wsne/commit/f2fcf8f1e26a05fe4bf6d122e62d5ffe6cd6f63f))
+
 # [1.3.0](https://github.com/jkklapp/wsne/compare/v1.2.0...v1.3.0) (2022-05-24)
 
 

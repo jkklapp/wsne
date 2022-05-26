@@ -41,7 +41,7 @@ describe('getters', () => {
         posts: [
           {
             id: '1',
-            title: 'Hello World',
+            message: 'Hello World',
             content: 'Lorem ipsum dolor sit amet',
           },
         ],

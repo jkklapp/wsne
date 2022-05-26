@@ -6,6 +6,8 @@ test('displays "Dashboard" when "isLoggedIn" is true', () => {
     data() {
       return {
         isLoggedIn: true,
+        message: null,
+        posts: [],
       };
     },
   });
@@ -19,6 +21,8 @@ test('displays an input field when "isLoggedIn" is true', () => {
     data() {
       return {
         isLoggedIn: true,
+        message: null,
+        posts: [],
       };
     },
   });
@@ -32,6 +36,8 @@ test('can input message in input field', () => {
     data() {
       return {
         isLoggedIn: true,
+        message: null,
+        posts: [],
       };
     },
   });
@@ -44,4 +50,24 @@ test('can input message in input field', () => {
 
   // Assert the input value
   expect(input.element.value).toBe('Hello World!');
+});
+
+test('will render posts', () => {
+  const wrapper = mount(Dashboard, {
+    data() {
+      return {
+        isLoggedIn: true,
+        message: null,
+        posts: [
+          {
+            id: 1,
+            message: 'Hello World!',
+          },
+        ],
+      };
+    },
+  });
+
+  // Assert the rendered text of the component
+  expect(wrapper.find('li').text()).toContain('Hello World!');
 });

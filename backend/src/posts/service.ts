@@ -12,12 +12,11 @@ export class Service {
     private postsCollection: CollectionReference<PostDocument>,
   ) {}
 
-  async create({ title, message }): Promise<PostDocument> {
+  async create({ message }): Promise<PostDocument> {
     const t = dayjs(new Date()).valueOf();
     const date = Timestamp.fromMillis(t);
     const docRef = this.postsCollection.doc(t.toString());
     await docRef.set({
-      title,
       message,
       date,
     });

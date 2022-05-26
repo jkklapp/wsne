@@ -43,7 +43,7 @@ const testAction = (action, payload, state, expectedMutations, done) => {
 const POSTS_RESPONSE_FIXTURE = [
   {
     id: '1',
-    title: 'Hello World',
+    message: 'Hello World',
     content: 'Lorem ipsum dolor sit amet',
   },
 ];
@@ -132,6 +132,72 @@ describe('actions', () => {
               ContentType: 'application/json',
             },
           });
+          done();
+        },
+      );
+    });
+  });
+  describe('setMessage', () => {
+    it('sets the message in the store', (done) => {
+      testAction(
+        actions.setMessage,
+        'Hello World',
+        { message: '' },
+        [
+          {
+            type: 'SET_MESSAGE',
+            payload: 'Hello World',
+          },
+        ],
+        done,
+      );
+    });
+  });
+  describe('postMessage', () => {
+    let old_env;
+    beforeEach(() => {
+      old_env = process.env;
+      process.env = {
+        VUE_APP_API_BASE: 'https://my-api.com',
+      };
+      firebase.auth.mockReturnValue({
+        currentUser: {
+          email: 'example@email.com',
+          uid: 1,
+          getIdToken: jest.fn().mockReturnValue(Promise.resolve('token')),
+        },
+      });
+    });
+    afterEach(() => {
+      process.env = old_env;
+      jest.resetAllMocks();
+    });
+    it('posts the message to the API', (done) => {
+      axios.post.mockResolvedValueOnce({ data: POSTS_RESPONSE_FIXTURE[0] });
+
+      testAction(
+        actions.postMessage,
+        'Hello World',
+        { posts: [] },
+        [
+          {
+            type: 'PUSH_MESSAGE',
+            payload: POSTS_RESPONSE_FIXTURE[0],
+          },
+        ],
+        () => {
+          expect(axios.post).toHaveBeenCalledWith(
+            'https://my-api.com/posts',
+            {
+              message: 'Hello World',
+            },
+            {
+              headers: {
+                Authorization: 'Bearer token',
+                ContentType: 'application/json',
+              },
+            },
+          );
           done();
         },
       );

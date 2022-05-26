@@ -1,7 +1,7 @@
 import mutations from './mutations';
 
 // destructure assign `mutations`
-const { SET_USER, SET_POSTS } = mutations;
+const { SET_USER, SET_POSTS, PUSH_MESSAGE, SET_MESSAGE } = mutations;
 
 describe('mutations', () => {
   describe('SET_USER', () => {
@@ -20,8 +20,7 @@ describe('mutations', () => {
       const postsFixture = [
         {
           id: '1',
-          title: 'Hello World',
-          content: 'Lorem ipsum dolor sit amet',
+          message: 'Hello World',
         },
       ];
       // mock state
@@ -30,6 +29,34 @@ describe('mutations', () => {
       SET_POSTS(state, postsFixture);
       // assert result
       expect(state.posts).toEqual(postsFixture);
+    });
+  });
+  describe('PUSH_MESSAGE', () => {
+    it('can push a message to the posts', () => {
+      const messageFixture = {
+        id: '1',
+        message: 'Hello World',
+      };
+      // mock state
+      const state = { posts: [] };
+      // apply mutation
+      PUSH_MESSAGE(state, messageFixture);
+      // assert result
+      expect(state.posts).toEqual([messageFixture]);
+    });
+  });
+  describe('SET_MESSAGE', () => {
+    it('can set the message', () => {
+      const messageFixture = {
+        id: '1',
+        message: 'Hello World',
+      };
+      // mock state
+      const state = { message: null };
+      // apply mutation
+      SET_MESSAGE(state, messageFixture);
+      // assert result
+      expect(state.message).toEqual(messageFixture);
     });
   });
 });

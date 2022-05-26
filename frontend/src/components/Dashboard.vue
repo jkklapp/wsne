@@ -4,7 +4,12 @@
       <div class="col-md-8">
         <div v-if="isLoggedIn" class="card">
           <div class="card-header">Dashboard</div>
-          <input v-model="message" />
+          <form @submit="submitMessage">
+            <input v-model="message" />
+          </form>
+          <li v-for="p in posts" :key="p.id">
+            {{ p.message }}
+          </li>
         </div>
       </div>
     </div>
@@ -20,6 +25,7 @@ export default {
       user: 'user',
       isLoggedIn: 'isLoggedIn',
       message: 'message',
+      posts: 'getPosts',
     }),
     message: {
       get() {
@@ -34,6 +40,11 @@ export default {
     if (this.isLoggedIn) {
       store.dispatch('fetchPosts');
     }
+  },
+  methods: {
+    submitMessage() {
+      store.dispatch('postMessage', this.message);
+    },
   },
 };
 </script>

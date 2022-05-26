@@ -18,7 +18,9 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 firebase.auth().onAuthStateChanged((user) => {
-  store.dispatch('fetchUser', user);
+  if (user) {
+    store.dispatch('fetchUser', user);
+  }
 });
 
 const app = createApp(App);

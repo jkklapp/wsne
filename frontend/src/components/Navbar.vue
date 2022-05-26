@@ -18,9 +18,9 @@
       <div id="navbarSupportedContent" class="collapse navbar-collapse">
         <ul class="navbar-nav mr-auto" />
         <ul class="navbar-nav ml-auto">
-          <template v-if="user.loggedIn">
+          <template v-if="isLoggedIn">
             <div class="nav-item">
-              {{ user.data.displayName }}
+              {{ user.displayName }} - {{ user.email }}
             </div>
             <li class="nav-item">
               <a class="nav-link" @click.prevent="signOut">Sign out</a>
@@ -44,7 +44,6 @@
 <script>
 import { mapGetters } from 'vuex';
 import firebase from 'firebase/compat/app';
-import store from '../store';
 
 export default {
   computed: {
@@ -52,10 +51,8 @@ export default {
     ...mapGetters({
       // map `this.user` to `this.$store.getters.user`
       user: 'user',
+      isLoggedIn: 'isLoggedIn',
     }),
-  },
-  mounted() {
-    store.dispatch('fetchPosts');
   },
   methods: {
     signOut() {

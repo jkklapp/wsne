@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "PORT=8888 vue-cli-service serve",
+    "build:local": "vue-cli-service build --mode local --watch",
     "build:preview": "vue-cli-service build --mode development",
     "build": "vue-cli-service build --mode production",
     "lint": "vue-cli-service lint --max-warnings=0",

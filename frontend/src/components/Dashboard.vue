@@ -5,9 +5,8 @@
         <div class="card">
           <div class="card-header">Dashboard</div>
           <div class="card-body">
-            <div v-if="user.loggedIn" class="alert alert-success" role="alert">
+            <div v-if="isLoggedIn" class="alert alert-success" role="alert">
               You are logged in!
-              {{ user }}
             </div>
           </div>
         </div>
@@ -17,12 +16,21 @@
 </template>
 <script>
 import { mapGetters } from 'vuex';
+import store from '../store';
+
 export default {
   computed: {
     // map `this.user` to `this.$store.getters.user`
     ...mapGetters({
       user: 'user',
+      isLoggedIn: 'isLoggedIn',
     }),
+  },
+  updated() {
+    console.log(this.isLoggedIn, this.user);
+    if (this.isLoggedIn) {
+      store.dispatch('fetchPosts');
+    }
   },
 };
 </script>

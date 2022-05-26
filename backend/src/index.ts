@@ -21,7 +21,9 @@ createNestServer(server)
 
 const make_function = () =>
   functions
-    .runWith({ secrets: ['FB_PARAMS_PRIVATE_KEY_ID', 'FB_PARAMS_PRIVATE_KEY'] })
+    .runWith({
+      secrets: ['FB_PARAMS_PRIVATE_KEY_ID', 'FB_PARAMS_PRIVATE_KEY'],
+    })
     .region('europe-west2')
     .https.onRequest(server);
 

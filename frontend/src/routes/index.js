@@ -10,7 +10,7 @@ const router = createRouter({
   routes: [
     {
       path: '/login',
-      name: 'login',
+      name: 'Login',
       component: Login,
     },
     {
@@ -19,7 +19,7 @@ const router = createRouter({
       component: Register,
     },
     {
-      path: '/dashboard',
+      path: '/',
       name: 'Dashboard',
       component: Dashboard,
     },

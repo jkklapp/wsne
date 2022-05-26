@@ -1,11 +1,8 @@
 <template>
   <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
     <div class="container">
-      <router-link
-        to="/"
-        class="navbar-brand"
-      >
-        Vue Firebase Auth
+      <router-link to="/" class="navbar-brand">
+        {{ appName }}
       </router-link>
       <button
         class="navbar-toggler"
@@ -18,37 +15,23 @@
       >
         <span class="navbar-toggler-icon" />
       </button>
-      <div
-        id="navbarSupportedContent"
-        class="collapse navbar-collapse"
-      >
+      <div id="navbarSupportedContent" class="collapse navbar-collapse">
         <ul class="navbar-nav mr-auto" />
         <ul class="navbar-nav ml-auto">
-          <template v-if="user.loggedIn">
+          <template v-if="isLoggedIn">
             <div class="nav-item">
-              {{ user.data.displayName }}
+              {{ user.displayName }} - {{ user.email }}
             </div>
             <li class="nav-item">
-              <a
-                class="nav-link"
-                @click.prevent="signOut"
-              >Sign out</a>
+              <a class="nav-link" @click.prevent="signOut">Sign out</a>
             </li>
           </template>
           <template v-else>
             <li class="nav-item">
-              <router-link
-                to="login"
-                class="nav-link"
-              >
-                Login
-              </router-link>
+              <router-link to="login" class="nav-link"> Login </router-link>
             </li>
             <li class="nav-item">
-              <router-link
-                to="register"
-                class="nav-link"
-              >
+              <router-link to="register" class="nav-link">
                 Register
               </router-link>
             </li>
@@ -61,11 +44,14 @@
 <script>
 import { mapGetters } from 'vuex';
 import firebase from 'firebase/compat/app';
+
 export default {
   computed: {
+    appName: () => process.env.VUE_APP_NAME,
     ...mapGetters({
       // map `this.user` to `this.$store.getters.user`
       user: 'user',
+      isLoggedIn: 'isLoggedIn',
     }),
   },
   methods: {
@@ -75,7 +61,7 @@ export default {
         .signOut()
         .then(() => {
           this.$router.replace({
-            name: 'home',
+            name: '',
           });
         })
         .catch((err) => {

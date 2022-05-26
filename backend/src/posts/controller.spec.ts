@@ -16,7 +16,6 @@ describe('Controller', () => {
     it('should return an array of ', async () => {
       const result = [
         {
-          title: 'test',
           message: 'test',
           date: Timestamp.fromMillis(100000),
         },
@@ -31,7 +30,6 @@ describe('Controller', () => {
   describe('create', () => {
     it('should return a new post', async () => {
       const post = {
-        title: 'test',
         message: 'test',
         date: Timestamp.fromMillis(100000),
       };

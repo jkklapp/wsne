@@ -1,9 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-import { AppModule } from '../functions/app.module';
-import { FirebaseAuthGuard } from '../functions/firebase/firebase-auth.guard';
-import { CanActivate } from '@nestjs/common';
+import { AppModule } from '../app.module';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
@@ -13,7 +11,7 @@ describe('AppController (e2e)', () => {
       imports: [AppModule],
     })
       // .overrideGuard(FirebaseAuthGuard)
-      // .useValue({ canActivate: jest.fn(() => true) })
+      // .useValue({ canActivate: jest.fn(() => Promise.resolve(true)) })
       .compile();
 
     app = moduleFixture.createNestApplication();

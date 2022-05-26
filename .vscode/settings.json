@@ -1,0 +1,12 @@
+{
+  "editor.tabSize": 2,
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "html",
+    "vue"
+  ],
+  "eslint.options": {
+    "extensions": [".js", ".vue"]
+  }
+}

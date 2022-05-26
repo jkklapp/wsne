@@ -1,43 +1,77 @@
-name: Preview functions in firebase
-
-'on':
+name: Update Firebase Function api_test
+on:
   push:
     branches:
       - develop
-
 jobs:
-  build:
-    if: ${{ false }}
-    name: Build
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
         uses: actions/checkout@master
-      - name: Install Dependencies
-        run: yarn --cwd backend
+      - uses: actions/setup-node@v2-beta
+        with:
+          node-version: '14'
+      - name: Lint Check
+        working-directory: backend
+        run: yarn && yarn lint
+  
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - uses: actions/setup-node@v2-beta
+        with:
+          node-version: '14'
+      - name: Test
+        working-directory: backend
+        run: yarn && yarn test
+  
+  e2e-test:
+    name: E2E Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - uses: actions/setup-node@v2-beta
+        with:
+          node-version: '14'
+      - name: E2E Test
+        working-directory: backend
+        run: yarn && yarn test:e2e
+  
+  coverage:
+    name: Test coverage
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - uses: actions/setup-node@v2-beta
+        with:
+          node-version: '14'
+      - name: Test coverage
+        working-directory: backend
+        run: yarn && yarn test:cov
+
+  build_and_deploy:
+    name: Build & Deploy
+    needs: [lint, test, e2e-test, coverage]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - uses: actions/setup-node@v2-beta
+        with:
+          node-version: '14'
       - name: Build
-        run: yarn --cwd backend build
-      - name: Archive Production Artifact
-        uses: actions/upload-artifact@master
-        with:
-          name: dist
-          path: dist
-  deploy:
-    if: ${{ false }}
-    name: Deploy
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@master
-      - name: Download Artifact
-        uses: actions/download-artifact@master
-        with:
-          name: dist
-          path: dist
+        working-directory: backend
+        run: yarn && yarn build
       - name: Deploy to Firebase
-        uses: w9jds/firebase-action@master
+        uses: docker://w9jds/firebase-action:master
         with:
-          args: deploy --only functions
+          args: deploy --only functions:api_test --debug
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}

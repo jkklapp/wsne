@@ -16,7 +16,16 @@ const createNestServer = async (expressInstance) => {
 };
 
 createNestServer(server)
-  .then((_) => console.log('Nest ready'))
+  .then(() => console.log('Nest ready'))
   .catch((err) => console.log('Nest broken', err));
 
-export const api = functions.https.onRequest(server);
+const make_function = () =>
+  functions
+    .runWith({
+      secrets: ['FB_PARAMS_PRIVATE_KEY_ID', 'FB_PARAMS_PRIVATE_KEY'],
+    })
+    .region('europe-west2')
+    .https.onRequest(server);
+
+export const api = make_function();
+export const api_test = make_function();

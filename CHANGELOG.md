@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/jkklapp/wsne/compare/v1.5.0...v1.5.1) (2022-05-27)
+
+
+### Bug Fixes
+
+* live function not working ([f265355](https://github.com/jkklapp/wsne/commit/f265355c768a18849e7139b6ddc03b969b34d905))
+
 # [1.5.0](https://github.com/jkklapp/wsne/compare/v1.4.0...v1.5.0) (2022-05-27)
 
 

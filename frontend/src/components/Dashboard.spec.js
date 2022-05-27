@@ -103,11 +103,17 @@ describe('Dashboard', () => {
         data() {
           return {
             isLoggedIn: true,
-            message: 'Hello World',
+            message: null,
             posts: [],
           };
         },
       });
+
+      // Find the input element
+      const input = wrapper.find('input');
+
+      // Set the input value
+      input.setValue('Hello World');
 
       // Find the button element
       const button = wrapper.find('button');
@@ -121,6 +127,8 @@ describe('Dashboard', () => {
       expect(apiRequest).toHaveBeenCalledWith('POST', '/posts', {
         message: 'Hello World',
       });
+
+      console.log(wrapper.emitted('click')[0][0]);
 
       done();
     });

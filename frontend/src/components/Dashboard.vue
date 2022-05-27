@@ -4,12 +4,10 @@
       <div class="col-md-8">
         <div v-if="isLoggedIn" class="card">
           <div class="card-header">Dashboard</div>
-          <form>
+          <div>
             <input v-model="message" />
-            <button @keydown.prevent="onKeydown" @click="sendMessage">
-              Submit
-            </button>
-          </form>
+            <button class="btn btn-primary" @click="submit">Submit</button>
+          </div>
           <li v-for="p in posts" :key="p.id">
             {{ p.message }}
           </li>
@@ -24,38 +22,29 @@ import store from '../store';
 import firebase from 'firebase/compat/app';
 
 export default {
+  data() {
+    return {
+      message: '',
+      posts: [],
+    };
+  },
   computed: {
     ...mapGetters({
-      user: 'user',
       isLoggedIn: 'isLoggedIn',
-      message: 'message',
       posts: 'getPosts',
     }),
-    message: {
-      get() {
-        return this.message;
-      },
-      set(value) {
-        store.dispatch('setMessage', value);
-      },
-    },
   },
   mounted() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        store.dispatch('fetchUser', user);
+        store.dispatch('setUser', user);
         store.dispatch('fetchPosts');
       }
     });
   },
   methods: {
-    sendMessage() {
+    async submit() {
       store.dispatch('postMessage', this.message);
-    },
-    onKeydown(e) {
-      if (e.keyCode === 13) {
-        this.sendMessage();
-      }
     },
   },
 };

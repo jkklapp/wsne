@@ -41,14 +41,14 @@ const POSTS_RESPONSE_FIXTURE = [
 ];
 
 describe('actions', () => {
-  describe('fetchUser', () => {
+  describe('setUser', () => {
     it('makes the expected mutations', (done) => {
       const userFixture = {
         email: 'john@doe.com',
         uid: 123,
       };
       testAction(
-        actions.fetchUser,
+        actions.setUser,
         userFixture,
         { user: null },
         [

@@ -1,6 +1,6 @@
 import { apiRequest } from './api';
 export default {
-  fetchUser({ commit }, user) {
+  setUser({ commit }, user) {
     commit('SET_USER', user);
   },
   async fetchPosts({ commit }) {

@@ -27,5 +27,6 @@ const make_function = () =>
     .region('europe-west2')
     .https.onRequest(server);
 
-export const api = make_function();
+// export const api = make_function();
+export const api_live = make_function();
 export const api_test = make_function();

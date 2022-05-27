@@ -9,7 +9,7 @@
             <button class="btn btn-primary" @click="submit">Submit</button>
           </div>
           <li v-for="p in posts" :key="p.id">
-            {{ p.message }}
+            {{ p.message }} on {{ date(p.date._seconds) }}
           </li>
         </div>
       </div>
@@ -20,6 +20,7 @@
 import { mapGetters } from 'vuex';
 import store from '../store';
 import { getAuth } from '../auth';
+import moment from 'moment';
 
 export default {
   data() {
@@ -42,6 +43,9 @@ export default {
     });
   },
   methods: {
+    date(seconds) {
+      return moment.unix(seconds).fromNow();
+    },
     async submit() {
       store.dispatch('postMessage', this.message);
     },

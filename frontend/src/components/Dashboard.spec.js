@@ -82,8 +82,8 @@ describe('Dashboard', () => {
           message: null,
           posts: [
             {
-              id: 1,
               message: 'Hello World!',
+              date: { _seconds: 100000 },
             },
           ],
         };

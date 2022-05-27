@@ -9,7 +9,7 @@
             <button class="btn btn-primary" @click="submit">Submit</button>
           </div>
           <li v-for="p in posts" :key="p.id">
-            {{ p.message }} on {{ date(p.date._seconds) }}
+            {{ p.message }} {{ date(p.date._seconds) }}
           </li>
         </div>
       </div>

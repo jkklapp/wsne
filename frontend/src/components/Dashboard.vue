@@ -6,7 +6,9 @@
           <div class="card-header">Dashboard</div>
           <form>
             <input v-model="message" />
-            <button @click="sendMessage">Submit</button>
+            <button @keydown.prevent="onKeydown" @click="sendMessage">
+              Submit
+            </button>
           </form>
           <li v-for="p in posts" :key="p.id">
             {{ p.message }}
@@ -49,6 +51,11 @@ export default {
   methods: {
     sendMessage() {
       store.dispatch('postMessage', this.message);
+    },
+    onKeydown(e) {
+      if (e.keyCode === 13) {
+        this.sendMessage();
+      }
     },
   },
 };

@@ -6,7 +6,7 @@
           <div class="card-header">Dashboard</div>
           <form>
             <input v-model="message" />
-            <input type="submit" @click="sendMessage" />
+            <button @click="sendMessage">Submit</button>
           </form>
           <li v-for="p in posts" :key="p.id">
             {{ p.message }}

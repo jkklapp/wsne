@@ -1,3 +1,19 @@
+# [1.5.0](https://github.com/jkklapp/wsne/compare/v1.4.0...v1.5.0) (2022-05-27)
+
+
+### Bug Fixes
+
+* auth with emulator ([545d473](https://github.com/jkklapp/wsne/commit/545d473085e8ba9243349694e019aac39bfaca5a))
+* **Dashboard:** form submission ([c53dd1c](https://github.com/jkklapp/wsne/commit/c53dd1c4a2012f2463527706d331c17d312e0c5b))
+* **Dashboard:** use correct name for component method ([1ceb1cb](https://github.com/jkklapp/wsne/commit/1ceb1cb3191710ae4a70b24c666e9ef0431c7f66))
+* display posts ([309ca4e](https://github.com/jkklapp/wsne/commit/309ca4e3877dea6bf63ad339cbcea44dd790c40a))
+
+
+### Features
+
+* allow submitting message by pressing enter ([bd659d8](https://github.com/jkklapp/wsne/commit/bd659d80725c98e63e3bf9a5906029b5a5aa4d89))
+* store author in documents ([2b8c14e](https://github.com/jkklapp/wsne/commit/2b8c14eb8fae2e73cef03e261bf7cc1246aa9203))
+
 # [1.4.0](https://github.com/jkklapp/wsne/compare/v1.3.0...v1.4.0) (2022-05-26)
 
 

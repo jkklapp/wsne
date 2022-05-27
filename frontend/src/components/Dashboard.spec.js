@@ -1,14 +1,14 @@
 import { mount } from '@vue/test-utils';
 import Dashboard from './Dashboard.vue';
 import firebase from 'firebase/compat/app';
-import axios from 'axios';
+import { apiRequest } from '../store/actions/api';
 
 jest.mock('firebase/compat/app', () => {
   return {
     auth: jest.fn(),
   };
 });
-jest.mock('axios');
+jest.mock('../store/actions/api');
 
 const POSTS_RESPONSE_FIXTURE = [
   {
@@ -20,15 +20,9 @@ const POSTS_RESPONSE_FIXTURE = [
 describe('Dashboard', () => {
   beforeEach(() => {
     firebase.auth.mockReturnValue({
-      currentUser: {
-        email: 'example@gmail.com',
-        uid: 1,
-        getIdToken: jest.fn().mockReturnValue(Promise.resolve('token')),
-      },
       onAuthStateChanged: jest.fn(() => ({ email: 'test' })),
     });
-    axios.get.mockResolvedValueOnce({ data: POSTS_RESPONSE_FIXTURE });
-    axios.post.mockResolvedValueOnce({ data: POSTS_RESPONSE_FIXTURE[0] });
+    apiRequest.mockResolvedValueOnce({ data: POSTS_RESPONSE_FIXTURE });
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -102,5 +96,33 @@ describe('Dashboard', () => {
 
     // Assert the rendered text of the component
     expect(wrapper.find('li').text()).toContain('Hello World!');
+  });
+  describe('when clicking on "Submit"', () => {
+    it('will post a message', (done) => {
+      const wrapper = mount(Dashboard, {
+        data() {
+          return {
+            isLoggedIn: true,
+            message: 'Hello World',
+            posts: [],
+          };
+        },
+      });
+
+      // Find the button element
+      const button = wrapper.find('button');
+
+      expect(button.text()).toEqual('Submit');
+
+      // Click the button
+      button.trigger('click');
+
+      // Assert the rendered text of the component
+      expect(apiRequest).toHaveBeenCalledWith('POST', '/posts', {
+        message: 'Hello World',
+      });
+
+      done();
+    });
   });
 });

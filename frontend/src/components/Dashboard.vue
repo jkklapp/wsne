@@ -47,7 +47,7 @@ export default {
     });
   },
   methods: {
-    submitMessage() {
+    sendMessage() {
       store.dispatch('postMessage', this.message);
     },
   },

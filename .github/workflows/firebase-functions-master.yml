@@ -1,4 +1,4 @@
-name: Update Function api
+name: Update Function api_live
 on:
   push:
     branches:
@@ -19,6 +19,6 @@ jobs:
       - name: Deploy to Firebase
         uses: docker://w9jds/firebase-action:master
         with:
-          args: deploy --only functions:api --debug
+          args: deploy --only functions:api_live --debug
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}

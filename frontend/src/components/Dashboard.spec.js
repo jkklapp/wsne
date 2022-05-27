@@ -1,13 +1,9 @@
 import { mount } from '@vue/test-utils';
 import Dashboard from './Dashboard.vue';
-import firebase from 'firebase/compat/app';
+import { getAuth } from '../auth';
 import { apiRequest } from '../store/actions/api';
 
-jest.mock('firebase/compat/app', () => {
-  return {
-    auth: jest.fn(),
-  };
-});
+jest.mock('../auth');
 jest.mock('../store/actions/api');
 
 const POSTS_RESPONSE_FIXTURE = [
@@ -19,7 +15,7 @@ const POSTS_RESPONSE_FIXTURE = [
 
 describe('Dashboard', () => {
   beforeEach(() => {
-    firebase.auth.mockReturnValue({
+    getAuth.mockReturnValue({
       onAuthStateChanged: jest.fn(() => ({ email: 'test' })),
     });
     apiRequest.mockResolvedValueOnce({ data: POSTS_RESPONSE_FIXTURE });
@@ -127,8 +123,6 @@ describe('Dashboard', () => {
       expect(apiRequest).toHaveBeenCalledWith('POST', '/posts', {
         message: 'Hello World',
       });
-
-      console.log(wrapper.emitted('click')[0][0]);
 
       done();
     });

@@ -19,7 +19,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import store from '../store';
-import firebase from 'firebase/compat/app';
+import { getAuth } from '../auth';
 
 export default {
   data() {
@@ -35,7 +35,7 @@ export default {
     }),
   },
   mounted() {
-    firebase.auth().onAuthStateChanged((user) => {
+    getAuth().onAuthStateChanged((user) => {
       if (user) {
         store.dispatch('setUser', user);
         store.dispatch('fetchPosts');

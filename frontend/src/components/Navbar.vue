@@ -43,8 +43,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex';
-import firebase from 'firebase/compat/app';
-
+import { getAuth } from '../auth';
 export default {
   computed: {
     appName: () => process.env.VUE_APP_NAME,
@@ -56,12 +55,11 @@ export default {
   },
   methods: {
     signOut() {
-      firebase
-        .auth()
+      getAuth()
         .signOut()
         .then(() => {
           this.$router.replace({
-            name: '',
+            name: 'Login',
           });
         })
         .catch((err) => {

@@ -13,7 +13,7 @@ export class FirebaseAuthStrategy extends PassportStrategy(
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     });
-    const firebase_params = {
+    const firebaseParams = {
       type: process.env.FB_PARAMS_TYPE,
       projectId: process.env.FB_PARAMS_PROJECT_ID,
       privateKeyId: process.env.FB_PARAMS_PRIVATE_KEY_ID,
@@ -27,7 +27,7 @@ export class FirebaseAuthStrategy extends PassportStrategy(
       clientC509CertUrl: process.env.FB_PARAMS_CLIENT_C509_CERT_URL,
     };
     this.defaultApp = firebase.initializeApp({
-      credential: firebase.credential.cert(firebase_params),
+      credential: firebase.credential.cert(firebaseParams),
     });
   }
   async validate(token: string) {
@@ -38,7 +38,6 @@ export class FirebaseAuthStrategy extends PassportStrategy(
         console.log(err);
         throw new UnauthorizedException(err.message);
       });
-
     if (!firebaseUser) {
       throw new UnauthorizedException();
     }

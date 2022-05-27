@@ -82,7 +82,7 @@
 </template>
 
 <script>
-import firebase from 'firebase/compat/app';
+import { getAuth } from '../auth';
 
 export default {
   data() {
@@ -97,8 +97,7 @@ export default {
   },
   methods: {
     submit() {
-      firebase
-        .auth()
+      getAuth()
         .createUserWithEmailAndPassword(this.form.email, this.form.password)
         .then((data) => {
           data.user

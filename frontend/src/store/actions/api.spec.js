@@ -1,12 +1,8 @@
 import { apiRequest } from './api';
-import firebase from 'firebase/compat/app';
+import { getAuth } from '../../auth';
 import axios from 'axios';
 
-jest.mock('firebase/compat/app', () => {
-  return {
-    auth: jest.fn(),
-  };
-});
+jest.mock('../../auth');
 jest.mock('axios');
 
 describe('apiRequest', () => {
@@ -16,7 +12,7 @@ describe('apiRequest', () => {
     process.env = {
       VUE_APP_API_BASE: 'https://my-api.com',
     };
-    firebase.auth.mockReturnValue({
+    getAuth.mockReturnValue({
       currentUser: {
         email: 'example@gmail.com',
         uid: 1,

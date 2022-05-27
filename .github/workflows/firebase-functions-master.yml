@@ -1,4 +1,4 @@
-name: Update Function api
+name: Update Function api_live
 on:
   push:
     branches:

@@ -3,9 +3,10 @@ import {
   Controller as BaseController,
   Get,
   Post,
+  Req,
   UseGuards,
 } from '@nestjs/common';
-import { PostDocument } from './document';
+import { PostDocument, NewPostDocument } from './document';
 import { Service } from './service';
 import { FirebaseAuthGuard } from '../firebase/firebase-auth.guard';
 
@@ -15,12 +16,17 @@ export class Controller {
 
   @Get()
   @UseGuards(FirebaseAuthGuard)
-  findAll(): Promise<PostDocument[]> {
-    return this.service.findAll();
+  findAll(@Req() request: any): Promise<PostDocument[]> {
+    const userId = request.user.user_id;
+    return this.service.findAll(userId);
   }
   @Post()
   @UseGuards(FirebaseAuthGuard)
-  public create(@Body() post: PostDocument): Promise<PostDocument> {
-    return this.service.create(post);
+  public create(
+    @Req() request: any,
+    @Body() post: NewPostDocument,
+  ): Promise<PostDocument> {
+    const userId = request.user.user_id;
+    return this.service.create(post, userId);
   }
 }

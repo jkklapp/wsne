@@ -18,24 +18,34 @@ describe('Controller', () => {
         {
           message: 'test',
           date: Timestamp.fromMillis(100000),
+          author: '1234',
         },
       ];
       jest
         .spyOn(s, 'findAll')
         .mockImplementation(() => Promise.resolve(result));
 
-      expect(await c.findAll()).toBe(result);
+      expect(await c.findAll({ user: { user_id: '1234' } })).toBe(result);
     });
   });
   describe('create', () => {
     it('should return a new post', async () => {
       const post = {
         message: 'test',
-        date: Timestamp.fromMillis(100000),
       };
-      jest.spyOn(s, 'create').mockImplementation(() => Promise.resolve(post));
+      jest.spyOn(s, 'create').mockImplementation(() =>
+        Promise.resolve({
+          ...post,
+          date: Timestamp.fromMillis(100000),
+          author: '1234',
+        }),
+      );
 
-      expect(await c.create(post)).toBe(post);
+      expect(await c.create({ user: { user_id: '1234' } }, post)).toEqual({
+        ...post,
+        date: Timestamp.fromMillis(100000),
+        author: '1234',
+      });
     });
   });
 });

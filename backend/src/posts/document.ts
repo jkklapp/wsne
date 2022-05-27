@@ -5,4 +5,9 @@ export class PostDocument {
 
   message: string;
   date: Timestamp;
+  author: string;
+}
+
+export class NewPostDocument {
+  message: string;
 }

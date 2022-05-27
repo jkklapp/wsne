@@ -12,23 +12,28 @@ export class Service {
     private postsCollection: CollectionReference<PostDocument>,
   ) {}
 
-  async create({ message }): Promise<PostDocument> {
+  async create({ message }, userId): Promise<PostDocument> {
     const t = dayjs(new Date()).valueOf();
     const date = Timestamp.fromMillis(t);
     const docRef = this.postsCollection.doc(t.toString());
     await docRef.set({
       message,
       date,
+      author: userId,
     });
     const postDoc = await docRef.get();
     const post = postDoc.data();
     return post;
   }
 
-  async findAll(): Promise<PostDocument[]> {
+  async findAll(userId): Promise<PostDocument[]> {
     const snapshot = await this.postsCollection.get();
     const posts: PostDocument[] = [];
-    snapshot.forEach((doc) => posts.push(doc.data()));
+    snapshot.forEach((doc) => {
+      if (doc.data().author === userId) {
+        posts.push(doc.data());
+      }
+    });
     return posts;
   }
 }

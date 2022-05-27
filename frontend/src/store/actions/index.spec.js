@@ -1,14 +1,7 @@
-import actions from './actions';
-import axios from 'axios';
-import firebase from 'firebase/compat/app';
+import actions from '.';
+import { apiRequest } from './api';
 
-jest.mock('firebase/compat/app', () => {
-  return {
-    auth: jest.fn(),
-  };
-});
-jest.mock('axios');
-
+jest.mock('./api');
 // helper for testing action with expected mutations
 const testAction = (action, payload, state, expectedMutations, done) => {
   let count = 0;
@@ -48,14 +41,14 @@ const POSTS_RESPONSE_FIXTURE = [
 ];
 
 describe('actions', () => {
-  describe('fetchUser', () => {
+  describe('setUser', () => {
     it('makes the expected mutations', (done) => {
       const userFixture = {
         email: 'john@doe.com',
         uid: 123,
       };
       testAction(
-        actions.fetchUser,
+        actions.setUser,
         userFixture,
         { user: null },
         [
@@ -69,26 +62,11 @@ describe('actions', () => {
     });
   });
   describe('fetchPosts', () => {
-    let old_env;
-    beforeEach(() => {
-      old_env = process.env;
-      process.env = {
-        VUE_APP_API_BASE: 'https://my-api.com',
-      };
-      firebase.auth.mockReturnValue({
-        currentUser: {
-          email: 'example@gmail.com',
-          uid: 1,
-          getIdToken: jest.fn().mockReturnValue(Promise.resolve('token')),
-        },
-      });
-    });
     afterEach(() => {
-      process.env = old_env;
       jest.resetAllMocks();
     });
     it('fetches posts from the API', (done) => {
-      axios.get.mockResolvedValueOnce({ data: POSTS_RESPONSE_FIXTURE });
+      apiRequest.mockResolvedValueOnce({ data: POSTS_RESPONSE_FIXTURE });
 
       testAction(
         actions.fetchPosts,
@@ -101,18 +79,13 @@ describe('actions', () => {
           },
         ],
         () => {
-          expect(axios.get).toHaveBeenCalledWith('https://my-api.com/posts', {
-            headers: {
-              Authorization: 'Bearer token',
-              ContentType: 'application/json',
-            },
-          });
+          expect(apiRequest).toHaveBeenCalledWith('GET', '/posts');
           done();
         },
       );
     });
     xit('handles rejection when something fails', (done) => {
-      axios.get.mockResolvedValueOnce({});
+      apiRequest.mockResolvedValueOnce({});
 
       testAction(
         actions.fetchPosts,
@@ -125,7 +98,7 @@ describe('actions', () => {
           },
         ],
         () => {
-          expect(axios.get).toHaveBeenCalledWith('https://my-api.com/posts', {
+          expect(apiRequest).toHaveBeenCalledWith('https://my-api.com/posts', {
             headers: {
               Authorization: 'Bearer token',
               ContentType: 'application/json',
@@ -153,26 +126,11 @@ describe('actions', () => {
     });
   });
   describe('postMessage', () => {
-    let old_env;
-    beforeEach(() => {
-      old_env = process.env;
-      process.env = {
-        VUE_APP_API_BASE: 'https://my-api.com',
-      };
-      firebase.auth.mockReturnValue({
-        currentUser: {
-          email: 'example@email.com',
-          uid: 1,
-          getIdToken: jest.fn().mockReturnValue(Promise.resolve('token')),
-        },
-      });
-    });
     afterEach(() => {
-      process.env = old_env;
       jest.resetAllMocks();
     });
     it('posts the message to the API', (done) => {
-      axios.post.mockResolvedValueOnce({ data: POSTS_RESPONSE_FIXTURE[0] });
+      apiRequest.mockResolvedValueOnce({ data: POSTS_RESPONSE_FIXTURE[0] });
 
       testAction(
         actions.postMessage,
@@ -185,18 +143,9 @@ describe('actions', () => {
           },
         ],
         () => {
-          expect(axios.post).toHaveBeenCalledWith(
-            'https://my-api.com/posts',
-            {
-              message: 'Hello World',
-            },
-            {
-              headers: {
-                Authorization: 'Bearer token',
-                ContentType: 'application/json',
-              },
-            },
-          );
+          expect(apiRequest).toHaveBeenCalledWith('POST', '/posts', {
+            message: 'Hello World',
+          });
           done();
         },
       );

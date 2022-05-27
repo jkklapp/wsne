@@ -4,10 +4,10 @@
       <div class="col-md-8">
         <div v-if="isLoggedIn" class="card">
           <div class="card-header">Dashboard</div>
-          <form>
+          <div>
             <input v-model="message" />
-            <input type="submit" @click="sendMessage" />
-          </form>
+            <button class="btn btn-primary" @click="submit">Submit</button>
+          </div>
           <li v-for="p in posts" :key="p.id">
             {{ p.message }}
           </li>
@@ -19,35 +19,30 @@
 <script>
 import { mapGetters } from 'vuex';
 import store from '../store';
-import firebase from 'firebase/compat/app';
+import { getAuth } from '../auth';
 
 export default {
+  data() {
+    return {
+      message: '',
+    };
+  },
   computed: {
     ...mapGetters({
-      user: 'user',
       isLoggedIn: 'isLoggedIn',
-      message: 'message',
       posts: 'getPosts',
     }),
-    message: {
-      get() {
-        return this.message;
-      },
-      set(value) {
-        store.dispatch('setMessage', value);
-      },
-    },
   },
   mounted() {
-    firebase.auth().onAuthStateChanged((user) => {
+    getAuth().onAuthStateChanged((user) => {
       if (user) {
-        store.dispatch('fetchUser', user);
+        store.dispatch('setUser', user);
         store.dispatch('fetchPosts');
       }
     });
   },
   methods: {
-    submitMessage() {
+    async submit() {
       store.dispatch('postMessage', this.message);
     },
   },

@@ -91,7 +91,7 @@ describe('Dashboard', () => {
     });
 
     // Assert the rendered text of the component
-    expect(wrapper.find('li').text()).toContain('Hello World!');
+    expect(wrapper.find('p').text()).toContain('Hello World!');
   });
   describe('when clicking on "Submit"', () => {
     it('will post a message', (done) => {

@@ -4,14 +4,12 @@
       <div class="col-md-8">
         <div v-if="isLoggedIn" class="card">
           <div class="card-header">Dashboard</div>
-          <form
-            action="#"
+          <div
             class="relative bg-white px-6 pt-10 pb-8 mb-2 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg sm:rounded-lg sm:px-10"
-            @submit.prevent="submit"
           >
-            <input v-model="message" />
-            <input type="submit" />
-          </form>
+            <input v-model="message" @keyup.enter="submit" />
+            <button @click.prevent="submit">Submit</button>
+          </div>
           <p
             v-for="p in posts"
             :key="p.id"
@@ -54,12 +52,9 @@ export default {
     date(seconds) {
       return moment.unix(seconds).fromNow();
     },
-    async submit(e) {
-      console.log(e);
-      if (e.keyCode == 13) {
-        store.dispatch('postMessage', this.message);
-        this.message = null;
-      }
+    async submit() {
+      store.dispatch('postMessage', this.message);
+      this.message = null;
     },
   },
 };

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="relative bg-white px-6 pt-10 pb-8 mb-2 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg sm:rounded-lg sm:px-10"
+    class="relative bg-gray-200 dark:bg-gray-500 px-6 pt-10 pb-8 m-auto shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg sm:rounded-lg sm:px-10"
   >
     <div v-if="error" class="alert alert-danger">
       {{ error }}

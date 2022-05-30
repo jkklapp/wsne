@@ -8,11 +8,26 @@
         {{ appName }}
       </router-link>
       <div class="flex items-center md:order-2">
-        <template v-if="isLoggedIn">
+        <div v-if="!isLoggedIn" class="flex">
+          <router-link
+            to="login"
+            class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+          >
+            Login
+          </router-link>
+
+          <router-link
+            to="register"
+            class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+          >
+            Register
+          </router-link>
+        </div>
+        <div v-show="isLoggedIn">
           <button
             id="user-menu-button"
             type="button"
-            class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 mr-2"
+            class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 mr-0.5"
             aria-expanded="false"
             data-dropdown-toggle="dropdown"
           >
@@ -31,13 +46,11 @@
               </g>
             </svg>
           </button>
-        </template>
-        <div
-          id="dropdown"
-          class="hidden z-50 my-4 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600"
-        >
-          <template v-if="isLoggedIn">
-            <div class="py-3 px-4">
+          <div
+            id="dropdown"
+            class="hidden z-50 my-4 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600"
+          >
+            <div v-if="isLoggedIn" class="py-3 px-4">
               <span class="block text-sm text-gray-900 dark:text-white">{{
                 user.displayName
               }}</span>
@@ -46,36 +59,14 @@
                 >{{ user.email }}</span
               >
             </div>
-          </template>
-          <ul aria-labelledby="dropdown" class="py-1">
-            <template v-if="isLoggedIn">
-              <li>
-                <a
-                  class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                  @click.prevent="signOut"
-                  >Sign out</a
-                >
+            <ul aria-labelledby="dropdown" class="py-1">
+              <li
+                class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+              >
+                <button @click.prevent="signOut">Sign out</button>
               </li>
-            </template>
-            <template v-else>
-              <li>
-                <router-link
-                  to="login"
-                  class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                >
-                  Login
-                </router-link>
-              </li>
-              <li>
-                <router-link
-                  to="register"
-                  class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                >
-                  Register
-                </router-link>
-              </li>
-            </template>
-          </ul>
+            </ul>
+          </div>
         </div>
         <button
           id="theme-toggle"
@@ -130,6 +121,7 @@ export default {
       getAuth()
         .signOut()
         .then(() => {
+          this.$store.user = null;
           this.$router.replace({
             name: 'Login',
           });

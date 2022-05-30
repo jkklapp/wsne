@@ -1,7 +1,9 @@
 <template>
-  <div>
+  <div
+    class="row justify-content-center bg-white border-gray-200 dark:bg-gray-600"
+  >
     <navbar />
-    <main class="py-4">
+    <main>
       <router-view />
     </main>
   </div>

@@ -1,22 +1,22 @@
 <template>
-  <div>
-    <div class="row justify-content-center">
-      <div class="col-md-8">
-        <div v-if="isLoggedIn" class="card">
-          <div
-            class="relative bg-white px-6 pt-10 pb-8 mb-2 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg sm:rounded-lg sm:px-10"
-          >
-            <input v-model="message" @keyup.enter="submit" />
-            <button @click.prevent="submit">Submit</button>
-          </div>
-          <p
-            v-for="p in posts"
-            :key="p.id"
-            class="relative bg-white px-6 pt-10 pb-8 mb-2 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg sm:rounded-lg sm:px-10"
-          >
-            {{ p.message }} {{ date(p.date._seconds) }}
-          </p>
+  <div
+    class="row justify-content-center bg-white border-gray-200 dark:bg-gray-600"
+  >
+    <div class="col-md-8">
+      <div v-if="isLoggedIn">
+        <div
+          class="relative bg-gray-200 dark:bg-gray-500 px-6 pt-10 pb-8 m-2 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg sm:rounded-lg sm:px-10"
+        >
+          <input v-model="message" @keyup.enter="submit" />
+          <button @click.prevent="submit">Submit</button>
         </div>
+        <p
+          v-for="p in posts"
+          :key="p.id"
+          class="relative bg-gray-200 dark:bg-gray-500 text-gray-800 dark:text-gray-100 px-6 pt-10 pb-8 mb-2 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg sm:rounded-lg sm:px-10"
+        >
+          {{ p.message }} {{ date(p.date._seconds) }}
+        </p>
       </div>
     </div>
   </div>

@@ -1,6 +1,7 @@
 import { createApp } from 'vue';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
+import 'flowbite';
 import App from './App.vue';
 import store from './store';
 import router from './routes/index';

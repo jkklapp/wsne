@@ -1,62 +1,53 @@
 <template>
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-8">
-        <div class="card">
-          <div class="card-header">Login</div>
-          <div class="card-body">
-            <div v-if="error" class="alert alert-danger">
-              {{ error }}
-            </div>
-            <form action="#" @submit.prevent="submit">
-              <div class="form-group row">
-                <label for="email" class="col-md-4 col-form-label text-md-right"
-                  >Email</label
-                >
+  <div
+    class="relative bg-white px-6 pt-10 pb-8 mb-2 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg sm:rounded-lg sm:px-10"
+  >
+    <div v-if="error" class="alert alert-danger">
+      {{ error }}
+    </div>
+    <form action="#" @submit.prevent="submit">
+      <div class="form-group row">
+        <label for="email" class="col-md-4 col-form-label text-md-right"
+          >Email</label
+        >
 
-                <div class="col-md-6">
-                  <input
-                    id="email"
-                    v-model="form.email"
-                    type="email"
-                    class="form-control"
-                    name="email"
-                    value
-                    required
-                    autofocus
-                  />
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <label
-                  for="password"
-                  class="col-md-4 col-form-label text-md-right"
-                  >Password</label
-                >
-
-                <div class="col-md-6">
-                  <input
-                    id="password"
-                    v-model="form.password"
-                    type="password"
-                    class="form-control"
-                    name="password"
-                    required
-                  />
-                </div>
-              </div>
-
-              <div class="form-group row mb-0">
-                <div class="col-md-8 offset-md-4">
-                  <button type="submit" class="btn btn-primary">Login</button>
-                </div>
-              </div>
-            </form>
-          </div>
+        <div class="col-md-6">
+          <input
+            id="email"
+            v-model="form.email"
+            type="email"
+            class="form-control"
+            name="email"
+            value
+            required
+            autofocus
+          />
         </div>
       </div>
-    </div>
+
+      <div class="form-group row">
+        <label for="password" class="col-md-4 col-form-label text-md-right"
+          >Password</label
+        >
+
+        <div class="col-md-6">
+          <input
+            id="password"
+            v-model="form.password"
+            type="password"
+            class="form-control"
+            name="password"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="form-group row mb-0">
+        <div class="col-md-8 offset-md-4">
+          <button type="submit" class="btn btn-primary">Login</button>
+        </div>
+      </div>
+    </form>
   </div>
 </template>
 

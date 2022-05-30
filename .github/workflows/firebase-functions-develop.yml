@@ -56,8 +56,8 @@ jobs:
         working-directory: backend
         run: yarn && yarn test:cov
 
-  build_and_deploy:
-    name: Build & Deploy
+  build:
+    name: Build
     needs: [lint, test, e2e-test, coverage]
     runs-on: ubuntu-latest
     steps:
@@ -66,9 +66,33 @@ jobs:
       - uses: actions/setup-node@v2-beta
         with:
           node-version: '14'
+      - name: Install Dependencies
+        working-directory: backend
+        run: yarn
       - name: Build
         working-directory: backend
-        run: yarn && yarn build
+        run: yarn build
+      - name: Archive Production Artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: dist
+          path: backend/dist
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - uses: actions/setup-node@v2-beta
+        with:
+          node-version: '14'
+      - name: Download Artifact
+        uses: actions/download-artifact@master
+        with:
+          name: dist
+          path: backend/dist
       - name: Deploy to Firebase
         uses: docker://w9jds/firebase-action:master
         with:

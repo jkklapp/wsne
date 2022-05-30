@@ -72,6 +72,7 @@
 
 <script>
 import { getAuth } from '../auth';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 export default {
   data() {
@@ -86,16 +87,18 @@ export default {
   },
   methods: {
     submit() {
-      getAuth()
-        .createUserWithEmailAndPassword(this.form.email, this.form.password)
-        .then((data) => {
-          data.user
-            .updateProfile({
-              displayName: this.form.name,
-            })
-            .then(() => {
-              this.$router.replace({ name: 'Dashboard' });
-            });
+      createUserWithEmailAndPassword(
+        getAuth(),
+        this.form.email,
+        this.form.password,
+      )
+        .then(({ user }) => {
+          user.updateProfile({
+            displayName: this.form.name,
+          });
+        })
+        .then(() => {
+          this.$router.replace({ name: 'Dashboard' });
         })
         .catch((err) => {
           this.error = err.message;

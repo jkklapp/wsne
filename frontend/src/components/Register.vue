@@ -92,11 +92,6 @@ export default {
         this.form.email,
         this.form.password,
       )
-        .then(({ user }) => {
-          user.updateProfile({
-            displayName: this.form.name,
-          });
-        })
         .then(() => {
           this.$router.replace({ name: 'Dashboard' });
         })

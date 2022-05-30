@@ -63,7 +63,12 @@
               <li
                 class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
               >
-                <button @click.prevent="signOut">Sign out</button>
+                <a
+                  href="#"
+                  class="block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white"
+                >
+                  <button @click.prevent="signOut">Sign out</button>
+                </a>
               </li>
             </ul>
           </div>
@@ -121,7 +126,7 @@ export default {
       getAuth()
         .signOut()
         .then(() => {
-          this.$store.user = null;
+          this.$store.dispatch('setUser', null);
           this.$router.replace({
             name: 'Login',
           });

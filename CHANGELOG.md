@@ -1,3 +1,11 @@
+## [1.6.1](https://github.com/jkklapp/wsne/compare/v1.6.0...v1.6.1) (2022-05-30)
+
+
+### Bug Fixes
+
+* **Register:** use new API for registering ([e3ad4c6](https://github.com/jkklapp/wsne/commit/e3ad4c66e5ec13a5bcaa0eb9702cef70b87c8455))
+* remove updateProfile calling ([656e629](https://github.com/jkklapp/wsne/commit/656e6292f8c8f73d5cd539a572c6d0a52809e672))
+
 # [1.6.0](https://github.com/jkklapp/wsne/compare/v1.5.1...v1.6.0) (2022-05-30)
 
 

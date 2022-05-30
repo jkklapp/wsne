@@ -14,13 +14,21 @@ const POSTS_RESPONSE_FIXTURE = [
 ];
 
 describe('Dashboard', () => {
+  let old_env;
   beforeEach(() => {
+    old_env = process.env;
+    process.env = {
+      VUE_APP_API_BASE: 'https://my-api.com',
+      VUE_APP_INPUT_LABEL: 'Fluunk',
+      VUE_APP_INPUT_CTA_LABEL: 'Fluu',
+    };
     getAuth.mockReturnValue({
       onAuthStateChanged: jest.fn(() => ({ email: 'test' })),
     });
     apiRequest.mockResolvedValueOnce({ data: POSTS_RESPONSE_FIXTURE });
   });
   afterEach(() => {
+    process.env = old_env;
     jest.resetAllMocks();
   });
 
@@ -100,7 +108,7 @@ describe('Dashboard', () => {
       // Find the button element
       const button = wrapper.find('button');
 
-      expect(button.text()).toEqual('Submit');
+      expect(button.text()).toEqual(process.env.VUE_APP_INPUT_CTA_LABEL);
 
       // Click the button
       button.trigger('click');

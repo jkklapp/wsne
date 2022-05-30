@@ -14,28 +14,22 @@ const POSTS_RESPONSE_FIXTURE = [
 ];
 
 describe('Dashboard', () => {
+  let old_env;
   beforeEach(() => {
+    old_env = process.env;
+    process.env = {
+      VUE_APP_API_BASE: 'https://my-api.com',
+      VUE_APP_INPUT_LABEL: 'Fluunk',
+      VUE_APP_INPUT_CTA_LABEL: 'Fluu',
+    };
     getAuth.mockReturnValue({
       onAuthStateChanged: jest.fn(() => ({ email: 'test' })),
     });
     apiRequest.mockResolvedValueOnce({ data: POSTS_RESPONSE_FIXTURE });
   });
   afterEach(() => {
+    process.env = old_env;
     jest.resetAllMocks();
-  });
-  it('displays "Dashboard" when "isLoggedIn" is true', () => {
-    const wrapper = mount(Dashboard, {
-      data() {
-        return {
-          isLoggedIn: true,
-          message: null,
-          posts: [],
-        };
-      },
-    });
-
-    // Assert the rendered text of the component
-    expect(wrapper.text()).toContain('Dashboard');
   });
 
   it('displays an input field when "isLoggedIn" is true', () => {
@@ -82,8 +76,8 @@ describe('Dashboard', () => {
           message: null,
           posts: [
             {
-              id: 1,
               message: 'Hello World!',
+              date: { _seconds: 100000 },
             },
           ],
         };
@@ -91,7 +85,7 @@ describe('Dashboard', () => {
     });
 
     // Assert the rendered text of the component
-    expect(wrapper.find('li').text()).toContain('Hello World!');
+    expect(wrapper.find('p').text()).toContain('Hello World!');
   });
   describe('when clicking on "Submit"', () => {
     it('will post a message', (done) => {
@@ -114,7 +108,7 @@ describe('Dashboard', () => {
       // Find the button element
       const button = wrapper.find('button');
 
-      expect(button.text()).toEqual('Submit');
+      expect(button.text()).toEqual(process.env.VUE_APP_INPUT_CTA_LABEL);
 
       // Click the button
       button.trigger('click');

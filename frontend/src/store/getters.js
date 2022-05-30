@@ -8,4 +8,7 @@ export default {
   getPosts(state) {
     return state.posts;
   },
+  userInitial(state) {
+    return state.user.displayName[0].toUpperCase();
+  },
 };

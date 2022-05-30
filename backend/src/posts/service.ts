@@ -34,6 +34,6 @@ export class Service {
         posts.push(doc.data());
       }
     });
-    return posts;
+    return posts.slice().reverse();
   }
 }

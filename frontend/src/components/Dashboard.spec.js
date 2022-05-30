@@ -23,20 +23,6 @@ describe('Dashboard', () => {
   afterEach(() => {
     jest.resetAllMocks();
   });
-  it('displays "Dashboard" when "isLoggedIn" is true', () => {
-    const wrapper = mount(Dashboard, {
-      data() {
-        return {
-          isLoggedIn: true,
-          message: null,
-          posts: [],
-        };
-      },
-    });
-
-    // Assert the rendered text of the component
-    expect(wrapper.text()).toContain('Dashboard');
-  });
 
   it('displays an input field when "isLoggedIn" is true', () => {
     const wrapper = mount(Dashboard, {

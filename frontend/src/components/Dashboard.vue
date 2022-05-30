@@ -3,7 +3,6 @@
     <div class="row justify-content-center">
       <div class="col-md-8">
         <div v-if="isLoggedIn" class="card">
-          <div class="card-header">Dashboard</div>
           <div
             class="relative bg-white px-6 pt-10 pb-8 mb-2 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg sm:rounded-lg sm:px-10"
           >

@@ -4,6 +4,7 @@ import 'firebase/compat/auth';
 import App from './App.vue';
 import store from './store';
 import router from './routes/index';
+import './index.css';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyDzBNz_bMRHUTxdrhc4LCf4UMzTIyyRB5s',

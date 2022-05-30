@@ -1,16 +1,24 @@
 <template>
-  <div class="container">
+  <div>
     <div class="row justify-content-center">
       <div class="col-md-8">
         <div v-if="isLoggedIn" class="card">
           <div class="card-header">Dashboard</div>
-          <div>
+          <form
+            action="#"
+            class="relative bg-white px-6 pt-10 pb-8 mb-2 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg sm:rounded-lg sm:px-10"
+            @submit.prevent="submit"
+          >
             <input v-model="message" />
-            <button class="btn btn-primary" @click="submit">Submit</button>
-          </div>
-          <li v-for="p in posts" :key="p.id">
+            <input type="submit" />
+          </form>
+          <p
+            v-for="p in posts"
+            :key="p.id"
+            class="relative bg-white px-6 pt-10 pb-8 mb-2 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg sm:rounded-lg sm:px-10"
+          >
             {{ p.message }} {{ date(p.date._seconds) }}
-          </li>
+          </p>
         </div>
       </div>
     </div>
@@ -46,8 +54,12 @@ export default {
     date(seconds) {
       return moment.unix(seconds).fromNow();
     },
-    async submit() {
-      store.dispatch('postMessage', this.message);
+    async submit(e) {
+      console.log(e);
+      if (e.keyCode == 13) {
+        store.dispatch('postMessage', this.message);
+        this.message = null;
+      }
     },
   },
 };

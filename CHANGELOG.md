@@ -1,3 +1,17 @@
+# [1.6.0](https://github.com/jkklapp/wsne/compare/v1.5.1...v1.6.0) (2022-05-30)
+
+
+### Bug Fixes
+
+* better grammar ([a5e1cb3](https://github.com/jkklapp/wsne/commit/a5e1cb3536d5804ba8eac0c9efcbc162d44ffbe2))
+* dropdown toggle ([85d4a2b](https://github.com/jkklapp/wsne/commit/85d4a2b1a6d48a23d7020d21c9c4bfb7b3eb1679))
+
+
+### Features
+
+* show date next to posts ([b3ea572](https://github.com/jkklapp/wsne/commit/b3ea5720e7b4244b92d13e420bec1a6608d34eba))
+* submit on enter and click ([b8d70d0](https://github.com/jkklapp/wsne/commit/b8d70d000ab2597e74b12bea3cc6225565722eb7))
+
 ## [1.5.1](https://github.com/jkklapp/wsne/compare/v1.5.0...v1.5.1) (2022-05-27)
 
 

@@ -63,5 +63,5 @@ export default {
       this.message = null;
     },
   },
-}
+};
 </script>

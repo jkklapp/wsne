@@ -76,12 +76,7 @@ export default {
     }),
   },
   mounted() {
-    getAuth().onAuthStateChanged((user) => {
-      if (user) {
-        store.dispatch('setUser', user);
-        store.dispatch('fetchPosts');
-      }
-    });
+    
   },
   methods: {
     date(seconds) {

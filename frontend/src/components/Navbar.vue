@@ -8,22 +8,7 @@
         {{ appName }}
       </router-link>
       <div class="flex items-center md:order-2">
-        <div v-if="!isLoggedIn" class="flex">
-          <router-link
-            to="login"
-            class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-          >
-            Login
-          </router-link>
-
-          <router-link
-            to="register"
-            class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-          >
-            Register
-          </router-link>
-        </div>
-        <div v-show="isLoggedIn">
+        <div>
           <button
             id="user-menu-button"
             type="button"
@@ -50,7 +35,7 @@
             id="dropdown"
             class="hidden z-50 my-4 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600"
           >
-            <div v-if="isLoggedIn" class="py-3 px-4">
+            <div class="py-3 px-4">
               <span class="block text-sm text-gray-900 dark:text-white">{{
                 user.displayName
               }}</span>
@@ -114,7 +99,6 @@ import { getAuth } from '../auth';
 export default {
   computed: {
     ...mapGetters({
-      // map `this.user` to `this.$store.getters.user`
       user: 'user',
       isLoggedIn: 'isLoggedIn',
       userInitial: 'userInitial',
@@ -126,7 +110,7 @@ export default {
       getAuth()
         .signOut()
         .then(() => {
-          this.$store.dispatch('setUser', null);
+          this.$store.dispatch('setUser', { displayName: '', email: '' });
           this.$router.replace({
             name: 'Login',
           });

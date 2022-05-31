@@ -6,6 +6,7 @@ import App from './App.vue';
 import store from './store';
 import router from './routes/index';
 import './index.css';
+import { getAuth } from './auth';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyDzBNz_bMRHUTxdrhc4LCf4UMzTIyyRB5s',
@@ -18,6 +19,13 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
+
+getAuth().onAuthStateChanged((user) => {
+  if (user) {
+    store.dispatch('setUser', user);
+    store.dispatch('fetchPosts');
+  }
+});
 
 const app = createApp(App);
 app.use(store);

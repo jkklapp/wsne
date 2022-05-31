@@ -1,69 +1,64 @@
 <template>
-  <div
-    class="relative bg-gray-200 dark:bg-gray-500 px-6 pt-10 pb-8 m-auto shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg sm:rounded-lg sm:px-10"
-  >
-    <form action="#" @submit.prevent="submit">
-      <div class="mb-6">
-        <label
-          for="email"
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-          >Your email</label
-        >
-        <input
-          id="email"
-          v-model="form.email"
-          type="email"
-          value
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="name@flowbite.com"
-          required
-          autofocus
-        />
-      </div>
-      <div class="mb-6">
-        <label
-          for="password"
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-          >Your password</label
-        >
-        <input
-          id="password"
-          v-model="form.password"
-          value
-          type="password"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          required
-        />
-      </div>
-      <div class="flex items-start mb-6">
-        <div class="flex items-center h-5">
+  <div class="h-screen grid place-items-center">
+    <div
+      class="w-1/3 relative bg-gray-200 dark:bg-gray-500 px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg sm:rounded-lg sm:px-10"
+    >
+      <form action="#" @submit.prevent="submit">
+        <div class="mb-6">
+          <label
+            for="email"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+            >Your email</label
+          >
           <input
-            id="remember"
-            type="checkbox"
-            value=""
-            class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
+            id="email"
+            v-model="form.email"
+            type="email"
+            value
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="me@email.com"
+            required
+            autofocus
+          />
+        </div>
+        <div class="mb-6">
+          <label
+            for="password"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+            >Your password</label
+          >
+          <input
+            id="password"
+            v-model="form.password"
+            value
+            type="password"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             required
           />
         </div>
-        <label
-          for="remember"
-          class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-          >Remember me</label
-        >
-      </div>
-      <button
-        type="submit"
-        :disabled="!form.email || !form.password"
-        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-      >
-        Submit
-      </button>
-    </form>
+        <div class="flex">
+          <button
+            type="submit"
+            :disabled="!form.email || !form.password"
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          >
+            Login
+          </button>
+          <router-link
+            to="register"
+            class="ml-auto block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+          >
+            Register
+          </router-link>
+        </div>
+      </form>
+    </div>
   </div>
 </template>
 
 <script>
-import firebase from 'firebase/compat/app';
+import { getAuth } from '../auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 
 export default {
   data() {
@@ -77,9 +72,7 @@ export default {
   },
   methods: {
     submit() {
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(this.form.email, this.form.password)
+      signInWithEmailAndPassword(getAuth(), this.form.email, this.form.password)
         .then(() => {
           this.$router.replace({ name: 'Dashboard' });
         })

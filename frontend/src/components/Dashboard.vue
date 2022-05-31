@@ -58,7 +58,6 @@
 <script>
 import { mapGetters } from 'vuex';
 import store from '../store';
-import { getAuth } from '../auth';
 import moment from 'moment';
 
 export default {
@@ -74,9 +73,6 @@ export default {
       isLoggedIn: 'isLoggedIn',
       posts: 'getPosts',
     }),
-  },
-  mounted() {
-    
   },
   methods: {
     date(seconds) {

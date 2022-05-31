@@ -17,7 +17,9 @@
           </span>
           <input
             id="website-admin"
+            v-model="form.name"
             type="text"
+            value
             class="rounded-none rounded-r-lg bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Bonnie Green"
           />
@@ -48,7 +50,9 @@
             </div>
             <input
               id="email-address-icon"
-              type="text"
+              v-model="form.email"
+              type="email"
+              value
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="me@email.com"
             />
@@ -62,7 +66,9 @@
           >
           <input
             id="password"
+            v-model="form.password"
             type="password"
+            value
             class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
             required
           />
@@ -75,7 +81,9 @@
           >
           <input
             id="repeat-password"
+            v-model="form.confirmPassword"
             type="password"
+            value
             class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
             required
           />
@@ -84,8 +92,9 @@
           <div class="flex items-center h-5">
             <input
               id="terms"
+              v-model="form.acceptTermsAndConditions"
               type="checkbox"
-              value=""
+              value
               class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
               required
             />
@@ -101,6 +110,7 @@
         </div>
         <button
           type="submit"
+          :disabled="!form.acceptTermsAndConditions"
           class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
           Register new account
@@ -112,7 +122,7 @@
 
 <script>
 import { getAuth } from '../auth';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 
 export default {
   data() {
@@ -121,6 +131,8 @@ export default {
         name: '',
         email: '',
         password: '',
+        confirmPassword: '',
+        acceptTermsAndConditions: false,
       },
       error: null,
     };
@@ -132,8 +144,12 @@ export default {
         this.form.email,
         this.form.password,
       )
-        .then(() => {
-          this.$router.replace({ name: 'Dashboard' });
+        .then(({ user }) => {
+          updateProfile(user, {
+            displayName: this.form.name,
+          }).then(() => {
+            this.$router.replace({ name: 'Dashboard' });
+          });
         })
         .catch((err) => {
           this.error = err.message;

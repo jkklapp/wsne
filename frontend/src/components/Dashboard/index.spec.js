@@ -4,7 +4,7 @@ import Input from './Input.vue';
 import Posts from './Posts.vue';
 
 describe('Dashboard', () => {
-  it('displays an input field when "isLoggedIn" is true', () => {
+  it('displays Input and Posts components when "isLoggedIn" is true', () => {
     const wrapper = shallowMount(Dashboard, {
       computed: {
         isLoggedIn: {

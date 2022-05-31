@@ -65,8 +65,17 @@ describe('Register', () => {
       jest.resetAllMocks();
     });
     describe('submit', () => {
+      const mockRouter = {
+        replace: jest.fn(),
+      };
       it('calls the submit method', async () => {
-        const wrapper = mount(Register);
+        const wrapper = mount(Register, {
+          global: {
+            mocks: {
+              $router: mockRouter,
+            },
+          },
+        });
 
         const username = wrapper.find('input[type="text"]');
         const email = wrapper.find('input[type="email"]');
@@ -93,6 +102,7 @@ describe('Register', () => {
           { email: 'test@test.com', uid: 1 },
           { displayName: 'test' },
         );
+        expect(mockRouter.replace).toHaveBeenCalledWith({ name: 'Dashboard' });
       });
     });
   });

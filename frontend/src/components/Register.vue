@@ -147,6 +147,7 @@ export default {
       await updateProfile(user, {
         displayName: this.form.name,
       });
+      this.$router.replace({ name: 'Dashboard' });
     },
   },
 };

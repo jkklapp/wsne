@@ -2,7 +2,7 @@
   <div
     class="h-screen row justify-content-center bg-white border-gray-200 dark:bg-gray-600"
   >
-    <NavBar v-if="showNavBar" />
+    <NavBar v-show="showNavBar" />
     <main>
       <router-view />
     </main>

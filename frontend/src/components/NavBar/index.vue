@@ -1,6 +1,6 @@
 <template>
   <nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 dark:bg-gray-800">
-    <div class="container flex flex-wrap items-stretch">
+    <div class="flex flex-wrap items-stretch">
       <router-link
         to="/"
         class="align-center block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"

@@ -13,6 +13,29 @@ const POSTS_RESPONSE_FIXTURE = [
   },
 ];
 
+const mountComponent = (posts) =>
+  mount(Dashboard, {
+    data() {
+      return {
+        message: null,
+      };
+    },
+    computed: {
+      inputLabel: () => 'Fluunk',
+      inputCtaLabel: () => 'Fluu',
+      isLoggedIn: {
+        get() {
+          return true;
+        },
+      },
+      posts: {
+        get() {
+          return posts;
+        },
+      },
+    },
+  });
+
 describe('Dashboard', () => {
   let old_env;
   beforeEach(() => {
@@ -33,30 +56,14 @@ describe('Dashboard', () => {
   });
 
   it('displays an input field when "isLoggedIn" is true', () => {
-    const wrapper = mount(Dashboard, {
-      data() {
-        return {
-          isLoggedIn: true,
-          message: null,
-          posts: [],
-        };
-      },
-    });
+    const wrapper = mountComponent([]);
 
     // Assert the rendered text of the component
     expect(wrapper.find('input').exists()).toBe(true);
   });
 
   it('can input message in input field', () => {
-    const wrapper = mount(Dashboard, {
-      data() {
-        return {
-          isLoggedIn: true,
-          message: null,
-          posts: [],
-        };
-      },
-    });
+    const wrapper = mountComponent([]);
 
     // Find the input element
     const input = wrapper.find('input');
@@ -69,35 +76,19 @@ describe('Dashboard', () => {
   });
 
   it('will render posts', () => {
-    const wrapper = mount(Dashboard, {
-      data() {
-        return {
-          isLoggedIn: true,
-          message: null,
-          posts: [
-            {
-              message: 'Hello World!',
-              date: { _seconds: 100000 },
-            },
-          ],
-        };
+    const wrapper = mountComponent([
+      {
+        message: 'Hello World!',
+        date: { _seconds: 100000 },
       },
-    });
+    ]);
 
     // Assert the rendered text of the component
     expect(wrapper.find('p').text()).toContain('Hello World!');
   });
   describe('when clicking on "Submit"', () => {
     it('will post a message', (done) => {
-      const wrapper = mount(Dashboard, {
-        data() {
-          return {
-            isLoggedIn: true,
-            message: null,
-            posts: [],
-          };
-        },
-      });
+      const wrapper = mountComponent([]);
 
       // Find the input element
       const input = wrapper.find('input');

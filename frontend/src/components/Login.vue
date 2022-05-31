@@ -36,7 +36,7 @@
             required
           />
         </div>
-        <div class="flex">
+        <div class="flex flex-wrap items-stretch">
           <button
             type="submit"
             :disabled="!form.email || !form.password"
@@ -44,12 +44,12 @@
           >
             Login
           </button>
-          <router-link
-            to="register"
-            class="ml-auto block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+          <div class="mx-auto w-100"></div>
+          <button
+            class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-blue-800"
           >
-            Register
-          </router-link>
+            <router-link to="register"> Register </router-link>
+          </button>
         </div>
       </form>
     </div>

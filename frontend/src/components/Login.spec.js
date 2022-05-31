@@ -15,4 +15,27 @@ describe('Login', () => {
       });
     });
   });
+  describe('Submit button', () => {
+    it('is disabled by default', () => {
+      const wrapper = mount(Login);
+
+      const button = wrapper.find('button');
+
+      expect(button.element.disabled).toBe(true);
+    });
+    describe('when entering a valid email and a password', () => {
+      it('is enabled', async () => {
+        const wrapper = mount(Login);
+
+        const input = wrapper.find('input[type="email"]');
+        const password = wrapper.find('input[type="password"]');
+
+        await input.setValue('test@test.com');
+        await password.setValue('password');
+
+        const button = wrapper.find('button');
+        expect(button.element.disabled).toBe(false);
+      });
+    });
+  });
 });

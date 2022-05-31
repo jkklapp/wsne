@@ -2,51 +2,62 @@
   <div
     class="relative bg-gray-200 dark:bg-gray-500 px-6 pt-10 pb-8 m-auto shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg sm:rounded-lg sm:px-10"
   >
-    <div v-if="error" class="alert alert-danger">
-      {{ error }}
-    </div>
     <form action="#" @submit.prevent="submit">
-      <div class="form-group row">
-        <label for="email" class="col-md-4 col-form-label text-md-right"
-          >Email</label
+      <div class="mb-6">
+        <label
+          for="email"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+          >Your email</label
         >
-
-        <div class="col-md-6">
+        <input
+          id="email"
+          v-model="form.email"
+          type="email"
+          value
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          placeholder="name@flowbite.com"
+          required
+          autofocus
+        />
+      </div>
+      <div class="mb-6">
+        <label
+          for="password"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+          >Your password</label
+        >
+        <input
+          id="password"
+          v-model="form.password"
+          value
+          type="password"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          required
+        />
+      </div>
+      <div class="flex items-start mb-6">
+        <div class="flex items-center h-5">
           <input
-            id="email"
-            v-model="form.email"
-            type="email"
-            class="form-control"
-            name="email"
-            value
+            id="remember"
+            type="checkbox"
+            value=""
+            class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
             required
-            autofocus
           />
         </div>
-      </div>
-
-      <div class="form-group row">
-        <label for="password" class="col-md-4 col-form-label text-md-right"
-          >Password</label
+        <label
+          for="remember"
+          class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+          >Remember me</label
         >
-
-        <div class="col-md-6">
-          <input
-            id="password"
-            v-model="form.password"
-            type="password"
-            class="form-control"
-            name="password"
-            required
-          />
-        </div>
       </div>
-
-      <div class="form-group row mb-0">
-        <div class="col-md-8 offset-md-4">
-          <button type="submit" class="btn btn-primary">Login</button>
-        </div>
-      </div>
+      <button
+        type="submit"
+        :disabled="!form.email || !form.password"
+        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      >
+        Submit
+      </button>
     </form>
   </div>
 </template>

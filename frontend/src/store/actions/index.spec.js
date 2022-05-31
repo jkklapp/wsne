@@ -84,30 +84,6 @@ describe('actions', () => {
         },
       );
     });
-    xit('handles rejection when something fails', (done) => {
-      apiRequest.mockResolvedValueOnce({});
-
-      testAction(
-        actions.fetchPosts,
-        null,
-        { posts: [] },
-        [
-          {
-            type: 'SET_POSTS',
-            payload: POSTS_RESPONSE_FIXTURE,
-          },
-        ],
-        () => {
-          expect(apiRequest).toHaveBeenCalledWith('https://my-api.com/posts', {
-            headers: {
-              Authorization: 'Bearer token',
-              ContentType: 'application/json',
-            },
-          });
-          done();
-        },
-      );
-    });
   });
   describe('setMessage', () => {
     it('sets the message in the store', (done) => {

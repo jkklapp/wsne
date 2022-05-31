@@ -7,6 +7,8 @@ import store from './store';
 import router from './routes/index';
 import './index.css';
 import { getAuth } from './auth';
+import VueToast from 'vue-toast-notification';
+import 'vue-toast-notification/dist/theme-default.css';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyDzBNz_bMRHUTxdrhc4LCf4UMzTIyyRB5s',
@@ -30,4 +32,5 @@ getAuth().onAuthStateChanged((user) => {
 const app = createApp(App);
 app.use(store);
 app.use(router);
+app.use(VueToast);
 app.mount('#app');

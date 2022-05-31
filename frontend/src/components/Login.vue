@@ -77,7 +77,7 @@ export default {
           this.$router.replace({ name: 'Dashboard' });
         })
         .catch((err) => {
-          this.error = err.message;
+          this.$root.$toast.error(err.message);
           console.log(err);
         });
     },

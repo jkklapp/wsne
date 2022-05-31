@@ -138,22 +138,15 @@ export default {
     };
   },
   methods: {
-    submit() {
-      createUserWithEmailAndPassword(
+    async submit() {
+      const { user } = await createUserWithEmailAndPassword(
         getAuth(),
         this.form.email,
         this.form.password,
-      )
-        .then(({ user }) => {
-          updateProfile(user, {
-            displayName: this.form.name,
-          }).then(() => {
-            this.$router.replace({ name: 'Dashboard' });
-          });
-        })
-        .catch((err) => {
-          this.error = err.message;
-        });
+      );
+      await updateProfile(user, {
+        displayName: this.form.name,
+      });
     },
   },
 };

@@ -31,7 +31,7 @@ export class Service {
 
     const posts: PostDocument[] = [];
     snapshot.forEach((doc) => {
-      posts.push(doc.data());
+      posts.push({ id: doc.id, ...doc.data() });
     });
 
     const resolvedPosts: ResolvedPostDocument[] = [];
@@ -62,10 +62,12 @@ export class Service {
     });
 
     const postDoc = await docRef.get();
+    const docId = postDoc.id;
     const post = postDoc.data();
 
     return {
       ...post,
+      id: docId,
       userName,
     };
   }

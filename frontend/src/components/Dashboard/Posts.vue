@@ -33,8 +33,8 @@ export default {
   computed: {
     ...mapGetters({
       posts: 'getPosts',
-      renderBackToTopButton: 'getRenderBackToTopButton',
-      renderLoadMoreButton: 'getRenderLoadMoreButton',
+      renderBackToTopButton: 'shouldRenderBackToTopButton',
+      renderLoadMoreButton: 'shouldRenderLoadMoreButton',
     }),
   },
   methods: {

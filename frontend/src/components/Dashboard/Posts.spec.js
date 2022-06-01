@@ -10,9 +10,7 @@ const POSTS_RESPONSE_FIXTURE = [
   {
     id: '1',
     message: 'Hello World',
-    date: {
-      _seconds: new Date().getTime() / 1000,
-    },
+    date: new Date().getTime() / 1000,
   },
 ];
 
@@ -37,9 +35,14 @@ describe('Posts', () => {
             return POSTS_RESPONSE_FIXTURE;
           },
         },
-        startAfter: {
+        renderBackToTopButton: {
           get() {
-            return null;
+            return true;
+          },
+        },
+        renderLoadMoreButton: {
+          get() {
+            return true;
           },
         },
       },
@@ -53,6 +56,9 @@ describe('Posts', () => {
     expect(wrapper.find('p').text()).toContain('Hello World a few seconds ago');
   });
   it('will render the "Load more" button', () => {
-    expect(wrapper.find('button').exists()).toBe(false);
+    expect(wrapper.find('button').exists()).toBe(true);
+  });
+  it('will render the "Back to top" button', () => {
+    expect(wrapper.find('button').exists()).toBe(true);
   });
 });

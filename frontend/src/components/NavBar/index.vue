@@ -30,7 +30,6 @@ export default {
     ...mapGetters({
       user: 'user',
       isLoggedIn: 'isLoggedIn',
-      userInitial: 'userInitial',
     }),
   },
 };

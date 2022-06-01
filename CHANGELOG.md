@@ -1,3 +1,11 @@
+# [1.9.0](https://github.com/jkklapp/wsne/compare/v1.8.0...v1.9.0) (2022-06-01)
+
+
+### Features
+
+* **Posts:** add loading state ([fb9d480](https://github.com/jkklapp/wsne/commit/fb9d480400c9a42bf254d851f498c57f9e1c78b6))
+* resolve author name by user ID ([1f72db7](https://github.com/jkklapp/wsne/commit/1f72db74cab73b5481b650dd656d407142f57742))
+
 # [1.8.0](https://github.com/jkklapp/wsne/compare/v1.7.0...v1.8.0) (2022-06-01)
 
 

@@ -1,4 +1,3 @@
-import { Timestamp } from '@google-cloud/firestore';
 import { Controller } from './controller';
 import { Service } from './service';
 
@@ -19,7 +18,8 @@ describe('Controller', () => {
           {
             message: 'test',
             date: 100000,
-            author: '1234',
+            userId: '1234',
+            userName: 'Test',
           },
         ],
         nextPageToken: null,
@@ -40,14 +40,16 @@ describe('Controller', () => {
         Promise.resolve({
           ...post,
           date: 100000,
-          author: '1234',
+          userId: '1234',
+          userName: 'Test',
         }),
       );
 
       expect(await c.create({ user: { user_id: '1234' } }, post)).toEqual({
         ...post,
         date: 100000,
-        author: '1234',
+        userId: '1234',
+        userName: 'Test',
       });
     });
   });

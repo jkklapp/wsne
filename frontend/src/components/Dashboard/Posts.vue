@@ -1,13 +1,18 @@
 <template>
   <div>
     <div v-if="!isLoading">
-      <p
+      <div
         v-for="p in posts"
         :key="p.id"
-        class="relative bg-gray-200 dark:bg-gray-500 text-gray-800 dark:text-gray-100 px-6 pt-10 pb-8 mb-2 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg sm:rounded-lg sm:px-10"
+        class="bg-gray-200 dark:bg-gray-500 text-gray-800 dark:text-gray-100 px-4 pt-2 pb-2 mb-2 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg sm:rounded-lg"
       >
-        {{ p.message }} {{ date(p.date) }}
-      </p>
+        <div>
+          <small>{{ p.userName }} - {{ date(p.date) }}</small>
+        </div>
+        <div>
+          <span>{{ p.message }}</span>
+        </div>
+      </div>
       <div class="grid flex-wrap place-items-center">
         <button
           v-if="renderLoadMoreButton"

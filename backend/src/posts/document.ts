@@ -1,16 +1,20 @@
-export class PostDocument {
-  static collectionName = 'posts';
-
-  message: string;
-  date: number;
-  author: string;
-}
-
 export class NewPostDocument {
   message: string;
 }
 
+export class PostDocument extends NewPostDocument {
+  static collectionName = 'posts';
+
+  message: string;
+  date: number;
+  userId: string;
+}
+
 export class PostDocumentResult {
-  results: PostDocument[];
+  results: ResolvedPostDocument[];
   nextPageToken?: number;
+}
+
+export class ResolvedPostDocument extends PostDocument {
+  userName: string;
 }

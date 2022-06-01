@@ -58,7 +58,8 @@ describe('Posts', () => {
     jest.resetAllMocks();
   });
   it('will render posts', () => {
-    expect(wrapper.find('p').text()).toContain('Hello World a few seconds ago');
+    expect(wrapper.find('small').text()).toBe('- a few seconds ago');
+    expect(wrapper.find('span').text()).toContain('Hello World');
   });
   it('will render the "Load more" button', () => {
     expect(wrapper.find('button').exists()).toBe(true);

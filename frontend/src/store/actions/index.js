@@ -22,9 +22,12 @@ export default {
     commit('SET_START_AFTER', null);
   },
   async postMessage({ commit }, message) {
-    commit('IS_LOADING_POSTS', true);
-    const { data } = await apiRequest('POST', '/posts', null, { message });
-    commit('PUSH_MESSAGE', data);
-    commit('IS_LOADING_POSTS', false);
+    commit('IS_CREATING_POST', true);
+    commit('PUSH_MESSAGE', {
+      message,
+      date: new Date().getTime(),
+    });
+    await apiRequest('POST', '/posts', null, { message });
+    commit('IS_CREATING_POST', false);
   },
 };

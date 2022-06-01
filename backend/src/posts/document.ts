@@ -8,6 +8,7 @@ export class PostDocument extends NewPostDocument {
   message: string;
   date: number;
   userId: string;
+  id?: string;
 }
 
 export class PostDocumentResult {

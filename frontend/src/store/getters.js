@@ -17,4 +17,7 @@ export default {
   isLoadingPosts(state) {
     return state.loadingPosts;
   },
+  isCreatingPost(state) {
+    return state.creatingPost;
+  },
 };

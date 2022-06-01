@@ -1,3 +1,27 @@
+# [1.8.0](https://github.com/jkklapp/wsne/compare/v1.7.0...v1.8.0) (2022-06-01)
+
+
+### Features
+
+* **Login:** add theme toggle button ([93dd997](https://github.com/jkklapp/wsne/commit/93dd997218d026750c9ea5346827ac036332997b))
+* paginate posts ([3449fbc](https://github.com/jkklapp/wsne/commit/3449fbcd4644bd3b6e68f51b7e06c84505613c95))
+* **Posts:** added pagination controls ([cd30ea4](https://github.com/jkklapp/wsne/commit/cd30ea4c7dc8a3d082ddeda283600c3b6ff4445f))
+
+# [1.7.0](https://github.com/jkklapp/wsne/compare/v1.6.1...v1.7.0) (2022-05-31)
+
+
+### Bug Fixes
+
+* linting ([47434d3](https://github.com/jkklapp/wsne/commit/47434d3573f1e9235a97ccd28598a65827776273))
+* **Register:** redirect to dashboard after registering ([ea3868a](https://github.com/jkklapp/wsne/commit/ea3868a9ed66f38cf9fb6ebfa4213c8256d72e1b))
+* **UserMenu:** menu opening after login ([4358969](https://github.com/jkklapp/wsne/commit/4358969c04c88efd4db6d79b3ad17d9d6eca1202))
+* warnings in tests ([d91b30e](https://github.com/jkklapp/wsne/commit/d91b30e2aef0e0c9c1e34b3ff028639bdc47dcc5))
+
+
+### Features
+
+* **Login:** add toasts ([ead342f](https://github.com/jkklapp/wsne/commit/ead342fdd98b306816556db3f3408b83458cd349))
+
 ## [1.6.1](https://github.com/jkklapp/wsne/compare/v1.6.0...v1.6.1) (2022-05-30)
 
 

@@ -11,4 +11,10 @@ export default {
   userInitial(state) {
     return state.user.displayName[0].toUpperCase();
   },
+  getRenderBackToTopButton(state) {
+    return state.startAfter == -1;
+  },
+  getRenderLoadMoreButton(state) {
+    return state.startAfter > 0;
+  },
 };

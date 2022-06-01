@@ -8,7 +8,7 @@ const store = createStore({
   state: {
     user: { displayName: '', email: '' },
     startAfter: null,
-    limit: 10,
+    limit: parseInt(process.env.VUE_APP_POSTS_PER_PAGE, 10),
     posts: [],
     message: null,
   },

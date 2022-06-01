@@ -13,9 +13,10 @@ export class Service {
   ) {}
 
   async findAll(limit, startAfter): Promise<PostDocumentResult> {
+    const _startAfter = startAfter ? parseInt(startAfter, 10) : '';
     const snapshot = await this.postsCollection
       .orderBy('date', 'desc')
-      .startAfter(startAfter || '')
+      .startAfter(_startAfter)
       .limit(limit)
       .get();
     const posts: PostDocument[] = [];
@@ -24,9 +25,11 @@ export class Service {
     });
     const q = await snapshot.query.offset(limit).get();
 
+    const noMoreResults = startAfter ? -1 : null;
+
     return {
       results: posts.slice(),
-      nextPageToken: q.empty ? null : posts[posts.length - 1].date,
+      nextPageToken: q.empty ? noMoreResults : posts[posts.length - 1].date,
     };
   }
 
@@ -36,7 +39,7 @@ export class Service {
     const docRef = this.postsCollection.doc(t.toString());
     await docRef.set({
       message,
-      date,
+      date: date.seconds,
       author: userId,
     });
     const postDoc = await docRef.get();

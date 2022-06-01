@@ -10,10 +10,13 @@ export default {
       limit,
     });
     commit('SET_POSTS', data.results);
-    commit('SET_START_AFTER', data.startAfter);
+    commit('SET_START_AFTER', data.nextPageToken);
   },
   setMessage({ commit }, message) {
     commit('SET_MESSAGE', message);
+  },
+  resetPostsPagination({ commit }) {
+    commit('SET_START_AFTER', null);
   },
   async postMessage({ commit }, message) {
     const { data } = await apiRequest('POST', '/posts', null, { message });

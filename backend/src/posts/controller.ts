@@ -11,7 +11,6 @@ import {
 import { PostDocument, NewPostDocument, PostDocumentResult } from './document';
 import { Service } from './service';
 import { FirebaseAuthGuard } from '../firebase/firebase-auth.guard';
-import { Timestamp } from '@google-cloud/firestore';
 
 @BaseController('posts')
 export class Controller {
@@ -21,7 +20,7 @@ export class Controller {
   @UseGuards(FirebaseAuthGuard)
   findAll(
     @Query('limit', ParseIntPipe) limit: number,
-    @Query('startAfter') startAfter?: Timestamp,
+    @Query('startAfter') startAfter?: number,
   ): Promise<PostDocumentResult> {
     return this.service.findAll(limit, startAfter);
   }

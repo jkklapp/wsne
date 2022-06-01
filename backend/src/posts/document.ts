@@ -1,10 +1,8 @@
-import { Timestamp } from '@google-cloud/firestore';
-
 export class PostDocument {
   static collectionName = 'posts';
 
   message: string;
-  date: Timestamp;
+  date: number;
   author: string;
 }
 
@@ -14,5 +12,5 @@ export class NewPostDocument {
 
 export class PostDocumentResult {
   results: PostDocument[];
-  nextPageToken: boolean | Timestamp;
+  nextPageToken?: number;
 }

@@ -10,7 +10,7 @@ const POSTS_RESPONSE_FIXTURE = [
   {
     id: '1',
     message: 'Hello World',
-    date: new Date().getTime() / 1000,
+    date: new Date().getTime(),
   },
 ];
 

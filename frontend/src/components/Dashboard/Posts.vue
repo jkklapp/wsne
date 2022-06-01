@@ -53,8 +53,8 @@ export default {
     }),
   },
   methods: {
-    date(seconds) {
-      return moment.unix(seconds).fromNow();
+    date(date) {
+      return moment(date).fromNow();
     },
     fetchPosts() {
       this.$store.dispatch('fetchPosts', this.$store.state);

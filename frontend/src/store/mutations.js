@@ -9,12 +9,18 @@ export default {
     state.startAfter = data;
   },
   PUSH_MESSAGE(state, data) {
-    state.posts = [data, ...state.posts];
+    state.posts = [
+      { ...data, userName: state.user.displayName },
+      ...state.posts,
+    ];
   },
   SET_MESSAGE(state, data) {
     state.message = data;
   },
   IS_LOADING_POSTS(state, data) {
     state.loadingPosts = data;
+  },
+  IS_CREATING_POST(state, data) {
+    state.creatingPost = data;
   },
 };

@@ -38,11 +38,11 @@ describe('mutations', () => {
         message: 'Hello World',
       };
       // mock state
-      const state = { posts: [] };
+      const state = { posts: [], user: { displayName: 'Test' } };
       // apply mutation
       PUSH_MESSAGE(state, messageFixture);
       // assert result
-      expect(state.posts).toEqual([messageFixture]);
+      expect(state.posts).toEqual([{ ...messageFixture, userName: 'Test' }]);
     });
   });
   describe('SET_MESSAGE', () => {

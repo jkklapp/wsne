@@ -6,8 +6,18 @@
         :key="p.id"
         class="bg-gray-200 dark:bg-gray-500 text-gray-800 dark:text-gray-100 px-4 pt-2 pb-2 mb-2 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg sm:rounded-lg"
       >
-        <div>
-          <small>{{ p.userName }} - {{ date(p.date) }}</small>
+        <div class="flex flex-wrap">
+          <div>
+            <small>{{ p.userName }} - {{ date(p.date) }}</small>
+          </div>
+          <div v-if="!p.id && isPosting" class="w-100 ml-auto place-items-end">
+            <div class="lds-ring-small align-text-top">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </div>
         </div>
         <div>
           <span>{{ p.message }}</span>
@@ -31,7 +41,8 @@
       </div>
     </div>
     <div v-if="isLoading" class="flex justify-center items-center">
-      <div class="lds-facebook">
+      <div class="lds-ring">
+        <div></div>
         <div></div>
         <div></div>
         <div></div>
@@ -50,6 +61,7 @@ export default {
       renderBackToTopButton: 'shouldRenderBackToTopButton',
       renderLoadMoreButton: 'shouldRenderLoadMoreButton',
       isLoading: 'isLoadingPosts',
+      isPosting: 'isCreatingPost',
     }),
   },
   methods: {

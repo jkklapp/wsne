@@ -126,18 +126,21 @@ describe('actions', () => {
       testAction(
         actions.postMessage,
         'Hello World',
-        { posts: [] },
+        { posts: [], creatingPost: false },
         [
           {
-            type: 'IS_LOADING_POSTS',
+            type: 'IS_CREATING_POST',
             payload: true,
           },
           {
             type: 'PUSH_MESSAGE',
-            payload: POSTS_RESPONSE_FIXTURE[0],
+            payload: {
+              message: 'Hello World',
+              date: expect.anything(),
+            },
           },
           {
-            type: 'IS_LOADING_POSTS',
+            type: 'IS_CREATING_POST',
             payload: false,
           },
         ],

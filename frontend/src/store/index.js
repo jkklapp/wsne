@@ -12,6 +12,7 @@ const store = createStore({
     posts: [],
     message: null,
     loadingPosts: false,
+    creatingPost: false,
   },
   getters,
   mutations,

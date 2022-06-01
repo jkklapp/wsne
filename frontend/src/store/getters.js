@@ -14,4 +14,7 @@ export default {
   shouldRenderLoadMoreButton(state) {
     return state.startAfter > 0;
   },
+  isLoadingPosts(state) {
+    return state.loadingPosts;
+  },
 };

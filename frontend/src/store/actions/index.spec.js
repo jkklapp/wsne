@@ -74,8 +74,20 @@ describe('actions', () => {
         { posts: [], startAfter: null, limit: 10 },
         [
           {
+            type: 'IS_LOADING_POSTS',
+            payload: true,
+          },
+          {
             type: 'SET_POSTS',
             payload: POSTS_RESPONSE_FIXTURE,
+          },
+          {
+            type: 'SET_START_AFTER',
+            payload: null,
+          },
+          {
+            type: 'IS_LOADING_POSTS',
+            payload: false,
           },
         ],
         () => {
@@ -117,8 +129,16 @@ describe('actions', () => {
         { posts: [] },
         [
           {
+            type: 'IS_LOADING_POSTS',
+            payload: true,
+          },
+          {
             type: 'PUSH_MESSAGE',
             payload: POSTS_RESPONSE_FIXTURE[0],
+          },
+          {
+            type: 'IS_LOADING_POSTS',
+            payload: false,
           },
         ],
         () => {

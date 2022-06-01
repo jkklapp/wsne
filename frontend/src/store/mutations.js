@@ -14,4 +14,7 @@ export default {
   SET_MESSAGE(state, data) {
     state.message = data;
   },
+  IS_LOADING_POSTS(state, data) {
+    state.loadingPosts = data;
+  },
 };

@@ -1,11 +1,11 @@
 <template>
   <div
-    class="relative bg-gray-200 dark:bg-gray-500 text-gray-800 dark:text-gray-100 px-6 pt-10 pb-8 mb-2 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg sm:rounded-lg sm:px-10"
+    class="relative bg-white border-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100 px-6 pt-10 pb-8 mb-2 ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg sm:rounded-lg sm:px-10"
   >
     <form>
       <label
         for="default-search"
-        class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300"
+        class="shadow-xl mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300"
         >{{ inputLabel }}</label
       >
       <div class="relative">

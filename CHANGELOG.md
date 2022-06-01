@@ -1,3 +1,11 @@
+## [1.9.1](https://github.com/jkklapp/wsne/compare/v1.9.0...v1.9.1) (2022-06-01)
+
+
+### Bug Fixes
+
+* correctly parse user props in backend ([1756da5](https://github.com/jkklapp/wsne/commit/1756da5cff61c49ff36616ae5e8880dd12027061))
+* parsing user data ([2b04784](https://github.com/jkklapp/wsne/commit/2b047842faf2b21ae165f81f0522d8512198817d))
+
 # [1.9.0](https://github.com/jkklapp/wsne/compare/v1.8.0...v1.9.0) (2022-06-01)
 
 

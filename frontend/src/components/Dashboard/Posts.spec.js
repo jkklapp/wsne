@@ -45,6 +45,11 @@ describe('Posts', () => {
             return true;
           },
         },
+        isLoading: {
+          get() {
+            return false;
+          },
+        },
       },
     });
   });

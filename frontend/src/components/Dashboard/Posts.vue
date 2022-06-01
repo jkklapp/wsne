@@ -1,27 +1,36 @@
 <template>
   <div>
-    <p
-      v-for="p in posts"
-      :key="p.id"
-      class="relative bg-gray-200 dark:bg-gray-500 text-gray-800 dark:text-gray-100 px-6 pt-10 pb-8 mb-2 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg sm:rounded-lg sm:px-10"
-    >
-      {{ p.message }} {{ date(p.date) }}
-    </p>
-    <div class="grid flex-wrap place-items-center">
-      <button
-        v-if="renderLoadMoreButton"
-        class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-blue-800"
-        @click="fetchPosts"
+    <div v-if="!isLoading">
+      <p
+        v-for="p in posts"
+        :key="p.id"
+        class="relative bg-gray-200 dark:bg-gray-500 text-gray-800 dark:text-gray-100 px-6 pt-10 pb-8 mb-2 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg sm:rounded-lg sm:px-10"
       >
-        Load more
-      </button>
-      <button
-        v-if="renderBackToTopButton"
-        class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-blue-800"
-        @click="reset"
-      >
-        Back to top
-      </button>
+        {{ p.message }} {{ date(p.date) }}
+      </p>
+      <div class="grid flex-wrap place-items-center">
+        <button
+          v-if="renderLoadMoreButton"
+          class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-blue-800"
+          @click="fetchPosts"
+        >
+          Load more
+        </button>
+        <button
+          v-if="renderBackToTopButton"
+          class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-blue-800"
+          @click="reset"
+        >
+          Back to top
+        </button>
+      </div>
+    </div>
+    <div v-if="isLoading" class="flex justify-center items-center">
+      <div class="lds-facebook">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
     </div>
   </div>
 </template>
@@ -35,6 +44,7 @@ export default {
       posts: 'getPosts',
       renderBackToTopButton: 'shouldRenderBackToTopButton',
       renderLoadMoreButton: 'shouldRenderLoadMoreButton',
+      isLoading: 'isLoadingPosts',
     }),
   },
   methods: {

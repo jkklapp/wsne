@@ -11,6 +11,7 @@ const store = createStore({
     limit: parseInt(process.env.VUE_APP_POSTS_PER_PAGE, 10),
     posts: [],
     message: null,
+    loadingPosts: false,
   },
   getters,
   mutations,

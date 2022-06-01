@@ -1,3 +1,10 @@
+## [1.9.2](https://github.com/jkklapp/wsne/compare/v1.9.1...v1.9.2) (2022-06-01)
+
+
+### Bug Fixes
+
+* render dates correctly ([5bf63b0](https://github.com/jkklapp/wsne/commit/5bf63b073a428da3f16c9d78ec8199bc2f0607aa))
+
 ## [1.9.1](https://github.com/jkklapp/wsne/compare/v1.9.0...v1.9.1) (2022-06-01)
 
 

@@ -18,11 +18,11 @@ describe('Controller', () => {
         results: [
           {
             message: 'test',
-            date: Timestamp.fromMillis(100000),
+            date: 100000,
             author: '1234',
           },
         ],
-        nextPageToken: false,
+        nextPageToken: null,
       };
       jest
         .spyOn(s, 'findAll')
@@ -39,14 +39,14 @@ describe('Controller', () => {
       jest.spyOn(s, 'create').mockImplementation(() =>
         Promise.resolve({
           ...post,
-          date: Timestamp.fromMillis(100000),
+          date: 100000,
           author: '1234',
         }),
       );
 
       expect(await c.create({ user: { user_id: '1234' } }, post)).toEqual({
         ...post,
-        date: Timestamp.fromMillis(100000),
+        date: 100000,
         author: '1234',
       });
     });

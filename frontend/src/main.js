@@ -25,7 +25,7 @@ firebase.initializeApp(firebaseConfig);
 getAuth().onAuthStateChanged((user) => {
   if (user) {
     store.dispatch('setUser', user);
-    store.dispatch('fetchPosts');
+    store.dispatch('fetchPosts', store.state);
   }
 });
 

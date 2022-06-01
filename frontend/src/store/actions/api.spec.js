@@ -53,7 +53,7 @@ describe('apiRequest', () => {
       const url = '/posts';
       const data = { message: 'Hello World' };
 
-      const { data: response } = await apiRequest(method, url, data);
+      const { data: response } = await apiRequest(method, url, null, data);
       expect(response).toEqual('Hello World');
       expect(axios).toHaveBeenCalledWith({
         data,
@@ -63,6 +63,7 @@ describe('apiRequest', () => {
         },
         method: 'POST',
         url: 'https://my-api.com/posts',
+        params: null,
       });
       done();
     });

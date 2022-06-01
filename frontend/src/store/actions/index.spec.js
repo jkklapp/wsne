@@ -70,8 +70,8 @@ describe('actions', () => {
 
       testAction(
         actions.fetchPosts,
-        null,
-        { posts: [] },
+        { posts: [], startAfter: null, limit: 10 },
+        { posts: [], startAfter: null, limit: 10 },
         [
           {
             type: 'SET_POSTS',
@@ -79,7 +79,10 @@ describe('actions', () => {
           },
         ],
         () => {
-          expect(apiRequest).toHaveBeenCalledWith('GET', '/posts');
+          expect(apiRequest).toHaveBeenCalledWith('GET', '/posts', {
+            limit: 10,
+            startAfter: null,
+          });
           done();
         },
       );
@@ -119,7 +122,7 @@ describe('actions', () => {
           },
         ],
         () => {
-          expect(apiRequest).toHaveBeenCalledWith('POST', '/posts', {
+          expect(apiRequest).toHaveBeenCalledWith('POST', '/posts', null, {
             message: 'Hello World',
           });
           done();

@@ -11,3 +11,8 @@ export class PostDocument {
 export class NewPostDocument {
   message: string;
 }
+
+export class PostDocumentResult {
+  results: PostDocument[];
+  nextPageToken: boolean | Timestamp;
+}

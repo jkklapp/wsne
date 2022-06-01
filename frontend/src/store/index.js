@@ -7,6 +7,8 @@ import getters from './getters';
 const store = createStore({
   state: {
     user: { displayName: '', email: '' },
+    startAfter: null,
+    limit: 10,
     posts: [],
     message: null,
   },

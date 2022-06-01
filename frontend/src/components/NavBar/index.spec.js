@@ -6,6 +6,9 @@ import UserMenu from './UserMenu.vue';
 describe('NavBar', () => {
   it('displays an ThemeToggle and UserMenu when "isLoggedIn" is true', () => {
     const wrapper = shallowMount(NavBar, {
+      global: {
+        stubs: ['router-link'],
+      },
       computed: {
         isLoggedIn: {
           get() {

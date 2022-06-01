@@ -62,7 +62,7 @@ describe('Input', () => {
       button.trigger('click');
 
       // Assert the rendered text of the component
-      expect(apiRequest).toHaveBeenCalledWith('POST', '/posts', {
+      expect(apiRequest).toHaveBeenCalledWith('POST', '/posts', null, {
         message: 'Hello World',
       });
 

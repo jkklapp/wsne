@@ -10,14 +10,13 @@ const POSTS_RESPONSE_FIXTURE = [
   {
     id: '1',
     message: 'Hello World',
-    date: {
-      _seconds: new Date().getTime() / 1000,
-    }
+    date: new Date().getTime() / 1000,
   },
 ];
 
 describe('Posts', () => {
   let old_env;
+  let wrapper;
   beforeEach(() => {
     old_env = process.env;
     process.env = {
@@ -29,23 +28,37 @@ describe('Posts', () => {
       onAuthStateChanged: jest.fn(() => ({ email: 'test' })),
     });
     apiRequest.mockResolvedValueOnce({ data: POSTS_RESPONSE_FIXTURE });
-  });
-  afterEach(() => {
-    process.env = old_env;
-    jest.resetAllMocks();
-  });
-  it('will render posts', () => {
-    const wrapper = mount(Posts, {
+    wrapper = mount(Posts, {
       computed: {
         posts: {
           get() {
             return POSTS_RESPONSE_FIXTURE;
           },
         },
+        renderBackToTopButton: {
+          get() {
+            return true;
+          },
+        },
+        renderLoadMoreButton: {
+          get() {
+            return true;
+          },
+        },
       },
     });
-
-    // Assert the rendered text of the component
+  });
+  afterEach(() => {
+    process.env = old_env;
+    jest.resetAllMocks();
+  });
+  it('will render posts', () => {
     expect(wrapper.find('p').text()).toContain('Hello World a few seconds ago');
+  });
+  it('will render the "Load more" button', () => {
+    expect(wrapper.find('button').exists()).toBe(true);
+  });
+  it('will render the "Back to top" button', () => {
+    expect(wrapper.find('button').exists()).toBe(true);
   });
 });

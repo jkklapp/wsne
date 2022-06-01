@@ -14,18 +14,21 @@ describe('Controller', () => {
 
   describe('findAll', () => {
     it('should return an array of ', async () => {
-      const result = [
-        {
-          message: 'test',
-          date: Timestamp.fromMillis(100000),
-          author: '1234',
-        },
-      ];
+      const result = {
+        results: [
+          {
+            message: 'test',
+            date: 100000,
+            author: '1234',
+          },
+        ],
+        nextPageToken: null,
+      };
       jest
         .spyOn(s, 'findAll')
         .mockImplementation(() => Promise.resolve(result));
 
-      expect(await c.findAll({ user: { user_id: '1234' } })).toBe(result);
+      expect(await c.findAll(10, null)).toBe(result);
     });
   });
   describe('create', () => {
@@ -36,14 +39,14 @@ describe('Controller', () => {
       jest.spyOn(s, 'create').mockImplementation(() =>
         Promise.resolve({
           ...post,
-          date: Timestamp.fromMillis(100000),
+          date: 100000,
           author: '1234',
         }),
       );
 
       expect(await c.create({ user: { user_id: '1234' } }, post)).toEqual({
         ...post,
-        date: Timestamp.fromMillis(100000),
+        date: 100000,
         author: '1234',
       });
     });

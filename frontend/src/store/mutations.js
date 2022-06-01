@@ -5,6 +5,9 @@ export default {
   SET_POSTS(state, data) {
     state.posts = data;
   },
+  SET_START_AFTER(state, data) {
+    state.startAfter = data;
+  },
   PUSH_MESSAGE(state, data) {
     state.posts = [data, ...state.posts];
   },

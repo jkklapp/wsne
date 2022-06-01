@@ -26,7 +26,7 @@ describe('Login', () => {
     it('is disabled by default', () => {
       const wrapper = mountComponent();
 
-      const button = wrapper.find('button');
+      const button = wrapper.find('button[type="submit"]');
 
       expect(button.element.disabled).toBe(true);
     });

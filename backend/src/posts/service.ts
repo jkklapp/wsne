@@ -1,7 +1,11 @@
 import { Injectable, Inject, Logger } from '@nestjs/common';
 import * as dayjs from 'dayjs';
 import { CollectionReference, Timestamp } from '@google-cloud/firestore';
-import { PostDocument, PostDocumentResult, ResolvedPostDocument } from './document';
+import {
+  PostDocument,
+  PostDocumentResult,
+  ResolvedPostDocument,
+} from './document';
 import { getDisplayNameByUserId } from './utils';
 
 @Injectable()
@@ -50,7 +54,7 @@ export class Service {
     const t = dayjs(new Date()).valueOf();
     const date = Timestamp.fromMillis(t);
     const docRef = this.postsCollection.doc(t.toString());
-    const { userId } = user;
+    const { user_id: userId, name: userName } = user.user_id;
     await docRef.set({
       message,
       date: date.seconds,
@@ -58,9 +62,10 @@ export class Service {
     });
     const postDoc = await docRef.get();
     const post = postDoc.data();
+    console.log(user);
     return {
       ...post,
-      userName: user.displayName,
+      userName,
     };
   }
 }

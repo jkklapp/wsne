@@ -54,6 +54,24 @@ export class Service {
     const { user_id: userId, name: userName } = user;
     const t = dayjs(new Date()).valueOf();
 
+    const numberPostsCreatedToday = await this.postsCollection
+      .where('date', '>=', t - 86400000)
+      .where('userId', '==', userId)
+      .get()
+      .then((snapshot) => snapshot.size);
+
+    const maxNumberPostsPerDay = parseInt(
+      process.env.MAX_NUMBER_POSTS_PER_DAY,
+      10,
+    );
+    if (numberPostsCreatedToday >= maxNumberPostsPerDay) {
+      throw new Error(
+        'You have reached the limit of ' +
+          maxNumberPostsPerDay +
+          ' posts per day',
+      );
+    }
+
     const docRef = this.postsCollection.doc(t.toString());
     await docRef.set({
       message,

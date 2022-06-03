@@ -1,3 +1,18 @@
+## [1.10.1](https://github.com/jkklapp/wsne/compare/v1.10.0...v1.10.1) (2022-06-03)
+
+
+### Bug Fixes
+
+* redirect to /login if not logged in ([0f64367](https://github.com/jkklapp/wsne/commit/0f64367c9cbc6d0219b6753ffc5ddeb424b10bf2))
+
+# [1.10.0](https://github.com/jkklapp/wsne/compare/v1.9.2...v1.10.0) (2022-06-01)
+
+
+### Features
+
+* **Posts:** improve loading state ([5e3ab61](https://github.com/jkklapp/wsne/commit/5e3ab613024bb71cc410262f4a66956d8a832a3f))
+* return doc id in payload ([bd34266](https://github.com/jkklapp/wsne/commit/bd342666ff008d7e223c180f2bf9d9bbb6b76ef7))
+
 ## [1.9.2](https://github.com/jkklapp/wsne/compare/v1.9.1...v1.9.2) (2022-06-01)
 
 

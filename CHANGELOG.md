@@ -1,3 +1,10 @@
+## [1.12.2](https://github.com/jkklapp/wsne/compare/v1.12.1...v1.12.2) (2022-06-04)
+
+
+### Bug Fixes
+
+* prevent duplicate posts ([a51456f](https://github.com/jkklapp/wsne/commit/a51456fc3bf4808d33b6aa47b001f909eda8f290))
+
 ## [1.12.1](https://github.com/jkklapp/wsne/compare/v1.12.0...v1.12.1) (2022-06-04)
 
 

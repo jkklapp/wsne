@@ -13,26 +13,32 @@ const POSTS_RESPONSE_FIXTURE = [
   },
 ];
 
+const mountComponent = (isPosting = false) => {
+  return mount(Input, {
+    computed: {
+      inputLabel: () => 'Fluunk',
+      inputCtaLabel: () => 'Fluu',
+      isPosting: {
+        get() {
+          return isPosting;
+        },
+      },
+    },
+  });
+};
+
 describe('Input', () => {
-  let old_env;
   beforeEach(() => {
-    old_env = process.env;
-    process.env = {
-      VUE_APP_API_BASE: 'https://my-api.com',
-      VUE_APP_INPUT_LABEL: 'Fluunk',
-      VUE_APP_INPUT_CTA_LABEL: 'Fluu',
-    };
     getAuth.mockReturnValue({
       onAuthStateChanged: jest.fn(() => ({ email: 'test' })),
     });
     apiRequest.mockResolvedValueOnce({ data: POSTS_RESPONSE_FIXTURE });
   });
   afterEach(() => {
-    process.env = old_env;
     jest.resetAllMocks();
   });
   it('can input message in input field', () => {
-    const wrapper = mount(Input);
+    const wrapper = mountComponent();
 
     // Find the input element
     const input = wrapper.find('input');
@@ -43,30 +49,63 @@ describe('Input', () => {
     // Assert the input value
     expect(input.element.value).toBe('Hello World!');
   });
-  describe('when clicking on "Submit"', () => {
-    it('will post a message', (done) => {
-      const wrapper = mount(Input);
+  describe('submit button', () => {
+    it('is not disabled', () => {
+      const wrapper = mountComponent();
 
-      // Find the input element
-      const input = wrapper.find('input');
+      // Find the submit button
+      const submit = wrapper.find('button');
 
-      // Set the input value
-      input.setValue('Hello World');
+      // Assert the button is not disabled
+      expect(submit.element.disabled).toBe(false);
+    });
+    describe('when clicking on "Submit"', () => {
+      it('will post a message', (done) => {
+        const wrapper = mountComponent();
 
-      // Find the button element
-      const button = wrapper.find('button');
+        // Find the input element
+        const input = wrapper.find('input');
 
-      expect(button.text()).toEqual(process.env.VUE_APP_INPUT_CTA_LABEL);
+        // Set the input value
+        input.setValue('Hello World');
 
-      // Click the button
-      button.trigger('click');
+        // Find the button element
+        const button = wrapper.find('button');
 
-      // Assert the rendered text of the component
-      expect(apiRequest).toHaveBeenCalledWith('POST', '/posts', null, {
-        message: 'Hello World',
+        expect(button.text()).toEqual('Fluu');
+
+        // Click the button
+        button.trigger('click');
+
+        // Assert the rendered text of the component
+        expect(apiRequest).toHaveBeenCalledWith('POST', '/posts', null, {
+          message: 'Hello World',
+        });
+
+        done();
       });
+    });
+    describe('while message is being submitted', () => {
+      it('disables the submit button', (done) => {
+        const wrapper = mountComponent(true);
 
-      done();
+        // Find the input element
+        const input = wrapper.find('input');
+
+        // Set the input value
+        input.setValue('Hello World');
+
+        // Find the button element
+        const button = wrapper.find('button');
+
+        // Click the button
+        button.trigger('click');
+
+        // Assert the rendered text of the component
+        expect(button.attributes('disabled')).toBe('');
+
+        done();
+      });
     });
   });
 });

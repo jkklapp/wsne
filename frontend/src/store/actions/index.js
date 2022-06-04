@@ -29,7 +29,9 @@ export default {
       date: new Date().getTime(),
     });
     try {
-      await apiRequest('POST', '/posts', null, { message });
+      const { data } = await apiRequest('POST', '/posts', null, { message });
+      commit('POP_MESSAGE');
+      commit('PUSH_MESSAGE', data);
     } catch ({ response }) {
       commit('POP_MESSAGE');
       throw response.data;

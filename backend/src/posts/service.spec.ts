@@ -68,6 +68,10 @@ describe('Service', () => {
         ],
         nextPageToken: 11000,
       });
+      expect(postsCollectionMock.orderBy).toHaveBeenCalledWith('date', 'desc');
+      expect(postsCollectionMock.startAfter).toHaveBeenCalledWith('');
+      expect(postsCollectionMock.limit).toHaveBeenCalledWith(limit);
+      expect(postsCollectionMock.get).toHaveBeenCalled();
     });
   });
   describe('countAllforUserByDate', () => {
@@ -89,21 +93,27 @@ describe('Service', () => {
       const date = 10000;
       const count = await service.countAllforUserByDate(userId, date);
       expect(count).toEqual(2);
+      expect(postsCollectionMock.where.mock.calls).toEqual([
+        ['userId', '==', '1'],
+        ['date', '>=', 10000],
+      ]);
+      expect(postsCollectionMock.get).toHaveBeenCalled();
     });
   });
   describe('create', () => {
     let postsCollectionMock;
+    let dataMock;
     beforeEach(() => {
+      dataMock = jest.fn().mockReturnValue({
+        message: 'test',
+        date: 100000,
+        userId: '1234',
+      });
       postsCollectionMock = {
-        where: jest.fn().mockReturnThis(),
         get: jest.fn().mockResolvedValue({
           size: 0,
           id: '1',
-          data: jest.fn().mockReturnValue({
-            message: 'test',
-            date: 100000,
-            userId: '1234',
-          }),
+          data: dataMock,
         }),
         doc: jest.fn().mockReturnThis(),
         set: jest.fn().mockResolvedValueOnce({}),
@@ -123,6 +133,13 @@ describe('Service', () => {
         userId: '1234',
         userName: 'Test',
       });
+      expect(postsCollectionMock.doc).toHaveBeenCalled();
+      expect(postsCollectionMock.set).toHaveBeenCalledWith({
+        date: expect.anything(),
+        message: 'test',
+        userId: '1234',
+      });
+      expect(dataMock).toHaveBeenCalled();
     });
   });
 });

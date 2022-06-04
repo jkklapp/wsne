@@ -1,3 +1,18 @@
+## [1.12.2](https://github.com/jkklapp/wsne/compare/v1.12.1...v1.12.2) (2022-06-04)
+
+
+### Bug Fixes
+
+* prevent duplicate posts ([a51456f](https://github.com/jkklapp/wsne/commit/a51456fc3bf4808d33b6aa47b001f909eda8f290))
+
+## [1.12.1](https://github.com/jkklapp/wsne/compare/v1.12.0...v1.12.1) (2022-06-04)
+
+
+### Bug Fixes
+
+* linting ([532a8a8](https://github.com/jkklapp/wsne/commit/532a8a87c6d50db100d4cce16f424ec8241f1fba))
+* linting ([8cdc379](https://github.com/jkklapp/wsne/commit/8cdc37912faec60ad90a3b9952a8c240aa19ff50))
+
 # [1.12.0](https://github.com/jkklapp/wsne/compare/v1.11.0...v1.12.0) (2022-06-04)
 
 

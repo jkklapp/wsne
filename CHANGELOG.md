@@ -1,3 +1,10 @@
+# [1.12.0](https://github.com/jkklapp/wsne/compare/v1.11.0...v1.12.0) (2022-06-04)
+
+
+### Features
+
+* handle error from API ([1e0dc86](https://github.com/jkklapp/wsne/commit/1e0dc86fe99b9e22ff72dcb181645c05e1f32c25))
+
 # [1.11.0](https://github.com/jkklapp/wsne/compare/v1.10.1...v1.11.0) (2022-06-04)
 
 

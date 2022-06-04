@@ -22,23 +22,25 @@ export class Service {
   ): Promise<PostDocumentResult> {
     const _startAfter = startAfter ? parseInt(startAfter, 10) : '';
     const noMoreResults = startAfter ? -1 : null;
-    const snapshot = await this.postsCollection
+    return this.postsCollection
       .orderBy('date', 'desc')
       .startAfter(_startAfter)
       .limit(limit)
-      .get();
+      .get()
+      .then(async (snapshot) => {
+        const results: PostDocument[] = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        const q = await snapshot.query.offset(limit).get();
 
-    const posts: PostDocument[] = [];
-    snapshot.docs.forEach((doc) => {
-      posts.push({ id: doc.id, ...doc.data() });
-    });
-
-    const q = await snapshot.query.offset(limit).get();
-
-    return {
-      results: posts.slice(),
-      nextPageToken: q.empty ? noMoreResults : posts[posts.length - 1].date,
-    };
+        return {
+          results,
+          nextPageToken: q.empty
+            ? noMoreResults
+            : results[results.length - 1].date,
+        };
+      });
   }
 
   async countAllforUserByDate(userId: string, date: number) {
@@ -62,14 +64,15 @@ export class Service {
       userId,
     });
 
-    const postDoc = await docRef.get();
-    const docId = postDoc.id;
-    const post = postDoc.data();
+    return docRef.get().then((postDoc) => {
+      const docId = postDoc.id;
+      const post = postDoc.data();
 
-    return {
-      ...post,
-      id: docId,
-      userName,
-    };
+      return {
+        ...post,
+        id: docId,
+        userName,
+      };
+    });
   }
 }

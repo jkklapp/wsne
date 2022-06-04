@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller as BaseController,
   Get,
@@ -15,6 +16,7 @@ import {
 } from './document';
 import { Service } from './service';
 import { FirebaseAuthGuard } from '../firebase/firebase-auth.guard';
+import { getDisplayNameByUserId } from './utils';
 
 @BaseController('posts')
 export class Controller {
@@ -22,20 +24,52 @@ export class Controller {
 
   @Get()
   @UseGuards(FirebaseAuthGuard)
-  findAll(
+  public async getMultiple(
     @Query('limit', ParseIntPipe) limit: number,
     @Query('startAfter') startAfter?: string,
   ): Promise<PostDocumentResult> {
-    return this.service.findAll(limit, startAfter);
+    const { results, nextPageToken } = await this.service.getMultiple(
+      limit,
+      startAfter,
+    );
+    const resolvedPosts: ResolvedPostDocument[] = [];
+    for (const p in results) {
+      resolvedPosts.push({
+        ...results[p],
+        userName: await getDisplayNameByUserId(results[p].userId),
+      });
+    }
+
+    return {
+      results: resolvedPosts.slice(),
+      nextPageToken,
+    };
   }
 
   @Post()
   @UseGuards(FirebaseAuthGuard)
-  public create(
+  public async create(
     @Req() request: any,
     @Body() post: NewPostDocument,
   ): Promise<ResolvedPostDocument> {
     const { user } = request;
-    return this.service.create(post, user);
+    const { user_id: userId, name: userName } = user;
+    const last24hours = Date.now() - 86400000;
+    const numberPostsCreatedToday = await this.service.countAllforUserByDate(
+      userId,
+      last24hours,
+    );
+    const maxNumberPostsPerDay = parseInt(
+      process.env.MAX_NUMBER_POSTS_PER_DAY,
+      10,
+    );
+    if (numberPostsCreatedToday >= maxNumberPostsPerDay) {
+      throw new BadRequestException(
+        'You have reached the limit of ' +
+          maxNumberPostsPerDay +
+          ' posts per day',
+      );
+    }
+    return this.service.create(post.message, userId, userName);
   }
 }

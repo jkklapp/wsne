@@ -1,4 +1,4 @@
-import { Injectable, Inject, Logger, BadRequestException } from '@nestjs/common';
+import { Injectable, Inject, Logger } from '@nestjs/common';
 import * as dayjs from 'dayjs';
 import { CollectionReference } from '@google-cloud/firestore';
 import {
@@ -6,7 +6,6 @@ import {
   PostDocumentResult,
   ResolvedPostDocument,
 } from './document';
-import { getDisplayNameByUserId } from './utils';
 
 @Injectable()
 export class Service {
@@ -17,61 +16,47 @@ export class Service {
     private postsCollection: CollectionReference<PostDocument>,
   ) {}
 
-  async findAll(
+  async getMultiple(
     limit: number,
     startAfter?: string | undefined,
   ): Promise<PostDocumentResult> {
     const _startAfter = startAfter ? parseInt(startAfter, 10) : '';
     const noMoreResults = startAfter ? -1 : null;
-    const snapshot = await this.postsCollection
+    return this.postsCollection
       .orderBy('date', 'desc')
       .startAfter(_startAfter)
       .limit(limit)
-      .get();
+      .get()
+      .then(async (snapshot) => {
+        const results: PostDocument[] = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        const q = await snapshot.query.offset(limit).get();
 
-    const posts: PostDocument[] = [];
-    snapshot.forEach((doc) => {
-      posts.push({ id: doc.id, ...doc.data() });
-    });
-
-    const resolvedPosts: ResolvedPostDocument[] = [];
-    for (const p in posts) {
-      resolvedPosts.push({
-        ...posts[p],
-        userName: await getDisplayNameByUserId(posts[p].userId),
+        return {
+          results,
+          nextPageToken: q.empty
+            ? noMoreResults
+            : results[results.length - 1].date,
+        };
       });
-    }
-
-    const q = await snapshot.query.offset(limit).get();
-
-    return {
-      results: resolvedPosts.slice(),
-      nextPageToken: q.empty ? noMoreResults : posts[posts.length - 1].date,
-    };
   }
 
-  async create({ message }, user): Promise<ResolvedPostDocument> {
-    const { user_id: userId, name: userName } = user;
-    const t = dayjs(new Date()).valueOf();
-
-    const numberPostsCreatedToday = await this.postsCollection
-      .where('date', '>=', t - 86400000)
+  async countAllforUserByDate(userId: string, date: number) {
+    return this.postsCollection
       .where('userId', '==', userId)
+      .where('date', '>=', date)
       .get()
       .then((snapshot) => snapshot.size);
+  }
 
-    const maxNumberPostsPerDay = parseInt(
-      process.env.MAX_NUMBER_POSTS_PER_DAY,
-      10,
-    );
-    if (numberPostsCreatedToday >= maxNumberPostsPerDay) {
-      throw new BadRequestException(
-        'You have reached the limit of ' +
-          maxNumberPostsPerDay +
-          ' posts per day',
-      );
-    }
-
+  async create(
+    message: string,
+    userId: string,
+    userName: string,
+  ): Promise<ResolvedPostDocument> {
+    const t = dayjs(new Date()).valueOf();
     const docRef = this.postsCollection.doc(t.toString());
     await docRef.set({
       message,
@@ -79,14 +64,15 @@ export class Service {
       userId,
     });
 
-    const postDoc = await docRef.get();
-    const docId = postDoc.id;
-    const post = postDoc.data();
+    return docRef.get().then((postDoc) => {
+      const docId = postDoc.id;
+      const post = postDoc.data();
 
-    return {
-      ...post,
-      id: docId,
-      userName,
-    };
+      return {
+        ...post,
+        id: docId,
+        userName,
+      };
+    });
   }
 }

@@ -32,24 +32,40 @@ describe('Controller', () => {
     });
   });
   describe('create', () => {
-    it('should return a new post', async () => {
-      const post = {
+    beforeEach(() => {
+      jest.spyOn(s, 'create').mockResolvedValue({
         message: 'test',
-      };
-      jest.spyOn(s, 'create').mockImplementation(() =>
-        Promise.resolve({
-          ...post,
-          date: 100000,
-          userId: '1234',
-          userName: 'Test',
-        }),
-      );
-
-      expect(await c.create({ user: { user_id: '1234' } }, post)).toEqual({
-        ...post,
         date: 100000,
         userId: '1234',
         userName: 'Test',
+      });
+      jest.spyOn(s, 'countAllforUserByDate').mockResolvedValue(0);
+    });
+    it('should return a new post', async () => {
+      expect(
+        await c.create({ user: { user_id: '1234' } }, { message: 'test' }),
+      ).toEqual({
+        message: 'test',
+        date: 100000,
+        userId: '1234',
+        userName: 'Test',
+      });
+    });
+    describe('when the user has reached the max number of posts per day', () => {
+      let old_env;
+      beforeEach(() => {
+        old_env = process.env;
+        process.env = { MAX_NUMBER_POSTS_PER_DAY: '5' };
+        jest.spyOn(s, 'countAllforUserByDate').mockResolvedValue(5);
+      });
+      afterEach(() => {
+        process.env = old_env;
+        jest.restoreAllMocks();
+      });
+      it('should throw an error', async () => {
+        await expect(
+          c.create({ user: { user_id: '1234' } }, { message: 'test' }),
+        ).rejects.toThrow();
       });
     });
   });

@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller as BaseController,
   Get,
@@ -31,11 +32,25 @@ export class Controller {
 
   @Post()
   @UseGuards(FirebaseAuthGuard)
-  public create(
+  public async create(
     @Req() request: any,
     @Body() post: NewPostDocument,
   ): Promise<ResolvedPostDocument> {
     const { user } = request;
-    return this.service.create(post, user);
+    const { user_id: userId, name: userName } = user;
+    const last24hours = Date.now() - 86400000;
+    const numberPostsCreatedToday = await this.service.countAllforUserByDate(userId, last24hours);
+    const maxNumberPostsPerDay = parseInt(
+      process.env.MAX_NUMBER_POSTS_PER_DAY,
+      10,
+    );
+    if (numberPostsCreatedToday >= maxNumberPostsPerDay) {
+      throw new BadRequestException(
+        'You have reached the limit of ' +
+          maxNumberPostsPerDay +
+          ' posts per day',
+      );
+    }
+    return this.service.create(post.message, userId, userName);
   }
 }

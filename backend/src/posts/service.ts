@@ -1,9 +1,4 @@
-import {
-  Injectable,
-  Inject,
-  Logger,
-  BadRequestException,
-} from '@nestjs/common';
+import { Injectable, Inject, Logger } from '@nestjs/common';
 import * as dayjs from 'dayjs';
 import { CollectionReference } from '@google-cloud/firestore';
 import {
@@ -55,28 +50,20 @@ export class Service {
     };
   }
 
-  async create({ message }, user): Promise<ResolvedPostDocument> {
-    const { user_id: userId, name: userName } = user;
-    const t = dayjs(new Date()).valueOf();
-
-    const numberPostsCreatedToday = await this.postsCollection
-      .where('date', '>=', t - 86400000)
+  async countAllforUserByDate(userId: string, date: number) {
+    return this.postsCollection
       .where('userId', '==', userId)
+      .where('date', '>=', date)
       .get()
       .then((snapshot) => snapshot.size);
+  }
 
-    const maxNumberPostsPerDay = parseInt(
-      process.env.MAX_NUMBER_POSTS_PER_DAY,
-      10,
-    );
-    if (numberPostsCreatedToday >= maxNumberPostsPerDay) {
-      throw new BadRequestException(
-        'You have reached the limit of ' +
-          maxNumberPostsPerDay +
-          ' posts per day',
-      );
-    }
-
+  async create(
+    message: string,
+    userId: string,
+    userName: string,
+  ): Promise<ResolvedPostDocument> {
+    const t = dayjs(new Date()).valueOf();
     const docRef = this.postsCollection.doc(t.toString());
     await docRef.set({
       message,

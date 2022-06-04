@@ -1,4 +1,4 @@
-import { Injectable, Inject, Logger } from '@nestjs/common';
+import { Injectable, Inject, Logger, BadRequestException } from '@nestjs/common';
 import * as dayjs from 'dayjs';
 import { CollectionReference } from '@google-cloud/firestore';
 import {
@@ -65,7 +65,7 @@ export class Service {
       10,
     );
     if (numberPostsCreatedToday >= maxNumberPostsPerDay) {
-      throw new Error(
+      throw new BadRequestException(
         'You have reached the limit of ' +
           maxNumberPostsPerDay +
           ' posts per day',

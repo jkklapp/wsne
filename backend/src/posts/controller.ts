@@ -39,7 +39,10 @@ export class Controller {
     const { user } = request;
     const { user_id: userId, name: userName } = user;
     const last24hours = Date.now() - 86400000;
-    const numberPostsCreatedToday = await this.service.countAllforUserByDate(userId, last24hours);
+    const numberPostsCreatedToday = await this.service.countAllforUserByDate(
+      userId,
+      last24hours,
+    );
     const maxNumberPostsPerDay = parseInt(
       process.env.MAX_NUMBER_POSTS_PER_DAY,
       10,

@@ -1,6 +1,15 @@
 import { Controller } from './controller';
 import { Service } from './service';
 
+jest.mock('./utils', () => {
+  return {
+    getDisplayNameByUserId: jest
+      .fn()
+      .mockResolvedValueOnce('John Doe')
+      .mockResolvedValueOnce('Jane Doe'),
+  };
+});
+
 describe('Controller', () => {
   let c: Controller;
   let s: Service;
@@ -11,7 +20,7 @@ describe('Controller', () => {
     c = new Controller(s);
   });
 
-  describe('findAll', () => {
+  describe('getMultiple', () => {
     it('should return an array of ', async () => {
       const result = {
         results: [
@@ -19,16 +28,25 @@ describe('Controller', () => {
             message: 'test',
             date: 100000,
             userId: '1234',
-            userName: 'Test',
           },
         ],
         nextPageToken: null,
       };
       jest
-        .spyOn(s, 'findAll')
+        .spyOn(s, 'getMultiple')
         .mockImplementation(() => Promise.resolve(result));
 
-      expect(await c.findAll(10, null)).toBe(result);
+      expect(await c.getMultiple(10, null)).toEqual({
+        nextPageToken: null,
+        results: [
+          {
+            date: 100000,
+            message: 'test',
+            userId: '1234',
+            userName: 'John Doe',
+          },
+        ],
+      });
     });
   });
   describe('create', () => {

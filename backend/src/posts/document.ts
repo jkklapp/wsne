@@ -12,7 +12,7 @@ export class PostDocument extends NewPostDocument {
 }
 
 export class PostDocumentResult {
-  results: ResolvedPostDocument[];
+  results: PostDocument[];
   nextPageToken?: number;
 }
 

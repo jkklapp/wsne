@@ -6,7 +6,6 @@ import {
   PostDocumentResult,
   ResolvedPostDocument,
 } from './document';
-import { getDisplayNameByUserId } from './utils';
 
 @Injectable()
 export class Service {
@@ -17,7 +16,7 @@ export class Service {
     private postsCollection: CollectionReference<PostDocument>,
   ) {}
 
-  async findAll(
+  async getMultiple(
     limit: number,
     startAfter?: string | undefined,
   ): Promise<PostDocumentResult> {
@@ -34,18 +33,10 @@ export class Service {
       posts.push({ id: doc.id, ...doc.data() });
     });
 
-    const resolvedPosts: ResolvedPostDocument[] = [];
-    for (const p in posts) {
-      resolvedPosts.push({
-        ...posts[p],
-        userName: await getDisplayNameByUserId(posts[p].userId),
-      });
-    }
-
     const q = await snapshot.query.offset(limit).get();
 
     return {
-      results: resolvedPosts.slice(),
+      results: posts.slice(),
       nextPageToken: q.empty ? noMoreResults : posts[posts.length - 1].date,
     };
   }

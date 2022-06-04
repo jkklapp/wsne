@@ -16,6 +16,7 @@ import {
 } from './document';
 import { Service } from './service';
 import { FirebaseAuthGuard } from '../firebase/firebase-auth.guard';
+import { getDisplayNameByUserId } from './utils';
 
 @BaseController('posts')
 export class Controller {
@@ -23,11 +24,26 @@ export class Controller {
 
   @Get()
   @UseGuards(FirebaseAuthGuard)
-  findAll(
+  public async getMultiple(
     @Query('limit', ParseIntPipe) limit: number,
     @Query('startAfter') startAfter?: string,
   ): Promise<PostDocumentResult> {
-    return this.service.findAll(limit, startAfter);
+    const { results, nextPageToken } = await this.service.getMultiple(
+      limit,
+      startAfter,
+    );
+    const resolvedPosts: ResolvedPostDocument[] = [];
+    for (const p in results) {
+      resolvedPosts.push({
+        ...results[p],
+        userName: await getDisplayNameByUserId(results[p].userId),
+      });
+    }
+
+    return {
+      results: resolvedPosts.slice(),
+      nextPageToken,
+    };
   }
 
   @Post()

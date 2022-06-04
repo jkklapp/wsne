@@ -2,22 +2,13 @@ import { CollectionReference } from '@google-cloud/firestore';
 import { PostDocument } from './document';
 import { Service } from './service';
 
-jest.mock('./utils', () => {
-  return {
-    getDisplayNameByUserId: jest
-      .fn()
-      .mockResolvedValueOnce('John Doe')
-      .mockResolvedValueOnce('Jane Doe'),
-  };
-});
-
 describe('Service', () => {
   let service;
   beforeEach(() => {
     const postsCollection: CollectionReference<PostDocument> = null;
     service = new Service(postsCollection);
   });
-  describe('findAll', () => {
+  describe('getMultiple', () => {
     let postsCollectionMock;
     beforeEach(() => {
       const docs = [
@@ -59,7 +50,7 @@ describe('Service', () => {
     it('should return an array of posts', async () => {
       const limit = 10;
       const startAfter = undefined;
-      const posts = await service.findAll(limit, startAfter);
+      const posts = await service.getMultiple(limit, startAfter);
       expect(posts).toEqual({
         results: [
           {
@@ -67,14 +58,12 @@ describe('Service', () => {
             userId: '1',
             message: 'message',
             date: 10000,
-            userName: 'John Doe',
           },
           {
             id: '2',
             userId: '2',
             message: 'message',
             date: 11000,
-            userName: 'Jane Doe',
           },
         ],
         nextPageToken: 11000,

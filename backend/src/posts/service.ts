@@ -35,7 +35,7 @@ export class Service {
       .get();
 
     const posts: PostDocument[] = [];
-    snapshot.forEach((doc) => {
+    snapshot.docs.forEach((doc) => {
       posts.push({ id: doc.id, ...doc.data() });
     });
 

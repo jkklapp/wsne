@@ -43,16 +43,14 @@ describe('Service', () => {
         orderBy: jest.fn().mockReturnThis(),
         startAfter: jest.fn().mockReturnThis(),
         limit: jest.fn().mockReturnThis(),
-        get: jest
-          .fn()
-          .mockResolvedValueOnce(docs)
-          .mockResolvedValueOnce({
-            query: {
-              offset: jest.fn().mockReturnValue({
-                get: jest.fn().mockResolvedValue({ empty: false }),
-              }),
-            },
-          }),
+        get: jest.fn().mockResolvedValue({
+          docs,
+          query: {
+            offset: jest.fn().mockReturnValue({
+              get: jest.fn().mockResolvedValue({ empty: false }),
+            }),
+          },
+        }),
       };
       service.postsCollection = postsCollectionMock;
     });
@@ -60,7 +58,7 @@ describe('Service', () => {
       process.env = old_env;
       jest.restoreAllMocks();
     });
-    xit('should return an array of posts', async () => {
+    it('should return an array of posts', async () => {
       const limit = 10;
       const startAfter = undefined;
       const posts = await service.findAll(limit, startAfter);
@@ -81,7 +79,7 @@ describe('Service', () => {
             userName: 'Jane Doe',
           },
         ],
-        nextPageToken: null,
+        nextPageToken: 11000,
       });
     });
   });
@@ -154,20 +152,3 @@ describe('Service', () => {
     });
   });
 });
-function iterator(
-  iterator: any,
-  arg1: jest.Mock<any, any>,
-  query: any,
-  arg3: { offset: jest.Mock<any, any> },
-) {
-  throw new Error('Function not implemented.');
-}
-
-function query(
-  iterator: any,
-  arg1: jest.Mock<any, any>,
-  query: any,
-  arg3: { offset: jest.Mock<any, any> },
-) {
-  throw new Error('Function not implemented.');
-}

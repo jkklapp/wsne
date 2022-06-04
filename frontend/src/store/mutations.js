@@ -14,6 +14,9 @@ export default {
       ...state.posts,
     ];
   },
+  POP_MESSAGE(state) {
+    state.posts = state.posts.slice(1);
+  },
   SET_MESSAGE(state, data) {
     state.message = data;
   },

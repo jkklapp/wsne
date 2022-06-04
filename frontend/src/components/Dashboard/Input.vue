@@ -58,7 +58,11 @@ export default {
   methods: {
     async submit() {
       if (this.message) {
-        store.dispatch('postMessage', this.message);
+        try {
+          await store.dispatch('postMessage', this.message);
+        } catch (err) {
+          this.$root.$toast.error(err.message);
+        }
       }
       this.message = null;
     },

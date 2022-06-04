@@ -1,4 +1,5 @@
 import { apiRequest } from './api';
+
 export default {
   setUser({ commit }, user) {
     commit('SET_USER', user);
@@ -27,7 +28,12 @@ export default {
       message,
       date: new Date().getTime(),
     });
-    await apiRequest('POST', '/posts', null, { message });
+    try {
+      await apiRequest('POST', '/posts', null, { message });
+    } catch ({ response }) {
+      commit('POP_MESSAGE');
+      throw response.data;
+    }
     commit('IS_CREATING_POST', false);
   },
 };

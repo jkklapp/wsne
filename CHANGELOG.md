@@ -1,3 +1,10 @@
+# [1.11.0](https://github.com/jkklapp/wsne/compare/v1.10.1...v1.11.0) (2022-06-04)
+
+
+### Features
+
+* set limit to posts per day ([b86f80b](https://github.com/jkklapp/wsne/commit/b86f80ba59670ccfdea993b63b64f9e5d708fe18))
+
 ## [1.10.1](https://github.com/jkklapp/wsne/compare/v1.10.0...v1.10.1) (2022-06-03)
 
 

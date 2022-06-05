@@ -11,7 +11,7 @@ describe('Register', () => {
     it('is disabled by default', () => {
       const wrapper = mount(Register);
 
-      const button = wrapper.find('button');
+      const button = wrapper.find('button[type="submit"]');
 
       expect(button.element.disabled).toEqual(true);
     });

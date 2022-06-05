@@ -27,8 +27,10 @@ getAuth().onAuthStateChanged((user) => {
     store.dispatch('setUser', user);
     store.dispatch('fetchPosts', store.state);
   } else {
-    // redirect to /login
-    router.replace({ name: 'Login' });
+    console.log(router);
+    if (['Login', 'Register'].indexOf(router.currentRoute._value.name) === -1) {
+      router.replace({ name: 'Login' });
+    }
   }
 });
 

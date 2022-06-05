@@ -2,6 +2,9 @@ export default {
   SET_USER(state, data) {
     state.user = data;
   },
+  SET_LOGGED_IN(state, data) {
+    state.loggedIn = data;
+  },
   SET_POSTS(state, data) {
     state.posts = data;
   },

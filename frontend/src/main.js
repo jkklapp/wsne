@@ -26,15 +26,6 @@ getAuth().onAuthStateChanged((user) => {
   if (user) {
     store.dispatch('setUser', user);
     store.dispatch('fetchPosts', store.state);
-  } else {
-    console.log(router);
-    if (
-      ['Login', 'Register', 'Terms', 'PrivacyPolicy'].indexOf(
-        router.currentRoute._value.name,
-      ) === -1
-    ) {
-      router.replace({ name: 'Login' });
-    }
   }
 });
 

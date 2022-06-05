@@ -16,7 +16,7 @@ export default {
   },
   computed: {
     showNavBar() {
-      return this.$route.name !== 'Login' && this.$route.name !== 'Register';
+      return ['Login', 'Register'].indexOf(this.$route.name) === -1;
     },
   },
 };

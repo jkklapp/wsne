@@ -13,6 +13,7 @@ const store = createStore({
     message: null,
     loadingPosts: false,
     creatingPost: false,
+    loggedIn: false,
   },
   getters,
   mutations,

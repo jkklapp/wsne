@@ -9,7 +9,7 @@
       </router-link>
       <div class="mx-auto w-100"></div>
       <div class="flex items-end md:order-2">
-        <UserMenu />
+        <UserMenu v-if="isLoggedIn" />
         <ThemeToggle />
       </div>
     </div>
@@ -28,7 +28,6 @@ export default {
   computed: {
     appName: () => process.env.VUE_APP_NAME,
     ...mapGetters({
-      user: 'user',
       isLoggedIn: 'isLoggedIn',
     }),
   },

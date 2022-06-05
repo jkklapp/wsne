@@ -23,5 +23,10 @@ export default {
       isLoggedIn: 'isLoggedIn',
     }),
   },
+  mounted() {
+    if (!this.isLoggedIn) {
+      this.$router.push('/login');
+    }
+  },
 };
 </script>

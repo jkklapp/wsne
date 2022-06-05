@@ -1,3 +1,19 @@
+# [1.13.0](https://github.com/jkklapp/wsne/compare/v1.12.2...v1.13.0) (2022-06-05)
+
+
+### Bug Fixes
+
+* logged in state ([873336c](https://github.com/jkklapp/wsne/commit/873336c9c658e594009310ab73dbec5b6150ea05))
+* logged in state transition between pages ([5d1d475](https://github.com/jkklapp/wsne/commit/5d1d47541e69259e8450063f3315590edfef5087))
+* **Register:** center submit button ([9a493f0](https://github.com/jkklapp/wsne/commit/9a493f0fcc701929643436db17d4525582ae78b6))
+
+
+### Features
+
+* add about page ([9a85f1e](https://github.com/jkklapp/wsne/commit/9a85f1e66568faaf09cc62056b97fdd1745eddaf))
+* add privacy policy ([ebed222](https://github.com/jkklapp/wsne/commit/ebed2227efe93fdb99fa22e9be219c25e794c0b7))
+* add terms and conditions placeholder ([346c45c](https://github.com/jkklapp/wsne/commit/346c45c3f8506137e1bb49a178496aa09a406c75))
+
 ## [1.12.2](https://github.com/jkklapp/wsne/compare/v1.12.1...v1.12.2) (2022-06-04)
 
 

@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory } from 'vue-router';
 import Login from '../components/Login';
 import Register from '../components/Register';
 import Dashboard from '../components/Dashboard';
+import Terms from '../components/misc/Terms';
 
 const router = createRouter({
   mode: 'history',
@@ -17,6 +18,11 @@ const router = createRouter({
       path: '/register',
       name: 'Register',
       component: Register,
+    },
+    {
+      path: '/terms',
+      name: 'Terms',
+      component: Terms,
     },
     {
       path: '/',

@@ -121,10 +121,10 @@
                 for="terms"
                 class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                 >I agree with the
-                <a
-                  href="#"
+                <router-link
+                  to="terms"
                   class="text-blue-600 hover:underline dark:text-blue-500"
-                  >terms and conditions</a
+                  >terms and conditions</router-link
                 ></label
               >
             </div>

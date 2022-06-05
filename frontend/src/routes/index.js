@@ -3,6 +3,7 @@ import Login from '../components/Login';
 import Register from '../components/Register';
 import Dashboard from '../components/Dashboard';
 import Terms from '../components/misc/Terms';
+import PrivacyPolicy from '../components/misc/PrivacyPolicy';
 
 const router = createRouter({
   mode: 'history',
@@ -23,6 +24,11 @@ const router = createRouter({
       path: '/terms',
       name: 'Terms',
       component: Terms,
+    },
+    {
+      path: '/privacy-policy',
+      name: 'PrivacyPolicy',
+      component: PrivacyPolicy,
     },
     {
       path: '/',

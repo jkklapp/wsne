@@ -125,7 +125,13 @@
                   to="terms"
                   class="text-blue-600 hover:underline dark:text-blue-500"
                   >terms and conditions</router-link
-                ></label
+                >
+                and our
+                <router-link
+                  to="privacy-policy"
+                  class="text-blue-600 hover:underline dark:text-blue-500"
+                  >privacy policy</router-link
+                >.</label
               >
             </div>
             <div class="grid place-items-center">

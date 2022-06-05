@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-gray-200 dark:bg-gray-500 px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 md:rounded-lg"
+    class="bg-gray-200 dark:bg-gray-500 px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 md:rounded-lg text-gray-900 text-sm dark:placeholder-gray-400 dark:text-white"
   >
     <p>
       These Terms of Service (&quot;<strong>Terms</strong>&quot;) govern your

@@ -25,6 +25,7 @@ export class Controller {
   @Get()
   @UseGuards(FirebaseAuthGuard)
   public async getMultiple(
+    @Req() request: any,
     @Query('limit', ParseIntPipe) limit: number,
     @Query('startAfter') startAfter?: string,
   ): Promise<PostDocumentResult> {
@@ -40,8 +41,21 @@ export class Controller {
       });
     }
 
+    const { user } = request;
+    const { user_id: userId } = user;
+    const last24hours = Date.now() - 86400000;
+    const numberPostsCreatedToday = await this.service.countAllforUserByDate(
+      userId,
+      last24hours,
+    );
+    const maxNumberPostsPerDay = parseInt(
+      process.env.MAX_NUMBER_POSTS_PER_DAY,
+      10,
+    );
+
     return {
       results: resolvedPosts.slice(),
+      remainingMessages: maxNumberPostsPerDay - numberPostsCreatedToday,
       nextPageToken,
     };
   }

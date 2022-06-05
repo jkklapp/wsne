@@ -1,3 +1,10 @@
+# [1.14.0](https://github.com/jkklapp/wsne/compare/v1.13.0...v1.14.0) (2022-06-05)
+
+
+### Features
+
+* **Input:** show fluus left today ([c534522](https://github.com/jkklapp/wsne/commit/c5345228b40c7aae684dc503c4c4474332d06824))
+
 # [1.13.0](https://github.com/jkklapp/wsne/compare/v1.12.2...v1.13.0) (2022-06-05)
 
 

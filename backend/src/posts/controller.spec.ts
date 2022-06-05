@@ -13,13 +13,20 @@ jest.mock('./utils', () => {
 describe('Controller', () => {
   let c: Controller;
   let s: Service;
+  let old_env;
 
   beforeEach(() => {
     const collection = null;
     s = new Service(collection);
     c = new Controller(s);
+    old_env = process.env;
+    process.env = { MAX_NUMBER_POSTS_PER_DAY: '5' };
+    jest.spyOn(s, 'countAllforUserByDate').mockResolvedValue(0);
   });
-
+  afterEach(() => {
+    process.env = old_env;
+    jest.restoreAllMocks();
+  });
   describe('getMultiple', () => {
     it('should return an array of ', async () => {
       const result = {
@@ -30,14 +37,18 @@ describe('Controller', () => {
             userId: '1234',
           },
         ],
+        remainingMessages: 10,
         nextPageToken: null,
       };
       jest
         .spyOn(s, 'getMultiple')
         .mockImplementation(() => Promise.resolve(result));
 
-      expect(await c.getMultiple(10, null)).toEqual({
+      expect(
+        await c.getMultiple({ user: { user_id: '1234' } }, 10, null),
+      ).toEqual({
         nextPageToken: null,
+        remainingMessages: 5,
         results: [
           {
             date: 100000,
@@ -57,7 +68,6 @@ describe('Controller', () => {
         userId: '1234',
         userName: 'Test',
       });
-      jest.spyOn(s, 'countAllforUserByDate').mockResolvedValue(0);
     });
     it('should return a new post', async () => {
       expect(
@@ -70,15 +80,8 @@ describe('Controller', () => {
       });
     });
     describe('when the user has reached the max number of posts per day', () => {
-      let old_env;
       beforeEach(() => {
-        old_env = process.env;
-        process.env = { MAX_NUMBER_POSTS_PER_DAY: '5' };
         jest.spyOn(s, 'countAllforUserByDate').mockResolvedValue(5);
-      });
-      afterEach(() => {
-        process.env = old_env;
-        jest.restoreAllMocks();
       });
       it('should throw an error', async () => {
         await expect(

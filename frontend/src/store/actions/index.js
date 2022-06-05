@@ -12,9 +12,10 @@ export default {
       startAfter,
       limit,
     });
-    const { results, nextPageToken } = data;
+    const { results, nextPageToken, remainingMessages } = data;
     commit('SET_POSTS', results);
     commit('SET_START_AFTER', nextPageToken);
+    commit('SET_REMAINING_MESSAGES', remainingMessages || 0);
     commit('IS_LOADING_POSTS', false);
   },
   setMessage({ commit }, message) {
@@ -23,7 +24,7 @@ export default {
   resetPostsPagination({ commit }) {
     commit('SET_START_AFTER', null);
   },
-  async postMessage({ commit }, message) {
+  async postMessage({ commit, state }, message) {
     commit('IS_CREATING_POST', true);
     commit('PUSH_MESSAGE', {
       message,
@@ -33,6 +34,7 @@ export default {
       const { data } = await apiRequest('POST', '/posts', null, { message });
       commit('POP_MESSAGE');
       commit('PUSH_MESSAGE', data);
+      commit('SET_REMAINING_MESSAGES', state.remainingMessages - 1);
     } catch ({ response }) {
       commit('POP_MESSAGE');
       throw response.data;

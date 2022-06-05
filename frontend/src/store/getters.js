@@ -20,4 +20,7 @@ export default {
   isCreatingPost(state) {
     return state.creatingPost;
   },
+  getRemainingMessages(state) {
+    return state.remainingMessages;
+  },
 };

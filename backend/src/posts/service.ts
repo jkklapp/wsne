@@ -3,7 +3,7 @@ import * as dayjs from 'dayjs';
 import { CollectionReference } from '@google-cloud/firestore';
 import {
   PostDocument,
-  PostDocumentResult,
+  PaginatedResults,
   ResolvedPostDocument,
 } from './document';
 
@@ -19,7 +19,7 @@ export class Service {
   async getMultiple(
     limit: number,
     startAfter?: string | undefined,
-  ): Promise<PostDocumentResult> {
+  ): Promise<PaginatedResults> {
     const _startAfter = startAfter ? parseInt(startAfter, 10) : '';
     const noMoreResults = startAfter ? -1 : null;
     return this.postsCollection

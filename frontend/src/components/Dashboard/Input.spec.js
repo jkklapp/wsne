@@ -18,6 +18,8 @@ const mountComponent = (isPosting = false) => {
     computed: {
       inputLabel: () => 'Fluunk',
       inputCtaLabel: () => 'Fluu',
+      placeholder: () => 'You have 10 left',
+      isInputDisabled: () => isPosting,
       isPosting: {
         get() {
           return isPosting;
@@ -36,6 +38,12 @@ describe('Input', () => {
   });
   afterEach(() => {
     jest.resetAllMocks();
+  });
+  it('has a placeholder with the number of messages left', () => {
+    const wrapper = mountComponent();
+    expect(wrapper.find('input').attributes('placeholder')).toBe(
+      'You have 10 left',
+    );
   });
   it('can input message in input field', () => {
     const wrapper = mountComponent();

@@ -11,9 +11,13 @@ export class PostDocument extends NewPostDocument {
   id?: string;
 }
 
-export class PostDocumentResult {
+export class PaginatedResults {
   results: PostDocument[];
-  nextPageToken?: number;
+  nextPageToken: number | null;
+}
+
+export class PostDocumentResult extends PaginatedResults {
+  remainingMessages: number;
 }
 
 export class ResolvedPostDocument extends PostDocument {

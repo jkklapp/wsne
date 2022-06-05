@@ -11,6 +11,9 @@ export default {
   SET_START_AFTER(state, data) {
     state.startAfter = data;
   },
+  SET_REMAINING_MESSAGES(state, data) {
+    state.remainingMessages = data;
+  },
   PUSH_MESSAGE(state, data) {
     state.posts = [
       { ...data, userName: state.user.displayName },

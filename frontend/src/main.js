@@ -6,7 +6,6 @@ import App from './App.vue';
 import store from './store';
 import router from './routes/index';
 import './index.css';
-import { getAuth } from './auth';
 import VueToast from 'vue-toast-notification';
 import 'vue-toast-notification/dist/theme-default.css';
 
@@ -21,16 +20,6 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-
-getAuth().onAuthStateChanged((user) => {
-  if (user) {
-    store.dispatch('setUser', user);
-    store.dispatch('fetchPosts', store.state);
-  } else {
-    // redirect to /login
-    router.replace({ name: 'Login' });
-  }
-});
 
 const app = createApp(App);
 app.use(store);

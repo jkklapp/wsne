@@ -21,6 +21,7 @@ describe('getters', () => {
           uid: '123',
           displayName: 'John Doe',
         },
+        loggedIn: true,
       };
       const result = getters.isLoggedIn(state);
 
@@ -28,7 +29,8 @@ describe('getters', () => {
     });
     it('should return false if user is null', () => {
       const state = {
-        user: null,
+        user: { displayName: '', email: '' },
+        loggedIn: false,
       };
       const result = getters.isLoggedIn(state);
 

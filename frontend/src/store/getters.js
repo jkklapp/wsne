@@ -3,7 +3,7 @@ export default {
     return state.user;
   },
   isLoggedIn(state) {
-    return state.user !== null;
+    return state.loggedIn;
   },
   getPosts(state) {
     return state.posts;

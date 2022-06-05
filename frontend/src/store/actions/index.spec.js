@@ -45,16 +45,21 @@ describe('actions', () => {
     it('makes the expected mutations', (done) => {
       const userFixture = {
         email: 'john@doe.com',
+        displayName: 'John Doe',
         uid: 123,
       };
       testAction(
         actions.setUser,
         userFixture,
-        { user: null },
+        { user: { displayName: '', email: '' }, loggedIn: false },
         [
           {
             type: 'SET_USER',
             payload: userFixture,
+          },
+          {
+            type: 'SET_LOGGED_IN',
+            payload: userFixture.email && userFixture.displayName,
           },
         ],
         done,

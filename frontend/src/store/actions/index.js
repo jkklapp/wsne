@@ -3,6 +3,7 @@ import { apiRequest } from './api';
 export default {
   setUser({ commit }, user) {
     commit('SET_USER', user);
+    commit('SET_LOGGED_IN', user.email && user.displayName);
   },
   async fetchPosts({ commit }, { startAfter, limit }) {
     // make get request with bearer token authentication

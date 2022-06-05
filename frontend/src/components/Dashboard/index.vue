@@ -12,6 +12,7 @@
 import Input from './Input';
 import Posts from './Posts';
 import { mapGetters } from 'vuex';
+import { getAuth } from '../../auth';
 
 export default {
   components: {
@@ -24,9 +25,16 @@ export default {
     }),
   },
   mounted() {
-    if (!this.isLoggedIn) {
-      this.$router.push('/login');
-    }
+    getAuth().onAuthStateChanged((user) => {
+      if (user) {
+        this.$store.dispatch('setUser', user);
+        this.$store.dispatch('fetchPosts', this.$store.state);
+      } else {
+        if (this.$router.currentRoute._value.name === 'Dashboard') {
+          this.$router.replace({ name: 'Login' });
+        }
+      }
+    });
   },
 };
 </script>

@@ -9,7 +9,11 @@ jest.mock('firebase/auth');
 describe('Register', () => {
   describe('Submit button', () => {
     it('is disabled by default', () => {
-      const wrapper = mount(Register);
+      const wrapper = mount(Register, {
+        global: {
+          stubs: ['router-link'],
+        },
+      });
 
       const button = wrapper.find('button[type="submit"]');
 
@@ -17,7 +21,11 @@ describe('Register', () => {
     });
     describe('when entering all the data', () => {
       it('is enabled', async () => {
-        const wrapper = mount(Register);
+        const wrapper = mount(Register, {
+          global: {
+            stubs: ['router-link'],
+          },
+        });
 
         const username = wrapper.find('input[type="text"]');
         const email = wrapper.find('input[type="email"]');
@@ -71,6 +79,7 @@ describe('Register', () => {
       it('calls the submit method', async () => {
         const wrapper = mount(Register, {
           global: {
+            stubs: ['router-link'],
             mocks: {
               $router: mockRouter,
             },

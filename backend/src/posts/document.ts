@@ -17,10 +17,22 @@ export class PaginatedResults {
   nextPageToken: number | null;
 }
 
-export class PostDocumentResult extends PaginatedResults {
+export class PostDocumentResult {
+  results: ResolvedPostDocument[];
+  nextPageToken: number | null;
   remainingMessages: number;
 }
 
-export class ResolvedPostDocument extends PostDocument {
+export class ResolvedPostDocument {
   userName: string;
+  message: string;
+  date: number;
+  userId: string;
+  id?: string;
+  likes: number;
+  likedByMe: boolean;
+}
+
+export class UpdatePostDocument {
+  like: boolean;
 }

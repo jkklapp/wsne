@@ -25,18 +25,15 @@ export class Service {
       });
   }
 
-  async toggleLike(id: string, userId: string) {
+  async toggleLike(id: string, userId: string, like: boolean) {
     const docRef = this.postsCollection.doc(id);
     return docRef.get().then((postDoc) => {
       const post = postDoc.data();
       const likes = post.likes || [];
-      const likeIndex = likes.indexOf(userId);
-      if (likeIndex === -1) {
-        likes.push(userId);
-      } else {
-        likes.splice(likeIndex, 1);
-      }
-      return docRef.update({ likes });
+      const newLikes = like
+        ? [...likes, userId]
+        : likes.filter((l) => l !== userId);
+      return docRef.update({ likes: newLikes });
     });
   }
 
@@ -90,11 +87,7 @@ export class Service {
       .then((snapshot) => snapshot.size);
   }
 
-  async create(
-    message: string,
-    userId: string,
-    userName: string,
-  ): Promise<ResolvedPostDocument> {
+  async create(message: string, userId: string): Promise<PostDocument> {
     const t = dayjs(new Date()).valueOf();
     const docRef = this.postsCollection.doc(t.toString());
     await docRef.set({
@@ -110,7 +103,6 @@ export class Service {
       return {
         ...post,
         id: docId,
-        userName,
       };
     });
   }

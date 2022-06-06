@@ -131,7 +131,6 @@ describe('Service', () => {
         id: '1',
         message: 'test',
         userId: '1234',
-        userName: 'Test',
       });
       expect(postsCollectionMock.doc).toHaveBeenCalled();
       expect(postsCollectionMock.set).toHaveBeenCalledWith({

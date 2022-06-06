@@ -7,17 +7,11 @@ export class UsersController {
   constructor(private readonly service: UsersService) {}
 
   @Post('/exists')
-  @HttpCode(204)
-  public async userNameExists(
-    @Body() { name, email }: UserExistsPayload,
+  @HttpCode(202)
+  public async exists(
+    @Body() payload: UserExistsPayload,
   ): Promise<UserExistsResult> {
-    let exists = false;
-    if (name) {
-      exists = await this.service.userNameExists(name);
-    }
-    if (email) {
-      exists = await this.service.userEmailExists(email);
-    }
+    const exists = await this.service.exists(payload);
 
     return {
       exists,

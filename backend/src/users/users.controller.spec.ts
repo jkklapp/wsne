@@ -6,10 +6,10 @@ jest.mock('./utils', () => {
   return {
     getByUserName: jest
       .fn()
-      .mockResolvedValue({ userName: 'test', email: 'test@test.com' }),
+      .mockResolvedValue({ displayName: 'test', email: 'test@test.com' }),
     getByEmail: jest
       .fn()
-      .mockResolvedValue({ userName: 'test', email: 'test@test.com' }),
+      .mockResolvedValue({ displayName: 'test', email: 'test@test.com' }),
   };
 });
 
@@ -29,11 +29,15 @@ describe('UsersController', () => {
     expect(controller).toBeDefined();
   });
 
-  describe('userNameExists', () => {
+  describe('exists', () => {
     it('should return true if userName exists', async () => {
       const name = 'test';
-      const email = 'test@email.com';
-      const result = await controller.userNameExists({ name, email });
+      const result = await controller.exists({ name });
+      expect(result).toEqual({ exists: true });
+    });
+    it('should return true if email exists', async () => {
+      const email = 'test@test.com';
+      const result = await controller.exists({ email });
       expect(result).toEqual({ exists: true });
     });
   });

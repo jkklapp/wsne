@@ -5,10 +5,10 @@ jest.mock('./utils', () => {
   return {
     getByUserName: jest
       .fn()
-      .mockResolvedValue({ userName: 'test', email: 'test@test.com' }),
+      .mockResolvedValue({ displayName: 'test', email: 'test@test.com' }),
     getByEmail: jest
       .fn()
-      .mockResolvedValue({ userName: 'test', email: 'test@test.com' }),
+      .mockResolvedValue({ displayName: 'test', email: 'test@test.com' }),
   };
 });
 
@@ -27,11 +27,17 @@ describe('UsersService', () => {
     expect(service).toBeDefined();
   });
 
-  describe('userNameExists', () => {
-    it('should return true if userName exists', async () => {
-      const userName = 'test';
+  describe('exists', () => {
+    it('should return true if user name exists', async () => {
+      const name = 'test';
 
-      const result = await service.userNameExists(userName);
+      const result = await service.exists({ name });
+      expect(result).toEqual(true);
+    });
+    it('should return true if email exists', async () => {
+      const email = 'test@test.com';
+
+      const result = await service.exists({ email });
       expect(result).toEqual(true);
     });
   });

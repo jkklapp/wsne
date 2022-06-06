@@ -7,10 +7,10 @@ jest.mock('../users/utils', () => {
   return {
     getByUserName: jest
       .fn()
-      .mockResolvedValue({ userName: 'test', email: 'test@test.com' }),
+      .mockResolvedValue({ displayName: 'test', email: 'test@test.com' }),
     getByEmail: jest
       .fn()
-      .mockResolvedValue({ userName: 'test', email: 'test@test.com' }),
+      .mockResolvedValue({ displayName: 'test', email: 'test@test.com' }),
   };
 });
 
@@ -37,13 +37,17 @@ describe('AppController (e2e)', () => {
     });
   });
   describe('/users/exists', () => {
-    describe('when doing a GET /users/exists', () => {
-      it('should return 204 and "exits": true', () => {
+    describe('when doing a POST /users/exists with name "test"', () => {
+      it('should return 202 and "exits": true', () => {
         return request(app.getHttpServer())
           .post('/users/exists')
           .send({ name: 'test' })
-          .expect(204);
+          .expect(202);
       });
     });
+  });
+
+  afterAll(async () => {
+    await app.close();
   });
 });

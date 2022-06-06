@@ -1,13 +1,21 @@
 <template>
   <div
-    class="mx-auto px-24 pt-10 pb-8 h-screen row justify-content-center bg-white border-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-100"
+    class="mx-auto px-12 md:px-24 pt-10 pb-8 h-screen row justify-content-center bg-white border-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-100"
   >
-    <h1 class="text-6xl text-center mt-12 mb-14 md:my-2">About</h1>
+    <h1 class="text-6xl text-center mt-6 mb-7 md:mt-12 md:mb-14 md:my-2">
+      About
+    </h1>
     <br />
     <br />
     <p>
-      {{ appName }} is a micro-blogging site with a focus on simplicity and
-      clean design.
+      What if you could only <strong>share 10 ideas a day</strong>? Would you
+      start typing or rather
+      <strong>take a pause and think?</strong>
+    </p>
+    <br />
+    <p>
+      {{ appName }} is a micro-blogging site with a focus on
+      <strong>self-awareness</strong> and <strong>reflection</strong>.
     </p>
     <br />
     <p>

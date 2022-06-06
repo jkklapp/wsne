@@ -68,6 +68,7 @@ export class Controller {
   ): Promise<ResolvedPostDocument> {
     const { user } = request;
     const { user_id: userId, name: userName } = user;
+
     const last24hours = Date.now() - 86400000;
     const numberPostsCreatedToday = await this.service.countAllforUserByDate(
       userId,
@@ -84,6 +85,14 @@ export class Controller {
           ' posts per day',
       );
     }
+
+    const maxMessageLength = parseInt(process.env.MAX_MESSAGE_LENGTH, 10);
+    if (post.message.length > maxMessageLength) {
+      throw new BadRequestException(
+        'Message is too long. Max length is ' + maxMessageLength,
+      );
+    }
+
     return this.service.create(post.message, userId, userName);
   }
 }

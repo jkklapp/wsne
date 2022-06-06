@@ -1,3 +1,18 @@
+# [1.19.0](https://github.com/jkklapp/wsne/compare/v1.18.2...v1.19.0) (2022-06-06)
+
+
+### Bug Fixes
+
+* correctly check for username and email collission ([4faabf8](https://github.com/jkklapp/wsne/commit/4faabf8c5d8d4346cf83d36ececfd5e2beff6bd4))
+* **Register:** email collission ([6bc23e3](https://github.com/jkklapp/wsne/commit/6bc23e32f78e1bee83c541108d33fd6d38794163))
+* work with user list correctly ([c1233f1](https://github.com/jkklapp/wsne/commit/c1233f13d0d118796182d902a23af298b8118819))
+
+
+### Features
+
+* **Register:** check username and email before creating user ([9a6ef74](https://github.com/jkklapp/wsne/commit/9a6ef748af00d300f260a5c8fbeb3b5bf821cc86))
+* **users:** add user module ([194bc78](https://github.com/jkklapp/wsne/commit/194bc783fada689cd9dcb3c6a402d9e4a1671fa4))
+
 ## [1.18.2](https://github.com/jkklapp/wsne/compare/v1.18.1...v1.18.2) (2022-06-06)
 
 

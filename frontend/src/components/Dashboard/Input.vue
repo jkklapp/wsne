@@ -72,9 +72,8 @@ export default {
           await store.dispatch('postMessage', this.message);
         } catch (err) {
           this.$root.$toast.error(err.message);
-        } finally {
-          this.message = null;
         }
+        this.message = null;
       }
     },
   },

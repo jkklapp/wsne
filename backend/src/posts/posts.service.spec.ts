@@ -1,12 +1,12 @@
 import { CollectionReference } from '@google-cloud/firestore';
 import { PostDocument } from './posts.types';
-import { Service } from './posts.service';
+import { PostsService } from './posts.service';
 
-describe('Service', () => {
+describe('PostsService', () => {
   let service;
   beforeEach(() => {
     const postsCollection: CollectionReference<PostDocument> = null;
-    service = new Service(postsCollection);
+    service = new PostsService(postsCollection);
   });
   describe('getMultiple', () => {
     let postsCollectionMock;

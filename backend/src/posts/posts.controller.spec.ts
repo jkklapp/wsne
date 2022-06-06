@@ -1,5 +1,5 @@
 import { PostsController } from './posts.controller';
-import { Service } from './posts.service';
+import { PostsService } from './posts.service';
 
 jest.mock('./utils', () => {
   return {
@@ -12,12 +12,12 @@ jest.mock('./utils', () => {
 
 describe('PostsController', () => {
   let c: PostsController;
-  let s: Service;
+  let s: PostsService;
   let old_env;
 
   beforeEach(() => {
     const collection = null;
-    s = new Service(collection);
+    s = new PostsService(collection);
     c = new PostsController(s);
     old_env = process.env;
     process.env = { MAX_NUMBER_POSTS_PER_DAY: '5', MAX_MESSAGE_LENGTH: '100' };

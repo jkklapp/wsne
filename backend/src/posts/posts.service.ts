@@ -4,8 +4,8 @@ import { CollectionReference } from '@google-cloud/firestore';
 import { PostDocument, PaginatedResults } from './posts.types';
 
 @Injectable()
-export class Service {
-  private logger: Logger = new Logger(Service.name);
+export class PostsService {
+  private logger: Logger = new Logger(PostsService.name);
 
   constructor(
     @Inject(PostDocument.collectionName)

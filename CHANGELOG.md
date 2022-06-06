@@ -1,3 +1,10 @@
+## [1.17.1](https://github.com/jkklapp/wsne/compare/v1.17.0...v1.17.1) (2022-06-06)
+
+
+### Bug Fixes
+
+* linting issues ([8a52e05](https://github.com/jkklapp/wsne/commit/8a52e058ccd338accb38a0fc04c98f7805b50572))
+
 # [1.17.0](https://github.com/jkklapp/wsne/compare/v1.16.0...v1.17.0) (2022-06-06)
 
 

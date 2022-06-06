@@ -34,7 +34,9 @@
                   type="text"
                   value
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  :class="userNameExists ? 'border-red-500' : ''"
                   placeholder="Bonnie Green"
+                  @blur.prevent="validate('name')"
                 />
               </div>
             </div>
@@ -56,9 +58,11 @@
                   type="email"
                   value
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  :class="userEmailExists ? 'border-red-500' : ''"
                   placeholder="me@email.com"
                   required
                   autofocus
+                  @blur.prevent="validate('email')"
                 />
               </div>
             </div>
@@ -157,6 +161,7 @@ import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import ToggleTheme from './NavBar/ThemeToggle.vue';
 import Email from './misc/icons/Email.vue';
 import Password from './misc/icons/Password.vue';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -181,12 +186,18 @@ export default {
           this.form.password.length === 0 ||
           this.form.confirmPassword.length === 0 ||
           this.form.acceptTermsAndConditions === false
+          // || this.userEmailExists ||
+          // this.userNameExists
         );
       },
     };
   },
   computed: {
     appName: () => process.env.VUE_APP_NAME,
+    ...mapGetters({
+      userEmailExists: 'getUserEmailExists',
+      userNameExists: 'getUserNameExists',
+    }),
   },
   methods: {
     async submit() {
@@ -199,6 +210,9 @@ export default {
         displayName: this.form.name,
       });
       this.$router.replace({ name: 'Dashboard' });
+    },
+    async validate(field) {
+      this.$store.dispatch('checkExists', { [field]: this.form.field });
     },
   },
 };

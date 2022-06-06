@@ -39,4 +39,10 @@ export default {
   IS_CREATING_POST(state, data) {
     state.creatingPost = data;
   },
+  SET_USER_EMAIL_EXISTS(state, data) {
+    state.userEmailExists = data;
+  },
+  SET_USER_NAME_EXISTS(state, data) {
+    state.userNameExists = data;
+  },
 };

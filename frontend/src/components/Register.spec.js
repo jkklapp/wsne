@@ -10,6 +10,19 @@ describe('Register', () => {
   describe('Submit button', () => {
     it('is disabled by default', () => {
       const wrapper = mount(Register, {
+        computed: {
+          appName: () => 'Fluu',
+          userEmailExists: {
+            get() {
+              return true;
+            },
+          },
+          userNameExists: {
+            get() {
+              return true;
+            },
+          },
+        },
         global: {
           stubs: ['router-link'],
         },
@@ -22,6 +35,19 @@ describe('Register', () => {
     describe('when entering all the data', () => {
       it('is enabled', async () => {
         const wrapper = mount(Register, {
+          computed: {
+            appName: () => 'Fluu',
+            userEmailExists: {
+              get() {
+                return true;
+              },
+            },
+            userNameExists: {
+              get() {
+                return true;
+              },
+            },
+          },
           global: {
             stubs: ['router-link'],
           },
@@ -78,6 +104,19 @@ describe('Register', () => {
       };
       it('calls the submit method', async () => {
         const wrapper = mount(Register, {
+          computed: {
+            appName: () => 'Fluu',
+            userEmailExists: {
+              get() {
+                return true;
+              },
+            },
+            userNameExists: {
+              get() {
+                return true;
+              },
+            },
+          },
           global: {
             stubs: ['router-link'],
             mocks: {

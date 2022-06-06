@@ -34,11 +34,13 @@
                   type="text"
                   value
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  :class="userNameExists ? 'border-red-500' : ''"
                   placeholder="Bonnie Green"
                   @blur.prevent="validate('name')"
                 />
               </div>
+              <span v-if="userNameExists" class="text-red text-xs"
+                >This username already exists</span
+              >
             </div>
             <div class="mb-6">
               <label
@@ -58,7 +60,6 @@
                   type="email"
                   value
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  :class="userEmailExists ? 'border-red-500' : ''"
                   placeholder="me@email.com"
                   required
                   autofocus
@@ -185,9 +186,9 @@ export default {
           this.form.email.length === 0 ||
           this.form.password.length === 0 ||
           this.form.confirmPassword.length === 0 ||
-          this.form.acceptTermsAndConditions === false
-          // || this.userEmailExists ||
-          // this.userNameExists
+          this.form.acceptTermsAndConditions === false ||
+          this.userEmailExists ||
+          this.userNameExists
         );
       },
     };
@@ -212,7 +213,9 @@ export default {
       this.$router.replace({ name: 'Dashboard' });
     },
     async validate(field) {
-      this.$store.dispatch('checkExists', { [field]: this.form.field });
+      if (this.form[field]) {
+        this.$store.dispatch('checkExists', { [field]: this.form[field] });
+      }
     },
   },
 };

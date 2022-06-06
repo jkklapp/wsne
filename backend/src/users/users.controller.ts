@@ -1,4 +1,4 @@
-import { Body, Controller, Get } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { UserExistsPayload, UserExistsResult } from './user.types';
 import { UsersService } from './users.service';
 
@@ -6,17 +6,18 @@ import { UsersService } from './users.service';
 export class UsersController {
   constructor(private readonly service: UsersService) {}
 
-  @Get('/exists')
+  @Post('/exists')
   public async userNameExists(
-    @Body() { userName, userEmail }: UserExistsPayload,
+    @Body() { name, email }: UserExistsPayload,
   ): Promise<UserExistsResult> {
     let exists = false;
-    if (userName) {
-      exists = await this.service.userNameExists(userName);
+    if (name) {
+      exists = await this.service.userNameExists(name);
     }
-    if (userEmail) {
-      exists = await this.service.userEmailExists(userEmail);
+    if (email) {
+      exists = await this.service.userEmailExists(email);
     }
+
     return {
       exists,
     };

@@ -31,9 +31,9 @@ describe('UsersController', () => {
 
   describe('userNameExists', () => {
     it('should return true if userName exists', async () => {
-      const userName = 'test';
-      const userEmail = 'test@email.com';
-      const result = await controller.userNameExists({ userName, userEmail });
+      const name = 'test';
+      const email = 'test@email.com';
+      const result = await controller.userNameExists({ name, email });
       expect(result).toEqual({ exists: true });
     });
   });

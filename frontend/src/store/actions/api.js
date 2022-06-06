@@ -1,12 +1,13 @@
 import axios from 'axios';
 import { getAuth } from '../../auth';
 
-export const unAuthApiRequest = async (method, url, data) => {
+export const unAuthApiRequest = async (method, endpoint, data) => {
   return await axios({
     method,
-    url,
+    url: process.env.VUE_APP_API_BASE + endpoint,
     data,
     headers: {
+      Accept: 'application/json',
       ContentType: 'application/json',
     },
   });

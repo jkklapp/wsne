@@ -1,6 +1,6 @@
 import * as firebase from 'firebase-admin';
 
-export const getByUserName = async (userName, nextPageToken = null) => {
+export const getByUserName = async (userName, nextPageToken = undefined) => {
   // List batch of users, 1000 at a time.
   return await firebase
     .auth()

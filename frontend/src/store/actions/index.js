@@ -59,7 +59,12 @@ export default {
     commit('SET_LIKING_POST', null);
   },
   async checkExists({ commit }, payload) {
-    const { data } = await unAuthApiRequest('GET', `/users/exists`, payload);
-    commit('SET_USER_EMAIL_EXISTS', data);
+    const { data } = await unAuthApiRequest('POST', `/users/exists`, payload);
+    if (payload.email) {
+      commit('SET_USER_EMAIL_EXISTS', data.exists);
+    }
+    if (payload.name) {
+      commit('SET_USER_NAME_EXISTS', data.exists);
+    }
   },
 };

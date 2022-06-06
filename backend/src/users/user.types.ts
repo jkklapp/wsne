@@ -3,6 +3,6 @@ export class UserExistsResult {
 }
 
 export class UserExistsPayload {
-  userName?: string;
-  userEmail?: string;
+  name?: string;
+  email?: string;
 }

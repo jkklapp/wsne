@@ -103,7 +103,7 @@ export class PostsController {
 
     return {
       ...newPost,
-      likes: newPost.likes.length,
+      likes: 0,
       likedByMe: false,
       userName,
     };

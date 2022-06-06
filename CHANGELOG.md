@@ -1,3 +1,18 @@
+## [1.17.1](https://github.com/jkklapp/wsne/compare/v1.17.0...v1.17.1) (2022-06-06)
+
+
+### Bug Fixes
+
+* linting issues ([8a52e05](https://github.com/jkklapp/wsne/commit/8a52e058ccd338accb38a0fc04c98f7805b50572))
+
+# [1.17.0](https://github.com/jkklapp/wsne/compare/v1.16.0...v1.17.0) (2022-06-06)
+
+
+### Features
+
+* add likes for posts ([b511117](https://github.com/jkklapp/wsne/commit/b511117433282799973165f7bc7e4abbc00a2de1))
+* **Posts:** add like feature for posts ([b761f29](https://github.com/jkklapp/wsne/commit/b761f29a23f30c4a60ed3c3834fae6528b93ce71))
+
 # [1.16.0](https://github.com/jkklapp/wsne/compare/v1.15.0...v1.16.0) (2022-06-06)
 
 

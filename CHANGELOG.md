@@ -1,3 +1,15 @@
+# [1.16.0](https://github.com/jkklapp/wsne/compare/v1.15.0...v1.16.0) (2022-06-06)
+
+
+### Bug Fixes
+
+* linting ([339ac44](https://github.com/jkklapp/wsne/commit/339ac449926ccba5df77fa661ac97ea8f3353eff))
+
+
+### Features
+
+* **Input:** show warning of input length ([2138002](https://github.com/jkklapp/wsne/commit/2138002e6ea0e6952a6d9a23a7aa41524a5ce559))
+
 # [1.15.0](https://github.com/jkklapp/wsne/compare/v1.14.0...v1.15.0) (2022-06-06)
 
 

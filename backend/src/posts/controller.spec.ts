@@ -20,7 +20,7 @@ describe('Controller', () => {
     s = new Service(collection);
     c = new Controller(s);
     old_env = process.env;
-    process.env = { MAX_NUMBER_POSTS_PER_DAY: '5' };
+    process.env = { MAX_NUMBER_POSTS_PER_DAY: '5', MAX_MESSAGE_LENGTH: '100' };
     jest.spyOn(s, 'countAllforUserByDate').mockResolvedValue(0);
   });
   afterEach(() => {
@@ -87,6 +87,17 @@ describe('Controller', () => {
         await expect(
           c.create({ user: { user_id: '1234' } }, { message: 'test' }),
         ).rejects.toThrow();
+      });
+    });
+    describe('when the message is too long', () => {
+      it('should throw an error', async () => {
+        await expect(
+          c.create(
+            { user: { user_id: '1234' } },
+            { message: 'test'.repeat(100) },
+          ),
+        ).rejects.toThrow();
+        expect(s.create).not.toHaveBeenCalled();
       });
     });
   });

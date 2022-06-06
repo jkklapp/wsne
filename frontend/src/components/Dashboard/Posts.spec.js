@@ -67,7 +67,7 @@ describe('Posts', () => {
   });
   it('will render posts', () => {
     expect(wrapper.find('small').text()).toContain('a few seconds ago');
-    expect(wrapper.find('span').text()).toContain('Hello World');
+    expect(wrapper.find('span.message').text()).toContain('Hello World');
   });
   it('will render the "Load more" button', () => {
     expect(wrapper.find('button').exists()).toBe(true);

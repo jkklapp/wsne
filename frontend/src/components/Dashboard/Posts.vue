@@ -9,8 +9,10 @@
         <div class="flex flex-wrap">
           <div>
             <small
-              >{{ p.userName }} · {{ date(p.date) }} ·
-              {{ p.likes }} likes</small
+              >{{ p.userName }} · {{ date(p.date) }}
+              <span v-show="p.likes > 0"
+                >· {{ p.likes }} like<span v-show="p.likes > 1">s</span></span
+              ></small
             >
           </div>
           <div
@@ -26,7 +28,7 @@
           </div>
         </div>
         <div>
-          <span>{{ p.message }}</span>
+          <span class="message">{{ p.message }}</span>
         </div>
         <div class="flex flex-wrap place-items-end">
           <div class="w-100 mr-auto"></div>

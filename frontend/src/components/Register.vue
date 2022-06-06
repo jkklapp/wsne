@@ -38,7 +38,9 @@
                   @blur.prevent="validate('name')"
                 />
               </div>
-              <span v-if="userNameExists" class="text-red text-xs"
+              <span
+                v-if="userNameExists"
+                class="text-red-700 dark:text-red-300 text-xs"
                 >This username already exists</span
               >
             </div>
@@ -66,6 +68,11 @@
                   @blur.prevent="validate('email')"
                 />
               </div>
+              <span
+                v-if="userEmailExists"
+                class="text-red-700 dark:text-red-300 text-xs"
+                >This email already exists</span
+              >
             </div>
             <div class="mb-6">
               <label

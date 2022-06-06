@@ -11,8 +11,7 @@ export class UsersService {
   }
 
   async userEmailExists(userEmail: string): Promise<boolean> {
-    return getByEmail(userEmail)
-      .then(() => true)
-      .catch(() => false);
+    const user = await getByEmail(userEmail);
+    return user !== null && user !== undefined;
   }
 }

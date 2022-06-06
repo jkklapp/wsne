@@ -7,7 +7,7 @@ export class UsersService {
 
   async userNameExists(userName: string): Promise<boolean> {
     const user = await getByUserName(userName);
-    return user !== null;
+    return user !== null && user !== undefined;
   }
 
   async userEmailExists(userEmail: string): Promise<boolean> {

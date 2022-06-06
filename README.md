@@ -1,4 +1,4 @@
-### WSNE
+# WSNE
 
 Micro-blogging application build in Firebase using NestJS and VueJS.
 

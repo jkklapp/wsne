@@ -26,7 +26,8 @@
         <input
           v-model="message"
           :placeholder="[[placeholder]]"
-          class="block p-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          class="block p-4 pl-10 pr-20 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          maxlength="120"
           @keyup.enter="submit"
         />
         <button
@@ -37,6 +38,14 @@
           {{ inputCtaLabel }}
         </button>
       </div>
+      <p>
+        <span
+          v-if="showWarning"
+          class="warning text-xs text-gray-500 dark:text-gray-400"
+        >
+          {{ message.length }} / 120
+        </span>
+      </p>
     </form>
   </div>
 </template>
@@ -57,7 +66,15 @@ export default {
       return `You have ${this.remainingMessages} ${process.env.VUE_APP_MESSAGE_NAME}s left today`;
     },
     isInputDisabled() {
-      return this.isPosting || this.remainingMessages === 0;
+      return (
+        this.isPosting ||
+        this.remainingMessages === 0 ||
+        this.message.length === 0 ||
+        this.message.length > 120
+      );
+    },
+    showWarning() {
+      return this.message.length > 100;
     },
     ...mapGetters({
       posts: 'getPosts',
@@ -70,10 +87,10 @@ export default {
       if (this.message && !this.isPosting) {
         try {
           await store.dispatch('postMessage', this.message);
+          this.message = '';
         } catch (err) {
           this.$root.$toast.error(err.message);
         }
-        this.message = null;
       }
     },
   },

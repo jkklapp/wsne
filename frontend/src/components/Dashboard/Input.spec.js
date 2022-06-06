@@ -13,13 +13,14 @@ const POSTS_RESPONSE_FIXTURE = [
   },
 ];
 
-const mountComponent = (isPosting = false) => {
+const mountComponent = (isPosting = false, showWarning = false) => {
   return mount(Input, {
     computed: {
       inputLabel: () => 'Fluunk',
       inputCtaLabel: () => 'Fluu',
       placeholder: () => 'You have 10 left',
       isInputDisabled: () => isPosting,
+      showWarning: () => showWarning,
       isPosting: {
         get() {
           return isPosting;
@@ -56,6 +57,23 @@ describe('Input', () => {
 
     // Assert the input value
     expect(input.element.value).toBe('Hello World!');
+  });
+  describe('when message is too long', () => {
+    it('shows a warning message', () => {
+      const wrapper = mountComponent(false, true);
+
+      // Find the input element
+      const input = wrapper.find('input');
+
+      // Set the input value
+      input.setValue(
+        'Hello World! Hello World! Hello World! Hello World!'.repeat(100),
+      );
+
+      const warning = wrapper.find('span.warning');
+
+      expect(warning.exists()).toEqual(true);
+    });
   });
   describe('submit button', () => {
     it('is not disabled', () => {

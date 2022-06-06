@@ -8,7 +8,10 @@
       >
         <div class="flex flex-wrap">
           <div>
-            <small>{{ p.userName }} · {{ date(p.date) }}</small>
+            <small
+              >{{ p.userName }} · {{ date(p.date) }} ·
+              {{ p.likes }} likes</small
+            >
           </div>
           <div
             v-if="!p.id && isPosting"
@@ -27,8 +30,7 @@
         </div>
         <div class="flex flex-wrap place-items-end">
           <div class="w-100 mr-auto"></div>
-          <span class="text-xs text-gray-400">{{ p.likes }}</span
-          ><a href="#" @click.prevent="() => toggleLike(!p.likedByMe, p)"
+          <a href="#" @click.prevent="() => toggleLike(!p.likedByMe, p)"
             ><LightBulb
               :on="p.likedByMe"
               :class-names="

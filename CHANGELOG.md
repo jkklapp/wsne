@@ -1,3 +1,17 @@
+## [1.18.1](https://github.com/jkklapp/wsne/compare/v1.18.0...v1.18.1) (2022-06-06)
+
+
+### Bug Fixes
+
+* **Readme:** use correct markup for title ([88f5284](https://github.com/jkklapp/wsne/commit/88f528406a5070ec49409221357ffdb080556664))
+
+# [1.18.0](https://github.com/jkklapp/wsne/compare/v1.17.1...v1.18.0) (2022-06-06)
+
+
+### Features
+
+* add loading status for likes ([627c8c5](https://github.com/jkklapp/wsne/commit/627c8c525d889e4e99388c9a6ba08c34566b9602))
+
 ## [1.17.1](https://github.com/jkklapp/wsne/compare/v1.17.0...v1.17.1) (2022-06-06)
 
 

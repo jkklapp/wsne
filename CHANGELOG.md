@@ -1,3 +1,10 @@
+## [1.18.2](https://github.com/jkklapp/wsne/compare/v1.18.1...v1.18.2) (2022-06-06)
+
+
+### Bug Fixes
+
+* default likes to empty list ([95b9d7f](https://github.com/jkklapp/wsne/commit/95b9d7fcc28e2df4e4a7c760417573fe977ce325))
+
 ## [1.18.1](https://github.com/jkklapp/wsne/compare/v1.18.0...v1.18.1) (2022-06-06)
 
 

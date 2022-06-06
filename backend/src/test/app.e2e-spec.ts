@@ -3,6 +3,17 @@ import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from '../app.module';
 
+jest.mock('../users/utils', () => {
+  return {
+    getByUserName: jest
+      .fn()
+      .mockResolvedValue({ userName: 'test', email: 'test@test.com' }),
+    getByEmail: jest
+      .fn()
+      .mockResolvedValue({ userName: 'test', email: 'test@test.com' }),
+  };
+});
+
 describe('AppController (e2e)', () => {
   let app: INestApplication;
 
@@ -24,24 +35,14 @@ describe('AppController (e2e)', () => {
         return request(app.getHttpServer()).get('/posts').expect(401);
       });
     });
-    xdescribe('when doing a GET /posts authorized', () => {
-      it('should return a 200 with an empty list', () => {
-        return request(app.getHttpServer())
-          .get('/posts')
-          .set('Accept', 'application/json')
-          .set('Authorization', 'Bearer token')
-          .expect(200)
-          .expect([]);
-      });
-    });
   });
   describe('/users/exists', () => {
     describe('when doing a GET /users/exists', () => {
-      it('should return 200 and "exits": false', () => {
+      it('should return 204 and "exits": true', () => {
         return request(app.getHttpServer())
-          .get('/users/exists')
-          .expect(200)
-          .expect({ exists: false });
+          .post('/users/exists')
+          .send({ name: 'test' })
+          .expect(204);
       });
     });
   });

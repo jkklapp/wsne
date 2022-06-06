@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, HttpCode, Post } from '@nestjs/common';
 import { UserExistsPayload, UserExistsResult } from './user.types';
 import { UsersService } from './users.service';
 
@@ -7,6 +7,7 @@ export class UsersController {
   constructor(private readonly service: UsersService) {}
 
   @Post('/exists')
+  @HttpCode(204)
   public async userNameExists(
     @Body() { name, email }: UserExistsPayload,
   ): Promise<UserExistsResult> {

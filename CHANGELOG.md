@@ -1,3 +1,27 @@
+# [1.16.0](https://github.com/jkklapp/wsne/compare/v1.15.0...v1.16.0) (2022-06-06)
+
+
+### Bug Fixes
+
+* linting ([339ac44](https://github.com/jkklapp/wsne/commit/339ac449926ccba5df77fa661ac97ea8f3353eff))
+
+
+### Features
+
+* **Input:** show warning of input length ([2138002](https://github.com/jkklapp/wsne/commit/2138002e6ea0e6952a6d9a23a7aa41524a5ce559))
+
+# [1.15.0](https://github.com/jkklapp/wsne/compare/v1.14.0...v1.15.0) (2022-06-06)
+
+
+### Bug Fixes
+
+* **Input:** clear input on error ([3eb8b71](https://github.com/jkklapp/wsne/commit/3eb8b7107ca87878d81da8aa89b78f5dd82786a9))
+
+
+### Features
+
+* set a maximum message length in controller ([c3843cd](https://github.com/jkklapp/wsne/commit/c3843cd00f97763e4ab623abb1e9be097b976642))
+
 # [1.14.0](https://github.com/jkklapp/wsne/compare/v1.13.0...v1.14.0) (2022-06-05)
 
 

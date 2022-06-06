@@ -26,4 +26,10 @@ export default {
   getLikingPost(state) {
     return state.likingPost;
   },
+  getUserEmailExists(state) {
+    return state.userEmailExists;
+  },
+  getUserNameExists(state) {
+    return state.userNameExists;
+  },
 };

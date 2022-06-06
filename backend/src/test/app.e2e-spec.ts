@@ -3,6 +3,17 @@ import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from '../app.module';
 
+jest.mock('../users/utils', () => {
+  return {
+    getByUserName: jest
+      .fn()
+      .mockResolvedValue({ displayName: 'test', email: 'test@test.com' }),
+    getByEmail: jest
+      .fn()
+      .mockResolvedValue({ displayName: 'test', email: 'test@test.com' }),
+  };
+});
+
 describe('AppController (e2e)', () => {
   let app: INestApplication;
 
@@ -24,15 +35,19 @@ describe('AppController (e2e)', () => {
         return request(app.getHttpServer()).get('/posts').expect(401);
       });
     });
-    xdescribe('when doing a GET /posts authorized', () => {
-      it('should return a 200 with an empty list', () => {
+  });
+  describe('/users/exists', () => {
+    describe('when doing a POST /users/exists with name "test"', () => {
+      it('should return 202 and "exits": true', () => {
         return request(app.getHttpServer())
-          .get('/posts')
-          .set('Accept', 'application/json')
-          .set('Authorization', 'Bearer token')
-          .expect(200)
-          .expect([]);
+          .post('/users/exists')
+          .send({ name: 'test' })
+          .expect(202);
       });
     });
+  });
+
+  afterAll(async () => {
+    await app.close();
   });
 });

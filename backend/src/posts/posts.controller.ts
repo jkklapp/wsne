@@ -18,13 +18,13 @@ import {
   PostDocumentResult,
   UpdatePostDocument,
 } from './posts.types';
-import { Service } from './posts.service';
+import { PostsService } from './posts.service';
 import { FirebaseAuthGuard } from '../firebase/firebase-auth.guard';
 import { getDisplayNameByUserId } from './utils';
 
 @Controller('posts')
 export class PostsController {
-  constructor(private readonly service: Service) {}
+  constructor(private readonly service: PostsService) {}
 
   @Get()
   @UseGuards(FirebaseAuthGuard)

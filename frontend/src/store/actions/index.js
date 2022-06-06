@@ -1,4 +1,4 @@
-import { apiRequest } from './api';
+import { apiRequest, unAuthApiRequest } from './api';
 
 export default {
   setUser({ commit }, user) {
@@ -57,5 +57,14 @@ export default {
       throw response.data;
     }
     commit('SET_LIKING_POST', null);
+  },
+  async checkExists({ commit }, payload) {
+    const { data } = await unAuthApiRequest('POST', `/users/exists`, payload);
+    if (payload.email) {
+      commit('SET_USER_EMAIL_EXISTS', data.exists);
+    }
+    if (payload.name) {
+      commit('SET_USER_NAME_EXISTS', data.exists);
+    }
   },
 };

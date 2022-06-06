@@ -1,7 +1,7 @@
 import {
   BadRequestException,
   Body,
-  Controller as BaseController,
+  Controller,
   Get,
   HttpCode,
   Param,
@@ -17,13 +17,13 @@ import {
   NewPostDocument,
   PostDocumentResult,
   UpdatePostDocument,
-} from './document';
-import { Service } from './service';
+} from './posts.types';
+import { Service } from './posts.service';
 import { FirebaseAuthGuard } from '../firebase/firebase-auth.guard';
 import { getDisplayNameByUserId } from './utils';
 
-@BaseController('posts')
-export class Controller {
+@Controller('posts')
+export class PostsController {
   constructor(private readonly service: Service) {}
 
   @Get()

@@ -1,5 +1,5 @@
-import { Controller } from './controller';
-import { Service } from './service';
+import { PostsController } from './posts.controller';
+import { Service } from './posts.service';
 
 jest.mock('./utils', () => {
   return {
@@ -10,15 +10,15 @@ jest.mock('./utils', () => {
   };
 });
 
-describe('Controller', () => {
-  let c: Controller;
+describe('PostsController', () => {
+  let c: PostsController;
   let s: Service;
   let old_env;
 
   beforeEach(() => {
     const collection = null;
     s = new Service(collection);
-    c = new Controller(s);
+    c = new PostsController(s);
     old_env = process.env;
     process.env = { MAX_NUMBER_POSTS_PER_DAY: '5', MAX_MESSAGE_LENGTH: '100' };
     jest.spyOn(s, 'countAllforUserByDate').mockResolvedValue(0);

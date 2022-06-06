@@ -1,6 +1,6 @@
 import { CollectionReference } from '@google-cloud/firestore';
-import { PostDocument } from './document';
-import { Service } from './service';
+import { PostDocument } from './posts.types';
+import { Service } from './posts.service';
 
 describe('Service', () => {
   let service;

@@ -1,3 +1,10 @@
+## [1.18.1](https://github.com/jkklapp/wsne/compare/v1.18.0...v1.18.1) (2022-06-06)
+
+
+### Bug Fixes
+
+* **Readme:** use correct markup for title ([88f5284](https://github.com/jkklapp/wsne/commit/88f528406a5070ec49409221357ffdb080556664))
+
 # [1.18.0](https://github.com/jkklapp/wsne/compare/v1.17.1...v1.18.0) (2022-06-06)
 
 

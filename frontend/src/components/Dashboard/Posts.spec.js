@@ -25,7 +25,10 @@ describe('Posts', () => {
       VUE_APP_INPUT_CTA_LABEL: 'Fluu',
     };
     getAuth.mockReturnValue({
-      onAuthStateChanged: jest.fn(() => ({ email: 'test' })),
+      onAuthStateChanged: jest.fn(() => ({
+        email: 'test',
+        displayName: 'John Doe',
+      })),
     });
     apiRequest.mockResolvedValueOnce({ data: POSTS_RESPONSE_FIXTURE });
     wrapper = mount(Posts, {

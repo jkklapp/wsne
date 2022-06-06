@@ -101,4 +101,25 @@ describe('Controller', () => {
       });
     });
   });
+  describe('update', () => {
+    beforeEach(() => {
+      jest.spyOn(s, 'get').mockResolvedValue({
+        message: 'test',
+        date: 100000,
+        userId: '1234',
+        likes: ['1234'],
+      });
+      jest.spyOn(s, 'exists').mockResolvedValue(true);
+      s.toggleLike = jest.fn();
+    });
+    it('should add a like in the doc', async () => {
+      expect(await c.update({ user: { user_id: '1234' } }, '1')).toEqual({
+        message: 'test',
+        date: 100000,
+        userId: '1234',
+        userName: 'Jane Doe',
+        likes: ['1234'],
+      });
+    });
+  });
 });

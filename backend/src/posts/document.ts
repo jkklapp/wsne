@@ -9,6 +9,7 @@ export class PostDocument extends NewPostDocument {
   date: number;
   userId: string;
   id?: string;
+  likes?: string[];
 }
 
 export class PaginatedResults {

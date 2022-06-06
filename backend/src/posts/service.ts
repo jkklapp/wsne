@@ -16,6 +16,45 @@ export class Service {
     private postsCollection: CollectionReference<PostDocument>,
   ) {}
 
+  async exists(id: string): Promise<boolean> {
+    return this.postsCollection
+      .doc(id)
+      .get()
+      .then((postDoc) => {
+        return postDoc.exists;
+      });
+  }
+
+  async toggleLike(id: string, userId: string) {
+    const docRef = this.postsCollection.doc(id);
+    return docRef.get().then((postDoc) => {
+      const post = postDoc.data();
+      const likes = post.likes || [];
+      const likeIndex = likes.indexOf(userId);
+      if (likeIndex === -1) {
+        likes.push(userId);
+      } else {
+        likes.splice(likeIndex, 1);
+      }
+      return docRef.update({ likes });
+    });
+  }
+
+  async get(id: string): Promise<PostDocument> {
+    return this.postsCollection
+      .doc(id)
+      .get()
+      .then((postDoc) => {
+        const docId = postDoc.id;
+        const post = postDoc.data();
+
+        return {
+          ...post,
+          id: docId,
+        };
+      });
+  }
+
   async getMultiple(
     limit: number,
     startAfter?: string | undefined,

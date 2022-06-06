@@ -3,8 +3,10 @@ import {
   Body,
   Controller as BaseController,
   Get,
+  Param,
   ParseIntPipe,
   Post,
+  Put,
   Query,
   Req,
   UseGuards,
@@ -94,5 +96,31 @@ export class Controller {
     }
 
     return this.service.create(post.message, userId, userName);
+  }
+
+  @Put('/:id')
+  @UseGuards(FirebaseAuthGuard)
+  public async update(
+    @Req() request: any,
+    @Param('id') id: string,
+  ): Promise<ResolvedPostDocument> {
+    const { user } = request;
+    const { user_id: userId } = user;
+
+    const exists = await this.service.exists(id);
+    if (!exists) {
+      throw new BadRequestException('Post not found');
+    }
+
+    await this.service.toggleLike(id, userId);
+
+    const post = await this.service.get(id);
+
+    const userName = await getDisplayNameByUserId(post.userId);
+
+    return {
+      ...post,
+      userName,
+    };
   }
 }

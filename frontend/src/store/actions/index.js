@@ -41,4 +41,18 @@ export default {
     }
     commit('IS_CREATING_POST', false);
   },
+  async toggleLike({ commit }, { post, like }) {
+    try {
+      await apiRequest('PUT', `/posts/${post.id}`, null, {
+        like,
+      });
+      commit('SET_POST_BY_ID', {
+        ...post,
+        likes: like ? post.likes + 1 : post.likes - 1,
+        likedByMe: like,
+      });
+    } catch ({ response }) {
+      throw response.data;
+    }
+  },
 };

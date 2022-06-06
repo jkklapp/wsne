@@ -8,7 +8,10 @@
       >
         <div class="flex flex-wrap">
           <div>
-            <small>{{ p.userName }} - {{ date(p.date) }}</small>
+            <small
+              >{{ p.userName }} · {{ date(p.date) }} ·
+              {{ p.likes }} likes</small
+            >
           </div>
           <div
             v-if="!p.id && isPosting"
@@ -24,6 +27,18 @@
         </div>
         <div>
           <span>{{ p.message }}</span>
+        </div>
+        <div class="flex flex-wrap place-items-end">
+          <div class="w-100 mr-auto"></div>
+          <a href="#" @click.prevent="() => toggleLike(!p.likedByMe, p)"
+            ><LightBulb
+              :on="p.likedByMe"
+              :class-names="
+                p.likedByMe
+                  ? 'fill-blue-700 dark:fill-gray-200 w-3 h-3'
+                  : 'fill-gray-300 dark:fill-gray-400 w-3 h-3'
+              "
+          /></a>
         </div>
       </div>
       <div class="grid flex-wrap place-items-center">
@@ -56,8 +71,12 @@
 <script>
 import { mapGetters } from 'vuex';
 import moment from 'moment';
+import LightBulb from '../misc/icons/LightBulb';
 
 export default {
+  components: {
+    LightBulb,
+  },
   computed: {
     ...mapGetters({
       posts: 'getPosts',
@@ -77,6 +96,9 @@ export default {
     reset() {
       this.$store.dispatch('resetPostsPagination');
       this.fetchPosts();
+    },
+    toggleLike(like, post) {
+      this.$store.dispatch('toggleLike', { post, like });
     },
   },
 };

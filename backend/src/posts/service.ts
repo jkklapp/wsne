@@ -16,6 +16,42 @@ export class Service {
     private postsCollection: CollectionReference<PostDocument>,
   ) {}
 
+  async exists(id: string): Promise<boolean> {
+    return this.postsCollection
+      .doc(id)
+      .get()
+      .then((postDoc) => {
+        return postDoc.exists;
+      });
+  }
+
+  async toggleLike(id: string, userId: string, like: boolean) {
+    const docRef = this.postsCollection.doc(id);
+    return docRef.get().then((postDoc) => {
+      const post = postDoc.data();
+      const likes = post.likes || [];
+      const newLikes = like
+        ? [...likes, userId]
+        : likes.filter((l) => l !== userId);
+      return docRef.update({ likes: newLikes });
+    });
+  }
+
+  async get(id: string): Promise<PostDocument> {
+    return this.postsCollection
+      .doc(id)
+      .get()
+      .then((postDoc) => {
+        const docId = postDoc.id;
+        const post = postDoc.data();
+
+        return {
+          ...post,
+          id: docId,
+        };
+      });
+  }
+
   async getMultiple(
     limit: number,
     startAfter?: string | undefined,
@@ -51,11 +87,7 @@ export class Service {
       .then((snapshot) => snapshot.size);
   }
 
-  async create(
-    message: string,
-    userId: string,
-    userName: string,
-  ): Promise<ResolvedPostDocument> {
+  async create(message: string, userId: string): Promise<PostDocument> {
     const t = dayjs(new Date()).valueOf();
     const docRef = this.postsCollection.doc(t.toString());
     await docRef.set({
@@ -71,7 +103,6 @@ export class Service {
       return {
         ...post,
         id: docId,
-        userName,
       };
     });
   }

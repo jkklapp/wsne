@@ -3,8 +3,11 @@ import {
   Body,
   Controller as BaseController,
   Get,
+  HttpCode,
+  Param,
   ParseIntPipe,
   Post,
+  Put,
   Query,
   Req,
   UseGuards,
@@ -13,6 +16,7 @@ import {
   ResolvedPostDocument,
   NewPostDocument,
   PostDocumentResult,
+  UpdatePostDocument,
 } from './document';
 import { Service } from './service';
 import { FirebaseAuthGuard } from '../firebase/firebase-auth.guard';
@@ -29,6 +33,8 @@ export class Controller {
     @Query('limit', ParseIntPipe) limit: number,
     @Query('startAfter') startAfter?: string,
   ): Promise<PostDocumentResult> {
+    const { user } = request;
+    const { user_id: userId } = user;
     const { results, nextPageToken } = await this.service.getMultiple(
       limit,
       startAfter,
@@ -37,12 +43,12 @@ export class Controller {
     for (const p in results) {
       resolvedPosts.push({
         ...results[p],
+        likes: (results[p].likes || []).length,
+        likedByMe: (results[p].likes || []).includes(userId),
         userName: await getDisplayNameByUserId(results[p].userId),
       });
     }
 
-    const { user } = request;
-    const { user_id: userId } = user;
     const last24hours = Date.now() - 86400000;
     const numberPostsCreatedToday = await this.service.countAllforUserByDate(
       userId,
@@ -93,6 +99,44 @@ export class Controller {
       );
     }
 
-    return this.service.create(post.message, userId, userName);
+    const newPost = await this.service.create(post.message, userId);
+
+    return {
+      ...newPost,
+      likes: newPost.likes.length,
+      likedByMe: false,
+      userName,
+    };
+  }
+
+  @Put('/:id')
+  @HttpCode(202)
+  @UseGuards(FirebaseAuthGuard)
+  public async update(
+    @Req() request: any,
+    @Param('id') id: string,
+    @Body() payload: UpdatePostDocument,
+  ): Promise<ResolvedPostDocument> {
+    const { user } = request;
+    const { user_id: userId } = user;
+
+    const exists = await this.service.exists(id);
+    if (!exists) {
+      throw new BadRequestException('Post not found');
+    }
+
+    const { like: likedByMe } = payload;
+    await this.service.toggleLike(id, userId, likedByMe);
+
+    const post = await this.service.get(id);
+
+    const userName = await getDisplayNameByUserId(post.userId);
+
+    return {
+      ...post,
+      userName,
+      likes: post.likes.length,
+      likedByMe,
+    };
   }
 }

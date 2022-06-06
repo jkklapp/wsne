@@ -35,6 +35,7 @@ describe('Controller', () => {
             message: 'test',
             date: 100000,
             userId: '1234',
+            likes: [],
           },
         ],
         remainingMessages: 10,
@@ -55,6 +56,8 @@ describe('Controller', () => {
             message: 'test',
             userId: '1234',
             userName: 'John Doe',
+            likes: 0,
+            likedByMe: false,
           },
         ],
       });
@@ -66,17 +69,22 @@ describe('Controller', () => {
         message: 'test',
         date: 100000,
         userId: '1234',
-        userName: 'Test',
+        likes: [],
       });
     });
     it('should return a new post', async () => {
       expect(
-        await c.create({ user: { user_id: '1234' } }, { message: 'test' }),
+        await c.create(
+          { user: { user_id: '1234', name: 'Test' } },
+          { message: 'test' },
+        ),
       ).toEqual({
         message: 'test',
         date: 100000,
         userId: '1234',
         userName: 'Test',
+        likes: 0,
+        likedByMe: false,
       });
     });
     describe('when the user has reached the max number of posts per day', () => {
@@ -98,6 +106,30 @@ describe('Controller', () => {
           ),
         ).rejects.toThrow();
         expect(s.create).not.toHaveBeenCalled();
+      });
+    });
+  });
+  describe('update', () => {
+    beforeEach(() => {
+      jest.spyOn(s, 'get').mockResolvedValue({
+        message: 'test',
+        date: 100000,
+        userId: '1234',
+        likes: ['1234'],
+      });
+      jest.spyOn(s, 'exists').mockResolvedValue(true);
+      s.toggleLike = jest.fn();
+    });
+    it('should add a like in the doc', async () => {
+      expect(
+        await c.update({ user: { user_id: '1234' } }, '1', { like: true }),
+      ).toEqual({
+        message: 'test',
+        date: 100000,
+        userId: '1234',
+        userName: 'Jane Doe',
+        likes: 1,
+        likedByMe: true,
       });
     });
   });

@@ -23,4 +23,7 @@ export default {
   getRemainingMessages(state) {
     return state.remainingMessages;
   },
+  getLikingPost(state) {
+    return state.likingPost;
+  },
 };

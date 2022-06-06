@@ -30,7 +30,10 @@
         </div>
         <div class="flex flex-wrap place-items-end">
           <div class="w-100 mr-auto"></div>
-          <a href="#" @click.prevent="() => toggleLike(!p.likedByMe, p)"
+          <a
+            v-show="likingPost != p.id"
+            href="#"
+            @click.prevent="() => toggleLike(!p.likedByMe, p)"
             ><LightBulb
               :on="p.likedByMe"
               :class-names="
@@ -39,6 +42,15 @@
                   : 'fill-gray-300 dark:fill-gray-400 w-3 h-3'
               "
           /></a>
+          <div
+            v-show="likingPost == p.id"
+            class="lds-ring-small align-text-bottom"
+          >
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
         </div>
       </div>
       <div class="grid flex-wrap place-items-center">
@@ -84,6 +96,7 @@ export default {
       renderLoadMoreButton: 'shouldRenderLoadMoreButton',
       isLoading: 'isLoadingPosts',
       isPosting: 'isCreatingPost',
+      likingPost: 'getLikingPost',
     }),
   },
   methods: {

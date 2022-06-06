@@ -1,11 +1,7 @@
 import { Injectable, Inject, Logger } from '@nestjs/common';
 import * as dayjs from 'dayjs';
 import { CollectionReference } from '@google-cloud/firestore';
-import {
-  PostDocument,
-  PaginatedResults,
-  ResolvedPostDocument,
-} from './document';
+import { PostDocument, PaginatedResults } from './document';
 
 @Injectable()
 export class Service {

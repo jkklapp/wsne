@@ -35,4 +35,14 @@ describe('AppController (e2e)', () => {
       });
     });
   });
+  describe('/users/exists', () => {
+    describe('when doing a GET /users/exists', () => {
+      it('should return 200 and "exits": false', () => {
+        return request(app.getHttpServer())
+          .get('/users/exists')
+          .expect(200)
+          .expect({ exists: false });
+      });
+    });
+  });
 });

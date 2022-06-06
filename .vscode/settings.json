@@ -8,5 +8,8 @@
   ],
   "eslint.options": {
     "extensions": [".js", ".vue"]
-  }
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
 }

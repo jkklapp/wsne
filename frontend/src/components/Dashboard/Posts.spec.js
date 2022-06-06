@@ -53,6 +53,11 @@ describe('Posts', () => {
             return false;
           },
         },
+        likingPost: {
+          get() {
+            return null;
+          },
+        },
       },
     });
   });

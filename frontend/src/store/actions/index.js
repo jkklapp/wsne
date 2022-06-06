@@ -42,17 +42,20 @@ export default {
     commit('IS_CREATING_POST', false);
   },
   async toggleLike({ commit }, { post, like }) {
+    commit('SET_LIKING_POST', post.id);
+    commit('SET_POST_BY_ID', {
+      ...post,
+      likes: like ? post.likes + 1 : post.likes - 1,
+      likedByMe: like,
+    });
     try {
       await apiRequest('PUT', `/posts/${post.id}`, null, {
         like,
       });
-      commit('SET_POST_BY_ID', {
-        ...post,
-        likes: like ? post.likes + 1 : post.likes - 1,
-        likedByMe: like,
-      });
     } catch ({ response }) {
+      commit('SET_POST_BY_ID', post);
       throw response.data;
     }
+    commit('SET_LIKING_POST', null);
   },
 };

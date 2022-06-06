@@ -15,6 +15,7 @@ const store = createStore({
     creatingPost: false,
     loggedIn: false,
     remainingMessages: 0,
+    likingPost: null,
   },
   getters,
   mutations,

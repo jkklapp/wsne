@@ -12,6 +12,9 @@ export default {
     const index = state.posts.findIndex((post) => post.id === data.id);
     state.posts.splice(index, 1, data);
   },
+  SET_LIKING_POST(state, data) {
+    state.likingPost = data;
+  },
   SET_START_AFTER(state, data) {
     state.startAfter = data;
   },

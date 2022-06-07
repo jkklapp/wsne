@@ -1,3 +1,10 @@
+# [1.21.0](https://github.com/jkklapp/wsne/compare/v1.20.2...v1.21.0) (2022-06-07)
+
+
+### Features
+
+* **Register:** add loading spinner ([322e002](https://github.com/jkklapp/wsne/commit/322e002b390d6aa7cb81c5e7f42148e19f320792))
+
 ## [1.20.2](https://github.com/jkklapp/wsne/compare/v1.20.1...v1.20.2) (2022-06-07)
 
 

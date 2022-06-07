@@ -8,7 +8,7 @@
       >
         <div class="flex flex-wrap">
           <div>
-            <small
+            <small class="text-gray-500 dark:text-gray-400"
               >{{ p.userName }} · {{ date(p.date) }}
               <span v-show="p.likes > 0"
                 >· {{ p.likes }} like<span v-show="p.likes > 1">s</span></span
@@ -17,7 +17,7 @@
           </div>
           <div
             v-if="!p.id && isPosting"
-            class="w-90 md:w-100 place-items-center"
+            class="xs:w-90 w-100 place-items-center"
           >
             <div class="lds-ring-small align-text-top">
               <div></div>
@@ -40,8 +40,8 @@
               :on="p.likedByMe"
               :class-names="
                 p.likedByMe
-                  ? 'fill-blue-700 dark:fill-gray-200 w-3 h-3'
-                  : 'fill-gray-300 dark:fill-gray-400 w-3 h-3'
+                  ? 'fill-blue-700 dark:fill-gray-200 w-5 h-5'
+                  : 'fill-gray-300 dark:fill-gray-400 w-5 h-5'
               "
           /></a>
           <div

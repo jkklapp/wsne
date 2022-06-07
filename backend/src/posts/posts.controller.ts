@@ -73,17 +73,20 @@ export class PostsController {
     @Body() post: NewPostDocument,
   ): Promise<ResolvedPostDocument> {
     const { user } = request;
-    const { user_id: userId, name: userName } = user;
+    const {
+      user_id: userId,
+      name: userName,
+      email_verified: emailVerified,
+    } = user;
 
     const last24hours = Date.now() - 86400000;
     const numberPostsCreatedToday = await this.service.countAllforUserByDate(
       userId,
       last24hours,
     );
-    const maxNumberPostsPerDay = parseInt(
-      process.env.MAX_NUMBER_POSTS_PER_DAY,
-      10,
-    );
+    const maxNumberPostsPerDay = emailVerified
+      ? parseInt(process.env.MAX_NUMBER_POSTS_PER_DAY, 10)
+      : 1;
     if (numberPostsCreatedToday >= maxNumberPostsPerDay) {
       throw new BadRequestException(
         'You have reached the limit of ' +

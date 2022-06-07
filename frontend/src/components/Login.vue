@@ -1,7 +1,6 @@
 <template>
   <div>
-    <ToggleTheme style="position: absolute; top: 10px; right: 10px" />
-    <div class="h-screen grid md:place-items-center">
+    <div class="grid md:place-items-center">
       <div>
         <h1 class="text-6xl text-center mt-12 mb-4 md:my-2">
           <span class="text-gray-700 dark:text-gray-100">
@@ -68,12 +67,6 @@
                 Login
               </button>
               <div class="mb-2 md:mx-14"></div>
-              <router-link
-                to="register"
-                class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-blue-800"
-              >
-                Register</router-link
-              >
             </div>
           </form>
         </div>
@@ -85,13 +78,11 @@
 <script>
 import { getAuth } from '../auth';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import ToggleTheme from './NavBar/ThemeToggle.vue';
 import Email from './misc/icons/Email.vue';
 import Password from './misc/icons/Password.vue';
 
 export default {
   components: {
-    ToggleTheme,
     Email,
     Password,
   },

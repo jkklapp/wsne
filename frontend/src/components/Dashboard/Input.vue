@@ -3,11 +3,15 @@
     class="relative bg-white border-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100 px-6 pt-10 pb-8 mb-2 ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg sm:rounded-lg sm:px-10"
   >
     <form>
-      <label
-        for="default-search"
-        class="shadow-xl mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300"
-        >{{ inputLabel }}</label
-      >
+      <p>
+        <span
+          v-if="!user.emailVerified"
+          class="text-red-700 dark:text-red-300 text-xs"
+        >
+          You need to verify your email address to access the fully-featured
+          Fluunker.
+        </span>
+      </p>
       <div class="relative">
         <div
           class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none"
@@ -63,12 +67,12 @@ export default {
     inputLabel: () => process.env.VUE_APP_INPUT_LABEL,
     inputCtaLabel: () => process.env.VUE_APP_INPUT_CTA_LABEL,
     placeholder() {
-      return `You have ${this.remainingMessages} ${process.env.VUE_APP_MESSAGE_NAME}s left today`;
+      return `You have ${this.remainingMessagesForUser} ${process.env.VUE_APP_MESSAGE_NAME}s left today`;
     },
     isInputDisabled() {
       return (
         this.isPosting ||
-        this.remainingMessages === 0 ||
+        this.remainingMessagesForUser === 0 ||
         this.message.length === 0 ||
         this.message.length > 120
       );
@@ -76,7 +80,13 @@ export default {
     showWarning() {
       return this.message.length > 100;
     },
+    remainingMessagesForUser() {
+      return this.user.emailVerified
+        ? this.remainingMessages
+        : parseInt(this.remainingMessages / 10, 10);
+    },
     ...mapGetters({
+      user: 'user',
       posts: 'getPosts',
       isPosting: 'isCreatingPost',
       remainingMessages: 'getRemainingMessages',

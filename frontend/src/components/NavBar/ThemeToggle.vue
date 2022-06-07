@@ -18,7 +18,7 @@
     </svg>
     <svg
       id="theme-toggle-light-icon"
-      class="w-5 h-5"
+      class="hidden w-5 h-5"
       fill="currentColor"
       viewBox="0 0 20 20"
       xmlns="http://www.w3.org/2000/svg"
@@ -33,6 +33,24 @@
 </template>
 <script>
 export default {
+  mounted() {
+    const themeToggleDarkIcon = document.getElementById(
+      'theme-toggle-dark-icon',
+    );
+    const themeToggleLightIcon = document.getElementById(
+      'theme-toggle-light-icon',
+    );
+    // Change the icons inside the button based on previous settings
+    if (
+      localStorage.getItem('color-theme') === 'dark' ||
+      (!('color-theme' in localStorage) &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches)
+    ) {
+      themeToggleLightIcon && themeToggleLightIcon.classList.remove('hidden');
+    } else {
+      themeToggleDarkIcon && themeToggleDarkIcon.classList.remove('hidden');
+    }
+  },
   methods: {
     toggleTheme() {
       const themeToggleDarkIcon = document.getElementById(
@@ -41,16 +59,6 @@ export default {
       const themeToggleLightIcon = document.getElementById(
         'theme-toggle-light-icon',
       );
-      // Change the icons inside the button based on previous settings
-      if (
-        localStorage.getItem('color-theme') === 'dark' ||
-        (!('color-theme' in localStorage) &&
-          window.matchMedia('(prefers-color-scheme: dark)').matches)
-      ) {
-        themeToggleLightIcon && themeToggleLightIcon.classList.remove('hidden');
-      } else {
-        themeToggleDarkIcon && themeToggleDarkIcon.classList.remove('hidden');
-      }
       // toggle icons inside button
       themeToggleDarkIcon.classList.toggle('hidden');
       themeToggleLightIcon.classList.toggle('hidden');
@@ -64,7 +72,6 @@ export default {
           document.documentElement.classList.remove('dark');
           localStorage.setItem('color-theme', 'light');
         }
-
         // if NOT set via local storage previously
       } else {
         if (document.documentElement.classList.contains('dark')) {

@@ -1,3 +1,39 @@
+# [1.20.0](https://github.com/jkklapp/wsne/compare/v1.19.0...v1.20.0) (2022-06-07)
+
+
+### Bug Fixes
+
+* parse correct boolean for verification ([b36e5a2](https://github.com/jkklapp/wsne/commit/b36e5a2825fa780754a00a92519443f99cb7aca7))
+* parse correct boolean for verification ([df0ded5](https://github.com/jkklapp/wsne/commit/df0ded5c45627ed222b6ebff5344fd5190a04b7b))
+* **users:** handle empty user base ([6dd73e4](https://github.com/jkklapp/wsne/commit/6dd73e4a4199a913cc580724fa98b38789f3f122))
+
+
+### Features
+
+* **Register:** implement email verification on register ([1c7e8f8](https://github.com/jkklapp/wsne/commit/1c7e8f845f1325612e57693c28aa86a2a656e19b))
+
+# [1.19.0](https://github.com/jkklapp/wsne/compare/v1.18.2...v1.19.0) (2022-06-06)
+
+
+### Bug Fixes
+
+* correctly check for username and email collission ([4faabf8](https://github.com/jkklapp/wsne/commit/4faabf8c5d8d4346cf83d36ececfd5e2beff6bd4))
+* **Register:** email collission ([6bc23e3](https://github.com/jkklapp/wsne/commit/6bc23e32f78e1bee83c541108d33fd6d38794163))
+* work with user list correctly ([c1233f1](https://github.com/jkklapp/wsne/commit/c1233f13d0d118796182d902a23af298b8118819))
+
+
+### Features
+
+* **Register:** check username and email before creating user ([9a6ef74](https://github.com/jkklapp/wsne/commit/9a6ef748af00d300f260a5c8fbeb3b5bf821cc86))
+* **users:** add user module ([194bc78](https://github.com/jkklapp/wsne/commit/194bc783fada689cd9dcb3c6a402d9e4a1671fa4))
+
+## [1.18.2](https://github.com/jkklapp/wsne/compare/v1.18.1...v1.18.2) (2022-06-06)
+
+
+### Bug Fixes
+
+* default likes to empty list ([95b9d7f](https://github.com/jkklapp/wsne/commit/95b9d7fcc28e2df4e4a7c760417573fe977ce325))
+
 ## [1.18.1](https://github.com/jkklapp/wsne/compare/v1.18.0...v1.18.1) (2022-06-06)
 
 

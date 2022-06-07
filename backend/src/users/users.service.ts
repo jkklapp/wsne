@@ -8,8 +8,9 @@ export class UsersService {
 
   async exists({ name, email }: UserExistsPayload): Promise<boolean> {
     if (email) {
-      const user = await getByEmail(email);
-      return user !== null && user !== undefined && user.email == email;
+      return getByEmail(email)
+        .then(() => true)
+        .catch(() => false);
     } else if (name) {
       const user = await getByUserName(name);
       return user !== null && user !== undefined && user.displayName == name;

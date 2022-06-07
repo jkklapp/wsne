@@ -39,12 +39,12 @@ describe('Register', () => {
             appName: () => 'Fluu',
             userEmailExists: {
               get() {
-                return true;
+                return false;
               },
             },
             userNameExists: {
               get() {
-                return true;
+                return false;
               },
             },
           },
@@ -65,7 +65,7 @@ describe('Register', () => {
         await confirm.setValue('password');
         await acceptTerms.setChecked(true);
 
-        const button = wrapper.find('button');
+        const button = wrapper.find('button[type="submit"]');
         expect(button.element.disabled).toEqual(false);
       });
     });

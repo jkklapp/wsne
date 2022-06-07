@@ -26,6 +26,11 @@ const mountComponent = (isPosting = false, showWarning = false) => {
           return isPosting;
         },
       },
+      user: {
+        get() {
+          return { verified: true };
+        },
+      },
     },
   });
 };

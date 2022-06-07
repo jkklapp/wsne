@@ -163,7 +163,11 @@
 
 <script>
 import { getAuth } from '../auth';
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import {
+  createUserWithEmailAndPassword,
+  updateProfile,
+  sendEmailVerification,
+} from 'firebase/auth';
 import Email from './misc/icons/Email.vue';
 import Password from './misc/icons/Password.vue';
 import { mapGetters } from 'vuex';
@@ -214,6 +218,7 @@ export default {
         displayName: this.form.name,
       });
       this.$router.replace({ name: 'Dashboard' });
+      await sendEmailVerification(user);
     },
     async validate(field) {
       if (this.form[field]) {

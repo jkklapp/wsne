@@ -36,11 +36,25 @@
                   @blur.prevent="validate('name')"
                 />
               </div>
-              <span
-                v-if="userNameExists"
-                class="text-red-700 dark:text-red-300 text-xs"
-                >This username already exists</span
-              >
+              <div class="flex place-items-stretch">
+                <span
+                  v-show="userNameExists"
+                  class="text-red-700 dark:text-red-300 text-xs"
+                  >This username already exists</span
+                >
+                <div class="m-auto"></div>
+                <div
+                  v-show="isCheckingName"
+                  class="loading-spinner xs:w-90 w-100"
+                >
+                  <div class="lds-ring-small align-text-top">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="mb-6">
               <label
@@ -66,11 +80,25 @@
                   @blur.prevent="validate('email')"
                 />
               </div>
-              <span
-                v-if="userEmailExists"
-                class="text-red-700 dark:text-red-300 text-xs"
-                >This email already exists</span
-              >
+              <div class="flex place-items-stretch">
+                <span
+                  v-if="userEmailExists"
+                  class="text-red-700 dark:text-red-300 text-xs"
+                  >This email already exists</span
+                >
+                <div class="m-auto"></div>
+                <div
+                  v-show="isCheckingName"
+                  class="loading-spinner xs:w-90 w-100"
+                >
+                  <div class="lds-ring-small align-text-top">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="mb-6">
               <label
@@ -186,7 +214,6 @@ export default {
         confirmPassword: '',
         acceptTermsAndConditions: false,
       },
-      error: null,
       formIsDisabled: () => {
         return (
           this.form.name.length === 0 ||
@@ -205,6 +232,8 @@ export default {
     ...mapGetters({
       userEmailExists: 'getUserEmailExists',
       userNameExists: 'getUserNameExists',
+      isCheckingEmail: 'getIsCheckingEmail',
+      isCheckingName: 'getIsCheckingName',
     }),
   },
   methods: {

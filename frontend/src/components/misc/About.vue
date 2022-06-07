@@ -21,6 +21,11 @@
         </p>
         <br />
         <p>
+          Therefore, in {{ appName }}
+          <strong>only 10 messages can be created a day.</strong>
+        </p>
+        <br />
+        <p>
           I created {{ appName }} as a side project to learn
           <strong>Firebase</strong> and <strong>NestJS</strong> in the backend,
           and <strong>VueJS</strong> and <strong>VueX</strong> in the frontend.

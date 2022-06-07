@@ -1,7 +1,5 @@
 <template>
   <div>
-    <ToggleTheme style="position: absolute; top: 10px; right: 10px" />
-
     <div class="h-screen grid md:place-items-center">
       <div>
         <h1 class="text-6xl text-center mt-12 mb-4 md:my-2">
@@ -166,14 +164,12 @@
 <script>
 import { getAuth } from '../auth';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import ToggleTheme from './NavBar/ThemeToggle.vue';
 import Email from './misc/icons/Email.vue';
 import Password from './misc/icons/Password.vue';
 import { mapGetters } from 'vuex';
 
 export default {
   components: {
-    ToggleTheme,
     Email,
     Password,
   },

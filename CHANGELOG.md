@@ -1,3 +1,10 @@
+## [1.20.2](https://github.com/jkklapp/wsne/compare/v1.20.1...v1.20.2) (2022-06-07)
+
+
+### Bug Fixes
+
+* loading theme button in light mode ([6779a4a](https://github.com/jkklapp/wsne/commit/6779a4a91cbb717a7d34f34830e3cd3310814dcc))
+
 ## [1.20.1](https://github.com/jkklapp/wsne/compare/v1.20.0...v1.20.1) (2022-06-07)
 
 

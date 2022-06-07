@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen grid md:place-items-center">
+  <div class="grid md:place-items-center">
     <div>
       <h1 class="text-6xl text-center mt-12 mb-4 md:my-2">
         <span class="text-gray-700 dark:text-gray-100">

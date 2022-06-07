@@ -1,3 +1,17 @@
+# [1.20.0](https://github.com/jkklapp/wsne/compare/v1.19.0...v1.20.0) (2022-06-07)
+
+
+### Bug Fixes
+
+* parse correct boolean for verification ([b36e5a2](https://github.com/jkklapp/wsne/commit/b36e5a2825fa780754a00a92519443f99cb7aca7))
+* parse correct boolean for verification ([df0ded5](https://github.com/jkklapp/wsne/commit/df0ded5c45627ed222b6ebff5344fd5190a04b7b))
+* **users:** handle empty user base ([6dd73e4](https://github.com/jkklapp/wsne/commit/6dd73e4a4199a913cc580724fa98b38789f3f122))
+
+
+### Features
+
+* **Register:** implement email verification on register ([1c7e8f8](https://github.com/jkklapp/wsne/commit/1c7e8f845f1325612e57693c28aa86a2a656e19b))
+
 # [1.19.0](https://github.com/jkklapp/wsne/compare/v1.18.2...v1.19.0) (2022-06-06)
 
 

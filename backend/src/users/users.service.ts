@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { UserExistsPayload } from './user.types';
+import { UserExistsPayload } from './users.types';
 import { getByUserName, getByEmail } from './utils';
 
 @Injectable()

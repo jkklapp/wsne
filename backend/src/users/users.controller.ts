@@ -1,5 +1,5 @@
 import { Body, Controller, HttpCode, Post } from '@nestjs/common';
-import { UserExistsPayload, UserExistsResult } from './user.types';
+import { UserExistsPayload, UserExistsResult } from './users.types';
 import { UsersService } from './users.service';
 
 @Controller('users')

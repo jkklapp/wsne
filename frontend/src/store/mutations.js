@@ -45,4 +45,10 @@ export default {
   SET_USER_NAME_EXISTS(state, data) {
     state.userNameExists = data;
   },
+  SET_IS_CHECKING_EMAIL(state, data) {
+    state.isCheckingEmail = data;
+  },
+  SET_IS_CHECKING_NAME(state, data) {
+    state.isCheckingName = data;
+  },
 };

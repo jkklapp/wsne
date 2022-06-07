@@ -18,6 +18,8 @@ const store = createStore({
     likingPost: null,
     userEmailExists: false,
     userNameExists: false,
+    isCheckingEmail: false,
+    isCheckingName: false,
   },
   getters,
   mutations,

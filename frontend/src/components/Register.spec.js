@@ -6,52 +6,80 @@ import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 jest.mock('../auth');
 jest.mock('firebase/auth');
 
+const mockRouter = {
+  replace: jest.fn(),
+};
+
+const mountComponent = (
+  userEmailExists = false,
+  userNameExists = false,
+  isCheckingEmail = false,
+  isCheckingName = false,
+) =>
+  mount(Register, {
+    computed: {
+      appName: () => 'Fluu',
+      userEmailExists: {
+        get() {
+          return userEmailExists;
+        },
+      },
+      userNameExists: {
+        get() {
+          return userNameExists;
+        },
+      },
+      isCheckingEmail: {
+        get() {
+          return isCheckingEmail;
+        },
+      },
+      isCheckingName: {
+        get() {
+          return isCheckingName;
+        },
+      },
+    },
+    global: {
+      stubs: ['router-link'],
+      mocks: {
+        $router: mockRouter,
+      },
+    },
+  });
+
 describe('Register', () => {
   describe('Submit button', () => {
     it('is disabled by default', () => {
-      const wrapper = mount(Register, {
-        computed: {
-          appName: () => 'Fluu',
-          userEmailExists: {
-            get() {
-              return true;
-            },
-          },
-          userNameExists: {
-            get() {
-              return true;
-            },
-          },
-        },
-        global: {
-          stubs: ['router-link'],
-        },
-      });
+      const wrapper = mountComponent();
 
       const button = wrapper.find('button[type="submit"]');
 
       expect(button.element.disabled).toEqual(true);
     });
+    describe('when entering the data and there is a naming collission', () => {
+      it('is disabled', async () => {
+        const wrapper = mountComponent(true);
+
+        const username = wrapper.find('input[type="text"]');
+        const email = wrapper.find('input[type="email"]');
+        const password = wrapper.find('input[id="password"]');
+        const confirm = wrapper.find('input[id="repeat-password"]');
+        const acceptTerms = wrapper.find('input[type="checkbox"]');
+
+        await username.setValue('test');
+        await email.setValue('test@test.com');
+        await password.setValue('password');
+        await confirm.setValue('password');
+        await acceptTerms.setChecked(true);
+
+        const button = wrapper.find('button[type="submit"]');
+        expect(button.element.disabled).toEqual(true);
+      });
+    });
     describe('when entering all the data', () => {
       it('is enabled', async () => {
-        const wrapper = mount(Register, {
-          computed: {
-            appName: () => 'Fluu',
-            userEmailExists: {
-              get() {
-                return false;
-              },
-            },
-            userNameExists: {
-              get() {
-                return false;
-              },
-            },
-          },
-          global: {
-            stubs: ['router-link'],
-          },
-        });
+        const wrapper = mountComponent(false, false);
 
         const username = wrapper.find('input[type="text"]');
         const email = wrapper.find('input[type="email"]');
@@ -67,6 +95,19 @@ describe('Register', () => {
 
         const button = wrapper.find('button[type="submit"]');
         expect(button.element.disabled).toEqual(false);
+      });
+    });
+  });
+  describe('loading states', () => {
+    describe('when checking email', () => {
+      it('renders a loading spinner next to the email field', () => {
+        const wrapper = mountComponent(false, false, true);
+
+        const button = wrapper.find('button[type="submit"]');
+        const loadingSpinner = wrapper.find('.loading-spinner');
+
+        expect(button.element.disabled).toEqual(true);
+        expect(loadingSpinner.exists()).toEqual(true);
       });
     });
   });
@@ -99,31 +140,8 @@ describe('Register', () => {
       jest.resetAllMocks();
     });
     describe('submit', () => {
-      const mockRouter = {
-        replace: jest.fn(),
-      };
       it('calls the submit method', async () => {
-        const wrapper = mount(Register, {
-          computed: {
-            appName: () => 'Fluu',
-            userEmailExists: {
-              get() {
-                return true;
-              },
-            },
-            userNameExists: {
-              get() {
-                return true;
-              },
-            },
-          },
-          global: {
-            stubs: ['router-link'],
-            mocks: {
-              $router: mockRouter,
-            },
-          },
-        });
+        const wrapper = mountComponent();
 
         const username = wrapper.find('input[type="text"]');
         const email = wrapper.find('input[type="email"]');

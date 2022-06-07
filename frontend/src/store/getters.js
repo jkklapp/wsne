@@ -32,4 +32,10 @@ export default {
   getUserNameExists(state) {
     return state.userNameExists;
   },
+  getIsCheckingEmail(state) {
+    return state.isCheckingEmail;
+  },
+  getIsCheckingName(state) {
+    return state.isCheckingName;
+  },
 };

@@ -1,3 +1,11 @@
+## [1.20.1](https://github.com/jkklapp/wsne/compare/v1.20.0...v1.20.1) (2022-06-07)
+
+
+### Bug Fixes
+
+* **About:** improve styling and content ([9e76001](https://github.com/jkklapp/wsne/commit/9e760017a2884ffd947269ff5929f492192330a2))
+* styling in login and register ([0f1c0df](https://github.com/jkklapp/wsne/commit/0f1c0df21fc69c223ccf2ba5b0d9291950b67b2b))
+
 # [1.20.0](https://github.com/jkklapp/wsne/compare/v1.19.0...v1.20.0) (2022-06-07)
 
 

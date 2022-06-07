@@ -5,7 +5,7 @@
     <form>
       <p>
         <span
-          v-if="!user.verified"
+          v-if="!user.emailVerified"
           class="text-red-700 dark:text-red-300 text-xs"
         >
           You need to verify your email address to access the fully-featured
@@ -81,7 +81,7 @@ export default {
       return this.message.length > 100;
     },
     remainingMessagesForUser() {
-      return this.user.verified
+      return this.user.emailVerified
         ? this.remainingMessages
         : parseInt(this.remainingMessages / 10, 10);
     },

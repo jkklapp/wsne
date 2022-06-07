@@ -2,7 +2,7 @@
   <div>
     <div class="grid md:place-items-center">
       <div>
-        <h1 class="text-6xl text-center mt-12 mb-4 md:my-2">
+        <h1 class="text-6xl text-center mt-12 md:mt-32 mb-4 md:mb-2">
           <span class="text-gray-700 dark:text-gray-100">
             <span class="font-bold">{{ appName }}</span>
           </span>

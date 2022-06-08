@@ -33,18 +33,21 @@
         <div class="flex flex-wrap place-items-end">
           <div class="w-100 mr-auto"></div>
           <a
+            v-if="!p.parentId"
             href="#"
             class="text-gray-500 dark:text-gray-400"
             @click.prevent="() => fetchPosts(p.id)"
           >
             <small
-              >{{ p.comments }} comment<small v-show="p.comments > 1"
+              >{{ p.comments }} comment<small v-show="p.comments != 1"
                 >s</small
               ></small
             >
           </a>
+          <div class="mr-1"></div>
           <a
             v-show="likingPost != p.id"
+            class="mb-[5px]"
             href="#"
             @click.prevent="() => toggleLike(!p.likedByMe, p)"
             ><LightBulb

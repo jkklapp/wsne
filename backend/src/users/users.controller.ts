@@ -12,10 +12,8 @@ export class UsersController {
   public async exists(
     @Body() existsUserDto: ExistsUserDto,
   ): Promise<UserExistsResult> {
-    const exists = await this.service.exists(existsUserDto);
-
     return {
-      exists,
+      exists: await this.service.exists(existsUserDto),
     };
   }
 }

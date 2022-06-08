@@ -23,13 +23,13 @@ export class PostsService {
 
   async toggleLike(id: string, userId: string, like: boolean) {
     const docRef = this.postsCollection.doc(id);
-    return docRef.get().then((postDoc) => {
+    docRef.get().then((postDoc) => {
       const post = postDoc.data();
       const likes = post.likes || [];
       const newLikes = like
         ? [...likes, userId]
         : likes.filter((l) => l !== userId);
-      return docRef.update({ likes: newLikes });
+      docRef.update({ likes: newLikes });
     });
   }
 
@@ -75,7 +75,7 @@ export class PostsService {
       });
   }
 
-  async countAllforUserByDate(userId: string, date: number) {
+  async countAllforUserByDate(userId: string, date: number): Promise<number> {
     return this.postsCollection
       .where('userId', '==', userId)
       .where('date', '>=', date)

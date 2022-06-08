@@ -6,7 +6,7 @@ jest.mock('./utils', () => {
     getDisplayNameByUserId: jest
       .fn()
       .mockResolvedValueOnce('John Doe')
-      .mockResolvedValueOnce('Jane Doe'),
+      .mockResolvedValue('Jane Doe'),
   };
 });
 
@@ -22,6 +22,7 @@ describe('PostsController', () => {
     old_env = process.env;
     process.env = { MAX_NUMBER_POSTS_PER_DAY: '5', MAX_MESSAGE_LENGTH: '100' };
     jest.spyOn(s, 'countAllforUserByDate').mockResolvedValue(0);
+    jest.spyOn(s, 'countAllForParentId').mockResolvedValue(0);
   });
   afterEach(() => {
     process.env = old_env;
@@ -58,8 +59,48 @@ describe('PostsController', () => {
             userName: 'John Doe',
             likes: 0,
             likedByMe: false,
+            comments: 0,
           },
         ],
+      });
+    });
+    describe('when passing a parentId paramenter', () => {
+      it('returns only messages with that parentId', async () => {
+        const result = {
+          results: [
+            {
+              message: 'test',
+              date: 100000,
+              userId: '1234',
+              likes: [],
+              parentId: '123',
+            },
+          ],
+          remainingMessages: 10,
+          nextPageToken: null,
+        };
+        jest
+          .spyOn(s, 'getMultiple')
+          .mockImplementation(() => Promise.resolve(result));
+
+        expect(
+          await c.getMultiple({ user: { user_id: '1234' } }, 10, null, '123'),
+        ).toEqual({
+          nextPageToken: null,
+          remainingMessages: 5,
+          results: [
+            {
+              date: 100000,
+              message: 'test',
+              userId: '1234',
+              userName: 'Jane Doe',
+              likes: 0,
+              likedByMe: false,
+              parentId: '123',
+              comments: 0,
+            },
+          ],
+        });
       });
     });
   });
@@ -85,6 +126,7 @@ describe('PostsController', () => {
         userName: 'Test',
         likes: 0,
         likedByMe: false,
+        comments: 0,
       });
     });
     describe('when the user has reached the max number of posts per day', () => {
@@ -130,6 +172,7 @@ describe('PostsController', () => {
         userName: 'Jane Doe',
         likes: 1,
         likedByMe: true,
+        comments: 0,
       });
     });
   });

@@ -1,8 +1,9 @@
 export class NewPostDocument {
   message: string;
+  parentId?: string;
 }
 
-export class PostDocument extends NewPostDocument {
+export class PostDocument {
   static collectionName = 'posts';
 
   message: string;
@@ -10,6 +11,7 @@ export class PostDocument extends NewPostDocument {
   userId: string;
   id?: string;
   likes?: string[];
+  parentId?: string;
 }
 
 export class PaginatedResults {
@@ -31,6 +33,7 @@ export class ResolvedPostDocument {
   id?: string;
   likes: number;
   likedByMe: boolean;
+  comments: number;
 }
 
 export class UpdatePostDocument {

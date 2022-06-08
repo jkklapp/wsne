@@ -5,8 +5,13 @@ export default {
   SET_LOGGED_IN(state, data) {
     state.loggedIn = data;
   },
-  SET_POSTS(state, data) {
-    state.posts = data;
+  SET_POSTS(state, { results, parentId }) {
+    if (parentId) {
+      const parent = state.posts.find((post) => post.id === parentId);
+      state.posts = [parent, ...results];
+    } else {
+      state.posts = results;
+    }
   },
   SET_POST_BY_ID(state, data) {
     const index = state.posts.findIndex((post) => post.id === data.id);

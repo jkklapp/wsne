@@ -2,6 +2,7 @@ import { Injectable, Inject, Logger } from '@nestjs/common';
 import * as dayjs from 'dayjs';
 import { CollectionReference } from '@google-cloud/firestore';
 import { PostDocument, PaginatedResults } from './posts.types';
+import { CreatePostDocumentDto } from './posts.dto';
 
 @Injectable()
 export class PostsService {
@@ -51,6 +52,7 @@ export class PostsService {
   async getMultiple(
     limit: number,
     startAfter?: string | undefined,
+    parentId?: string | undefined,
   ): Promise<PaginatedResults> {
     const _startAfter = startAfter ? parseInt(startAfter, 10) : '';
     const noMoreResults = startAfter ? -1 : null;
@@ -60,10 +62,14 @@ export class PostsService {
       .limit(limit)
       .get()
       .then(async (snapshot) => {
-        const results: PostDocument[] = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
+        const results: PostDocument[] = snapshot.docs
+          .map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }))
+          .filter((post) => {
+            return post.parentId === parentId;
+          });
         const q = await snapshot.query.offset(limit).get();
 
         return {
@@ -75,6 +81,19 @@ export class PostsService {
       });
   }
 
+  async countAllForParentId(parentId: string): Promise<number> {
+    return this.postsCollection
+      .where('parentId', '==', parentId)
+      .get()
+      .then((snapshot) => {
+        return snapshot.size;
+      })
+      .catch((err) => {
+        this.logger.error(err);
+        return 0;
+      });
+  }
+
   async countAllforUserByDate(userId: string, date: number): Promise<number> {
     return this.postsCollection
       .where('userId', '==', userId)
@@ -83,13 +102,17 @@ export class PostsService {
       .then((snapshot) => snapshot.size);
   }
 
-  async create(message: string, userId: string): Promise<PostDocument> {
+  async create(
+    { message, parentId }: CreatePostDocumentDto,
+    userId: string,
+  ): Promise<PostDocument> {
     const t = dayjs(new Date()).valueOf();
     const docRef = this.postsCollection.doc(t.toString());
     await docRef.set({
       message,
       date: new Date().getTime(),
       userId,
+      parentId,
     });
 
     return docRef.get().then((postDoc) => {

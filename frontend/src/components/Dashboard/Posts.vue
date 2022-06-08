@@ -33,6 +33,18 @@
         <div class="flex flex-wrap place-items-end">
           <div class="w-100 mr-auto"></div>
           <a
+            v-show="p.comments > 0"
+            href="#"
+            class="text-gray-500 dark:text-gray-400"
+            @click.prevent="() => fetchPosts(p.id)"
+          >
+            <small
+              >{{ p.comments }} comment<small v-show="p.comments > 1"
+                >s</small
+              ></small
+            >
+          </a>
+          <a
             v-show="likingPost != p.id"
             href="#"
             @click.prevent="() => toggleLike(!p.likedByMe, p)"
@@ -105,8 +117,8 @@ export default {
     date(date) {
       return moment(date).fromNow();
     },
-    fetchPosts() {
-      this.$store.dispatch('fetchPosts', this.$store.state);
+    fetchPosts(parentId) {
+      this.$store.dispatch('fetchPosts', { ...this.$store.state, parentId });
     },
     reset() {
       this.$store.dispatch('resetPostsPagination');

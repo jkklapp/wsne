@@ -32,12 +32,14 @@ export class PostsController {
     @Req() request: any,
     @Query('limit', ParseIntPipe) limit: number,
     @Query('startAfter') startAfter?: string,
+    @Query('parentId') parentId?: string,
   ): Promise<PostDocumentResult> {
     const { user } = request;
     const { user_id: userId } = user;
     const { results, nextPageToken } = await this.service.getMultiple(
       limit,
       startAfter,
+      parentId,
     );
     const resolvedPosts: ResolvedPostDocument[] = [];
     for (const p in results) {
@@ -46,6 +48,7 @@ export class PostsController {
         likes: (results[p].likes || []).length,
         likedByMe: (results[p].likes || []).includes(userId),
         userName: await getDisplayNameByUserId(results[p].userId),
+        comments: await this.service.countAllForParentId(results[p].id),
       });
     }
 
@@ -102,13 +105,56 @@ export class PostsController {
       );
     }
 
-    const newPost = await this.service.create(post.message, userId);
+    const newPost = await this.service.create(post, userId);
+    const comments = post.parentId
+      ? await this.service.countAllForParentId(post.parentId)
+      : 0;
 
     return {
       ...newPost,
       likes: 0,
       likedByMe: false,
       userName,
+      comments,
+    };
+  }
+
+  @Post(':/id')
+  @UseGuards(FirebaseAuthGuard)
+  public async comment(
+    @Req() request: any,
+    @Param('id') parentId: string,
+    @Body() post: NewPostDocument,
+  ): Promise<ResolvedPostDocument> {
+    const { user } = request;
+    const {
+      user_id: userId,
+      name: userName,
+      email_verified: emailVerified,
+    } = user;
+
+    if (!emailVerified) {
+      throw new BadRequestException('You must verify your email to comment');
+    }
+
+    const maxMessageLength = parseInt(process.env.MAX_MESSAGE_LENGTH, 10);
+    if (post.message.length > maxMessageLength) {
+      throw new BadRequestException(
+        'Message comment is too long. Max length is ' + maxMessageLength,
+      );
+    }
+
+    const newPost = await this.service.create({ ...post, parentId }, userId);
+    const comments = post.parentId
+      ? await this.service.countAllForParentId(post.parentId)
+      : 0;
+
+    return {
+      ...newPost,
+      likes: 0,
+      likedByMe: false,
+      userName,
+      comments,
     };
   }
 
@@ -134,12 +180,16 @@ export class PostsController {
     const post = await this.service.get(id);
 
     const userName = await getDisplayNameByUserId(post.userId);
+    const comments = post.parentId
+      ? await this.service.countAllForParentId(post.parentId)
+      : 0;
 
     return {
       ...post,
       userName,
-      likes: post.likes.length,
+      likes: (post.likes || []).length,
       likedByMe,
+      comments,
     };
   }
 }

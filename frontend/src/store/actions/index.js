@@ -5,15 +5,15 @@ export default {
     commit('SET_USER', user);
     commit('SET_LOGGED_IN', user.email && user.displayName);
   },
-  async fetchPosts({ commit }, { startAfter, limit }) {
-    // make get request with bearer token authentication
+  async fetchPosts({ commit }, { startAfter, limit, parentId }) {
     commit('IS_LOADING_POSTS', true);
     const { data } = await apiRequest('GET', '/posts', {
       startAfter,
       limit,
+      parentId,
     });
     const { results, nextPageToken, remainingMessages } = data;
-    commit('SET_POSTS', results);
+    commit('SET_POSTS', { results, parentId });
     commit('SET_START_AFTER', nextPageToken);
     commit('SET_REMAINING_MESSAGES', remainingMessages || 0);
     commit('IS_LOADING_POSTS', false);

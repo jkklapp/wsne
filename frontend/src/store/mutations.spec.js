@@ -26,7 +26,7 @@ describe('mutations', () => {
       // mock state
       const state = { posts: [] };
       // apply mutation
-      SET_POSTS(state, { results: postsFixture });
+      SET_POSTS(state, postsFixture);
       // assert result
       expect(state.posts).toEqual(postsFixture);
     });

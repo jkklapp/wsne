@@ -33,7 +33,6 @@
         <div class="flex flex-wrap place-items-end">
           <div class="w-100 mr-auto"></div>
           <a
-            v-show="p.comments > 0"
             href="#"
             class="text-gray-500 dark:text-gray-400"
             @click.prevent="() => fetchPosts(p.id)"
@@ -118,7 +117,8 @@ export default {
       return moment(date).fromNow();
     },
     fetchPosts(parentId) {
-      this.$store.dispatch('fetchPosts', { ...this.$store.state, parentId });
+      this.$store.dispatch('setParentId', parentId);
+      this.$store.dispatch('fetchPosts', this.$store.state);
     },
     reset() {
       this.$store.dispatch('resetPostsPagination');

@@ -20,6 +20,7 @@ const store = createStore({
     userNameExists: false,
     isCheckingEmail: false,
     isCheckingName: false,
+    parentId: null,
   },
   getters,
   mutations,

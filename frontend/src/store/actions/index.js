@@ -5,6 +5,9 @@ export default {
     commit('SET_USER', user);
     commit('SET_LOGGED_IN', user.email && user.displayName);
   },
+  setParentId({ commit }, parentId) {
+    commit('SET_PARENT_ID', parentId);
+  },
   async fetchPosts({ commit }, { startAfter, limit, parentId }) {
     commit('IS_LOADING_POSTS', true);
     const { data } = await apiRequest('GET', '/posts', {
@@ -13,7 +16,7 @@ export default {
       parentId,
     });
     const { results, nextPageToken, remainingMessages } = data;
-    commit('SET_POSTS', { results, parentId });
+    commit('SET_POSTS', results);
     commit('SET_START_AFTER', nextPageToken);
     commit('SET_REMAINING_MESSAGES', remainingMessages || 0);
     commit('IS_LOADING_POSTS', false);
@@ -23,15 +26,20 @@ export default {
   },
   resetPostsPagination({ commit }) {
     commit('SET_START_AFTER', null);
+    commit('SET_PARENT_ID', null);
   },
   async postMessage({ commit, state }, message) {
     commit('IS_CREATING_POST', true);
     commit('PUSH_MESSAGE', {
       message,
       date: new Date().getTime(),
+      parentId: state.parentId,
     });
     try {
-      const { data } = await apiRequest('POST', '/posts', null, { message });
+      const { data } = await apiRequest('POST', '/posts', null, {
+        message,
+        parentId: state.parentId || undefined,
+      });
       commit('POP_MESSAGE');
       commit('PUSH_MESSAGE', data);
       commit('SET_REMAINING_MESSAGES', state.remainingMessages - 1);

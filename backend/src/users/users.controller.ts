@@ -1,5 +1,6 @@
 import { Body, Controller, HttpCode, Post } from '@nestjs/common';
-import { UserExistsPayload, UserExistsResult } from './users.types';
+import { UserExistsResult } from './users.types';
+import { ExistsUserDto } from './users.dto';
 import { UsersService } from './users.service';
 
 @Controller('users')
@@ -9,9 +10,9 @@ export class UsersController {
   @Post('/exists')
   @HttpCode(202)
   public async exists(
-    @Body() payload: UserExistsPayload,
+    @Body() existsUserDto: ExistsUserDto,
   ): Promise<UserExistsResult> {
-    const exists = await this.service.exists(payload);
+    const exists = await this.service.exists(existsUserDto);
 
     return {
       exists,

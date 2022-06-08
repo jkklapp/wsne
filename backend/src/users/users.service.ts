@@ -1,12 +1,12 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { UserExistsPayload } from './users.types';
+import { ExistsUserDto } from './users.dto';
 import { getByUserName, getByEmail } from './utils';
 
 @Injectable()
 export class UsersService {
   private logger: Logger = new Logger(UsersService.name);
 
-  async exists({ name, email }: UserExistsPayload): Promise<boolean> {
+  async exists({ name, email }: ExistsUserDto): Promise<boolean> {
     if (email) {
       return getByEmail(email)
         .then(() => true)

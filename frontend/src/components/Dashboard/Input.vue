@@ -99,6 +99,7 @@ export default {
           await store.dispatch('postMessage', this.message);
           this.message = '';
         } catch (err) {
+          console.error(err);
           this.$root.$toast.error(err.message);
         }
       }

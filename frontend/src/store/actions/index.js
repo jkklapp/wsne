@@ -30,7 +30,8 @@ export default {
   },
   async postMessage({ commit, state }, message) {
     commit('IS_CREATING_POST', true);
-    commit('PUSH_MESSAGE', {
+    const M = state.parentId ? 'COMMENT' : 'MESSAGE';
+    commit(`PUSH_${M}`, {
       message,
       date: new Date().getTime(),
       parentId: state.parentId,
@@ -40,11 +41,15 @@ export default {
         message,
         parentId: state.parentId || undefined,
       });
-      commit('POP_MESSAGE');
-      commit('PUSH_MESSAGE', data);
+      commit(`POP_${M}`);
+      commit(`PUSH_${M}`, data);
+      if (state.parentId) {
+        commit('INCREMENT_COMMENTS_COUNT');
+      }
       commit('SET_REMAINING_MESSAGES', state.remainingMessages - 1);
     } catch ({ response }) {
-      commit('POP_MESSAGE');
+      commit(`POP_${M}`);
+      console.log(response);
       throw response.data;
     }
     commit('IS_CREATING_POST', false);

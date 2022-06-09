@@ -1,3 +1,10 @@
+## [1.24.2](https://github.com/jkklapp/wsne/compare/v1.24.1...v1.24.2) (2022-06-09)
+
+
+### Bug Fixes
+
+* set post per page to 20 in prod ([3fb3fdd](https://github.com/jkklapp/wsne/commit/3fb3fdd364c4fd896fd9f4763d714d29d2771fa4))
+
 ## [1.24.1](https://github.com/jkklapp/wsne/compare/v1.24.0...v1.24.1) (2022-06-09)
 
 

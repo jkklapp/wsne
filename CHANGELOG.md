@@ -1,3 +1,24 @@
+# [1.24.0](https://github.com/jkklapp/wsne/compare/v1.23.1...v1.24.0) (2022-06-09)
+
+
+### Features
+
+* **posts:** empty states ([60d47a1](https://github.com/jkklapp/wsne/commit/60d47a1743ea1dbe63ab11fbe4cf574935fc3802))
+
+## [1.23.1](https://github.com/jkklapp/wsne/compare/v1.23.0...v1.23.1) (2022-06-09)
+
+
+### Bug Fixes
+
+* toggle likes ([251ae9a](https://github.com/jkklapp/wsne/commit/251ae9aeff35ab775032eabf24ccdd645aadbebf))
+
+# [1.23.0](https://github.com/jkklapp/wsne/compare/v1.22.0...v1.23.0) (2022-06-09)
+
+
+### Features
+
+* add forgot password feature ([dc716e5](https://github.com/jkklapp/wsne/commit/dc716e54cdba5a7d49d367002f7d767f7ea4cc7a))
+
 # [1.22.0](https://github.com/jkklapp/wsne/compare/v1.21.0...v1.22.0) (2022-06-09)
 
 

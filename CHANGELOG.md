@@ -1,3 +1,25 @@
+# [1.22.0](https://github.com/jkklapp/wsne/compare/v1.21.0...v1.22.0) (2022-06-09)
+
+
+### Bug Fixes
+
+* **Posts:** invert order when displaying comments ([f359b62](https://github.com/jkklapp/wsne/commit/f359b6222cf014061407336bf619e2b683f4f2b9))
+
+
+### Features
+
+* handle better state mutations for comments ([bfa80ae](https://github.com/jkklapp/wsne/commit/bfa80ae63680f30666f09366773488976c196339))
+* handle comments in posts ([287a62e](https://github.com/jkklapp/wsne/commit/287a62e2527c3302ae9a8b3ce972e1ee4bb79153))
+* handle route change in dashboard ([2be4ee0](https://github.com/jkklapp/wsne/commit/2be4ee060cf92452ad18e3a687cb09c3f12ae455))
+* **Posts:** create comments for posts ([1144d70](https://github.com/jkklapp/wsne/commit/1144d704817e7f006e0147eec76034e20b2119b7))
+
+# [1.21.0](https://github.com/jkklapp/wsne/compare/v1.20.2...v1.21.0) (2022-06-07)
+
+
+### Features
+
+* **Register:** add loading spinner ([322e002](https://github.com/jkklapp/wsne/commit/322e002b390d6aa7cb81c5e7f42148e19f320792))
+
 ## [1.20.2](https://github.com/jkklapp/wsne/compare/v1.20.1...v1.20.2) (2022-06-07)
 
 

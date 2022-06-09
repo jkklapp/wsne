@@ -33,6 +33,7 @@ describe('PostsService', () => {
         orderBy: jest.fn().mockReturnThis(),
         startAfter: jest.fn().mockReturnThis(),
         limit: jest.fn().mockReturnThis(),
+        where: jest.fn().mockReturnThis(),
         get: jest.fn().mockResolvedValue({
           docs,
           query: {
@@ -50,7 +51,7 @@ describe('PostsService', () => {
     it('should return an array of posts', async () => {
       const limit = 10;
       const startAfter = undefined;
-      const posts = await service.getMultiple(limit, startAfter);
+      const posts = await service.getMultiple(limit, '', startAfter);
       expect(posts).toEqual({
         results: [
           {

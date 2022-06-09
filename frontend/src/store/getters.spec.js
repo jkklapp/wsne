@@ -52,40 +52,4 @@ describe('getters', () => {
       expect(result).toEqual(state.posts);
     });
   });
-  describe('shouldRenderBackToTopButton', () => {
-    it('should return true if startAfter is -1', () => {
-      const state = {
-        startAfter: -1,
-      };
-      const result = getters.shouldRenderBackToTopButton(state);
-
-      expect(result).toBe(true);
-    });
-    it('should return false if startAfter is not -1', () => {
-      const state = {
-        startAfter: 0,
-      };
-      const result = getters.shouldRenderBackToTopButton(state);
-
-      expect(result).toBe(false);
-    });
-  });
-  describe('shouldRenderLoadMoreButton', () => {
-    it('should return true if startAfter is greater than 0', () => {
-      const state = {
-        startAfter: 1,
-      };
-      const result = getters.shouldRenderLoadMoreButton(state);
-
-      expect(result).toBe(true);
-    });
-    it('should return false if startAfter is 0', () => {
-      const state = {
-        startAfter: 0,
-      };
-      const result = getters.shouldRenderLoadMoreButton(state);
-
-      expect(result).toBe(false);
-    });
-  });
 });

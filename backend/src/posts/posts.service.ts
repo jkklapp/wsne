@@ -51,33 +51,32 @@ export class PostsService {
 
   async getMultiple(
     limit: number,
+    parentId: string,
     startAfter?: string | undefined,
-    parentId?: string | undefined,
   ): Promise<PaginatedResults> {
     const _startAfter = startAfter ? parseInt(startAfter, 10) : '';
     const noMoreResults = startAfter ? -1 : null;
-    const query = parentId
-      ? this.postsCollection.orderBy('date').endBefore(_startAfter)
-      : this.postsCollection.orderBy('date', 'desc').startAfter(_startAfter);
-    return query
+    return this.postsCollection
+      .where('parentId', '==', parentId)
+      .orderBy('date', 'desc')
+      .startAfter(_startAfter)
       .limit(limit)
       .get()
       .then(async (snapshot) => {
-        const results: PostDocument[] = snapshot.docs
-          .map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-          }))
-          .filter((post) => {
-            return post.parentId === parentId || post.id === parentId;
-          });
+        const results: PostDocument[] = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+
         const q = await snapshot.query.offset(limit).get();
 
         return {
-          results,
+          results: parentId ? results.reverse() : results,
           nextPageToken: q.empty
             ? noMoreResults
-            : results[results.length - 1].date,
+            : results.length > 0
+            ? results[results.length - 1].date
+            : null,
         };
       });
   }
@@ -113,7 +112,7 @@ export class PostsService {
       message,
       date: new Date().getTime(),
       userId,
-      parentId,
+      parentId: parentId || '',
     });
 
     return docRef.get().then((postDoc) => {

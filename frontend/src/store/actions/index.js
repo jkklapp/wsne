@@ -26,6 +26,8 @@ export default {
   },
   resetPostsPagination({ commit }) {
     commit('SET_START_AFTER', null);
+  },
+  resetParentId({ commit }) {
     commit('SET_PARENT_ID', null);
   },
   async postMessage({ commit, state }, message) {
@@ -49,7 +51,6 @@ export default {
       commit('SET_REMAINING_MESSAGES', state.remainingMessages - 1);
     } catch ({ response }) {
       commit(`POP_${M}`);
-      console.log(response);
       throw response.data;
     }
     commit('IS_CREATING_POST', false);

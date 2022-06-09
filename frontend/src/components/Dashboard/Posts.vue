@@ -27,14 +27,14 @@
       </div>
       <div class="grid flex-wrap place-items-center">
         <button
-          v-if="renderLoadMoreButton"
+          v-if="shouldRenderLoadMoreButton()"
           class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-blue-800"
-          @click="fetchPosts"
+          @click="() => fetchPosts($route.params.parentId)"
         >
           Load more
         </button>
         <button
-          v-if="renderBackToTopButton"
+          v-if="shouldRenderBackToTopButton()"
           class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-blue-800"
           @click="reset"
         >
@@ -63,19 +63,21 @@ export default {
   computed: {
     ...mapGetters({
       posts: 'getPosts',
-      renderBackToTopButton: 'shouldRenderBackToTopButton',
-      renderLoadMoreButton: 'shouldRenderLoadMoreButton',
       isLoading: 'isLoadingPosts',
     }),
   },
   created() {
     this.$watch(
       () => this.$route.params,
-      ({ parentId }) => {
+      ({ parentId }, { parentId: oldParentId }) => {
         if (
           this.$route.name === 'Dashboard' ||
           this.$route.name === 'Comments'
         ) {
+          if (parentId !== oldParentId) {
+            this.$store.dispatch('resetPostsPagination');
+            this.$store.dispatch('resetParentId');
+          }
           this.fetchPosts(parentId);
         }
       },
@@ -86,13 +88,36 @@ export default {
     this.fetchPosts(parentId);
   },
   methods: {
+    shouldRenderLoadMoreButton() {
+      const { parentId, startAfter } = this.$store.state;
+      if (parentId) {
+        const post = this.posts.find((p) => p.id === parentId);
+        return post && post.comments > this.posts.length + 1 && startAfter > 0;
+      } else {
+        return this.posts.length > 0 && startAfter > 0;
+      }
+    },
+    shouldRenderBackToTopButton() {
+      const { parentId, startAfter } = this.$store.state;
+      if (parentId) {
+        const post = this.posts.find((p) => p.id === parentId);
+        return post && post.comments > 0 && startAfter === -1;
+      } else {
+        return startAfter == -1;
+      }
+    },
     fetchPosts(parentId) {
       this.$store.dispatch('setParentId', parentId);
       this.$store.dispatch('fetchPosts', this.$store.state);
     },
     reset() {
+      const { parentId } = this.$store.state;
       this.$store.dispatch('resetPostsPagination');
-      this.fetchPosts();
+      if (parentId) {
+        this.$store.dispatch('fetchPosts', this.$store.state);
+      } else {
+        this.fetchPosts();
+      }
     },
   },
 };

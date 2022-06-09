@@ -38,4 +38,7 @@ export default {
   getIsCheckingName(state) {
     return state.isCheckingName;
   },
+  getPostById(state, id) {
+    return state.posts.find((post) => post.id === id);
+  },
 };

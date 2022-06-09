@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="flex flex-wrap">
-      <div>
+      <div class="mr-auto">
         <small class="text-gray-500 dark:text-gray-400"
           >{{ userName }} · {{ formatDate(date) }}
           <span v-show="likes > 0"
@@ -38,7 +38,7 @@
         v-show="likingPost != id"
         class="mb-[5px]"
         href="#"
-        @click.prevent="() => toggleLike(!likedByMe, p)"
+        @click.prevent="toggleLike"
         ><LightBulb
           :on="likedByMe"
           :class-names="
@@ -47,7 +47,10 @@
               : 'fill-gray-300 dark:fill-gray-400 w-5 h-5'
           "
       /></a>
-      <div v-show="likingPost == id" class="lds-ring-small align-text-bottom">
+      <div
+        v-show="likingPost == id"
+        class="mb-[5px] lds-ring-small align-text-bottom"
+      >
         <div></div>
         <div></div>
         <div></div>
@@ -109,8 +112,18 @@ export default {
     formatDate(date) {
       return moment(date).fromNow();
     },
-    toggleLike(like, post) {
-      this.$store.dispatch('toggleLike', { post, like });
+    toggleLike() {
+      const post = {
+        id: this.id,
+        parentId: this.parentId,
+        date: this.date,
+        message: this.message,
+        likes: this.likes,
+        comments: this.comments,
+        likedByMe: this.likedByMe,
+        userName: this.userName,
+      };
+      this.$store.dispatch('toggleLike', { post, like: !this.likedByMe });
     },
   },
 };

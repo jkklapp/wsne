@@ -46,9 +46,7 @@ describe('PostsController', () => {
         .spyOn(s, 'getMultiple')
         .mockImplementation(() => Promise.resolve(result));
 
-      expect(
-        await c.getMultiple({ user: { user_id: '1234' } }, 10, null),
-      ).toEqual({
+      expect(await c.getMultiple({ user: { user_id: '1234' } }, 10)).toEqual({
         nextPageToken: null,
         remainingMessages: 5,
         results: [

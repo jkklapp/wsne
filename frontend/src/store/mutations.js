@@ -1,3 +1,5 @@
+const maxPostsPerPage = parseInt(process.env.VUE_APP_POSTS_PER_PAGE, 10) || 10;
+
 export default {
   SET_USER(state, data) {
     state.user = data;
@@ -25,14 +27,19 @@ export default {
     state.remainingMessages = data;
   },
   PUSH_MESSAGE(state, data) {
+    // limit to maxPostsPerPage messages
     state.posts = [
       { ...data, userName: state.user.displayName },
       ...state.posts,
-    ];
+    ].slice(0, maxPostsPerPage);
   },
   PUSH_COMMENT(state, data) {
+    // limit to maxPostsPerPage comments
+    const [parent, ...comments] = state.posts;
+    const lastNComments = comments.slice(-maxPostsPerPage + 1);
     state.posts = [
-      ...state.posts,
+      parent,
+      ...lastNComments,
       { ...data, userName: state.user.displayName },
     ];
   },

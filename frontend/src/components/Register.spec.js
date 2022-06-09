@@ -151,6 +151,7 @@ describe('Register', () => {
         await email.setValue('test@test.com');
         await password.setValue('password');
 
+        jest.spyOn(wrapper.vm, 'toastSuccess').mockImplementation(() => {});
         await wrapper.vm.submit();
 
         expect(createUserWithEmailAndPassword).toHaveBeenCalledWith(
@@ -169,6 +170,9 @@ describe('Register', () => {
           { displayName: 'test' },
         );
         expect(mockRouter.replace).toHaveBeenCalledWith({ name: 'Dashboard' });
+        expect(wrapper.vm.toastSuccess).toHaveBeenCalledWith(
+          "We've sent you an email to verify your account.",
+        );
       });
     });
   });

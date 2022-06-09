@@ -237,6 +237,10 @@ export default {
     }),
   },
   methods: {
+    toastSuccess(message) {
+      // for testing
+      this.$root.$toast.success(message);
+    },
     async submit() {
       const { user } = await createUserWithEmailAndPassword(
         getAuth(),
@@ -248,6 +252,7 @@ export default {
       });
       this.$router.replace({ name: 'Dashboard' });
       await sendEmailVerification(user);
+      this.toastSuccess("We've sent you an email to verify your account.");
     },
     async validate(field) {
       if (this.form[field]) {

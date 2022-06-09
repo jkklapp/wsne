@@ -36,7 +36,7 @@
       <div class="mr-1"></div>
       <a
         v-show="likingPost != id"
-        class="mb-[5px]"
+        class="mb-[5px] like"
         href="#"
         @click.prevent="toggleLike"
         ><LightBulb

@@ -81,6 +81,9 @@ export default {
       return this.message.length > 100;
     },
     remainingMessagesForUser() {
+      if (process.env.NODE_ENV === 'local') {
+        return 10;
+      }
       return this.user.emailVerified
         ? this.remainingMessages
         : parseInt(this.remainingMessages / 10, 10);

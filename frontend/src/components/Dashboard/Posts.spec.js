@@ -21,9 +21,37 @@ const POSTS_RESPONSE_FIXTURE = [
   },
 ];
 
-const mockStore = {
-  dispatch: jest.fn(),
-};
+const mockDispatch = jest.fn();
+
+const mountComponent = (state = {}) =>
+  mount(Posts, {
+    computed: {
+      posts: {
+        get() {
+          return POSTS_RESPONSE_FIXTURE;
+        },
+      },
+      isLoading: {
+        get() {
+          return false;
+        },
+      },
+    },
+    global: {
+      stubs: ['router-link', 'Post'],
+      mocks: {
+        $route: {
+          params: {
+            parentId: '',
+          },
+        },
+        $store: {
+          dispatch: mockDispatch,
+          state,
+        },
+      },
+    },
+  });
 
 describe('Posts', () => {
   let old_env;
@@ -42,46 +70,7 @@ describe('Posts', () => {
       })),
     });
     apiRequest.mockResolvedValueOnce({ data: POSTS_RESPONSE_FIXTURE });
-    wrapper = mount(Posts, {
-      computed: {
-        posts: {
-          get() {
-            return POSTS_RESPONSE_FIXTURE;
-          },
-        },
-        renderBackToTopButton: {
-          get() {
-            return true;
-          },
-        },
-        renderLoadMoreButton: {
-          get() {
-            return true;
-          },
-        },
-        isLoading: {
-          get() {
-            return false;
-          },
-        },
-        likingPost: {
-          get() {
-            return null;
-          },
-        },
-      },
-      global: {
-        stubs: ['router-link', 'Post'],
-        mocks: {
-          $route: {
-            params: {
-              parentId: '',
-            },
-          },
-          $store: mockStore,
-        },
-      },
-    });
+    wrapper = mountComponent();
   });
   afterEach(() => {
     process.env = old_env;
@@ -90,10 +79,39 @@ describe('Posts', () => {
   it('will render posts', () => {
     expect(wrapper.findComponent(Post).exists()).toEqual(true);
   });
-  it('will render the "Load more" button', () => {
-    expect(wrapper.find('button').exists()).toBe(true);
-  });
-  it('will render the "Back to top" button', () => {
-    expect(wrapper.find('button').exists()).toBe(true);
+  describe('methods', () => {
+    describe('shouldRenderBackToTopButton', () => {
+      it('should return true if startAfter is -1', () => {
+        wrapper = mountComponent({
+          startAfter: -1,
+        });
+
+        const result = wrapper.vm.shouldRenderBackToTopButton();
+
+        expect(result).toBe(true);
+      });
+      it('should return false if startAfter is not -1', () => {
+        wrapper = mountComponent();
+        const result = wrapper.vm.shouldRenderBackToTopButton();
+
+        expect(result).toBe(false);
+      });
+    });
+    describe('shouldRenderLoadMoreButton', () => {
+      it('should return true if startAfter is greater than 0', () => {
+        wrapper = mountComponent({ startAfter: 1 });
+
+        const result = wrapper.vm.shouldRenderLoadMoreButton();
+
+        expect(result).toBe(true);
+      });
+      it('should return false if startAfter is 0', () => {
+        wrapper = mountComponent({ startAfter: 0 });
+
+        const result = wrapper.vm.shouldRenderLoadMoreButton();
+
+        expect(result).toBe(false);
+      });
+    });
   });
 });

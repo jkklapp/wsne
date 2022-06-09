@@ -20,6 +20,41 @@ const POSTS_RESPONSE_FIXTURE = [
   },
 ];
 
+const mockDispatch = jest.fn();
+
+const mountComponent = (state = {}) =>
+  mount(Post, {
+    propsData: {
+      ...POSTS_RESPONSE_FIXTURE[0],
+    },
+    computed: {
+      isPosting: {
+        get() {
+          return false;
+        },
+      },
+      likingPost: {
+        get() {
+          return null;
+        },
+      },
+    },
+    global: {
+      stubs: ['router-link'],
+      mocks: {
+        $route: {
+          params: {
+            parentId: '',
+          },
+        },
+        $store: {
+          dispatch: mockDispatch,
+          state: state,
+        },
+      },
+    },
+  });
+
 describe('Post', () => {
   let old_env;
   let wrapper;
@@ -37,33 +72,7 @@ describe('Post', () => {
       })),
     });
     apiRequest.mockResolvedValueOnce({ data: POSTS_RESPONSE_FIXTURE });
-    wrapper = mount(Post, {
-      propsData: {
-        ...POSTS_RESPONSE_FIXTURE[0],
-      },
-      computed: {
-        isLoading: {
-          get() {
-            return false;
-          },
-        },
-        likingPost: {
-          get() {
-            return null;
-          },
-        },
-      },
-      global: {
-        stubs: ['router-link'],
-        mocks: {
-          $route: {
-            params: {
-              parentId: '',
-            },
-          },
-        },
-      },
-    });
+    wrapper = mountComponent();
   });
   afterEach(() => {
     process.env = old_env;
@@ -73,6 +82,24 @@ describe('Post', () => {
     it('renders the post correctly', () => {
       expect(wrapper.find('small').text()).toContain('a few seconds ago');
       expect(wrapper.find('span.message').text()).toContain('Hello World');
+    });
+  });
+  describe('when clicking the light bulb icon', () => {
+    it('should like the post', () => {
+      wrapper.find('a.like').trigger('click');
+      expect(mockDispatch).toHaveBeenCalledWith('toggleLike', {
+        like: true,
+        post: {
+          comments: 0,
+          date: expect.anything(),
+          id: '1',
+          likedByMe: false,
+          likes: 0,
+          message: 'Hello World',
+          parentId: null,
+          userName: 'John Doe',
+        },
+      });
     });
   });
 });

@@ -21,7 +21,6 @@ import { UsersModule } from './users/users.module';
     PostsModule,
     UsersModule,
   ],
-  controllers: [],
   providers: [FirebaseAuthStrategy],
 })
 export class AppModule {}

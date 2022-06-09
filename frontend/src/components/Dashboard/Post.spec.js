@@ -1,5 +1,4 @@
 import { mount } from '@vue/test-utils';
-import Posts from './Posts.vue';
 import Post from './Post.vue';
 import { getAuth } from '../../auth';
 import { apiRequest } from '../../store/actions/api';
@@ -21,11 +20,7 @@ const POSTS_RESPONSE_FIXTURE = [
   },
 ];
 
-const mockStore = {
-  dispatch: jest.fn(),
-};
-
-describe('Posts', () => {
+describe('Post', () => {
   let old_env;
   let wrapper;
   beforeEach(() => {
@@ -42,23 +37,11 @@ describe('Posts', () => {
       })),
     });
     apiRequest.mockResolvedValueOnce({ data: POSTS_RESPONSE_FIXTURE });
-    wrapper = mount(Posts, {
+    wrapper = mount(Post, {
+      propsData: {
+        ...POSTS_RESPONSE_FIXTURE[0],
+      },
       computed: {
-        posts: {
-          get() {
-            return POSTS_RESPONSE_FIXTURE;
-          },
-        },
-        renderBackToTopButton: {
-          get() {
-            return true;
-          },
-        },
-        renderLoadMoreButton: {
-          get() {
-            return true;
-          },
-        },
         isLoading: {
           get() {
             return false;
@@ -71,14 +54,13 @@ describe('Posts', () => {
         },
       },
       global: {
-        stubs: ['router-link', 'Post'],
+        stubs: ['router-link'],
         mocks: {
           $route: {
             params: {
               parentId: '',
             },
           },
-          $store: mockStore,
         },
       },
     });
@@ -87,13 +69,10 @@ describe('Posts', () => {
     process.env = old_env;
     jest.resetAllMocks();
   });
-  it('will render posts', () => {
-    expect(wrapper.findComponent(Post).exists()).toEqual(true);
-  });
-  it('will render the "Load more" button', () => {
-    expect(wrapper.find('button').exists()).toBe(true);
-  });
-  it('will render the "Back to top" button', () => {
-    expect(wrapper.find('button').exists()).toBe(true);
+  describe('when passing props to Post', () => {
+    it('renders the post correctly', () => {
+      expect(wrapper.find('small').text()).toContain('a few seconds ago');
+      expect(wrapper.find('span.message').text()).toContain('Hello World');
+    });
   });
 });

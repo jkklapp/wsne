@@ -5,8 +5,11 @@ export default {
   SET_LOGGED_IN(state, data) {
     state.loggedIn = data;
   },
-  SET_POSTS(state, data) {
-    state.posts = data;
+  SET_PARENT_ID(state, data) {
+    state.parentId = data;
+  },
+  SET_POSTS(state, results) {
+    state.posts = results;
   },
   SET_POST_BY_ID(state, data) {
     const index = state.posts.findIndex((post) => post.id === data.id);
@@ -27,8 +30,22 @@ export default {
       ...state.posts,
     ];
   },
+  PUSH_COMMENT(state, data) {
+    state.posts = [
+      ...state.posts,
+      { ...data, userName: state.user.displayName },
+    ];
+  },
   POP_MESSAGE(state) {
     state.posts = state.posts.slice(1);
+  },
+  POP_COMMENT(state) {
+    // removes last comment from posts array
+    state.posts = state.posts.slice(0, -1);
+  },
+  INCREMENT_COMMENTS_COUNT(state) {
+    const index = state.posts.findIndex((post) => post.id === state.parentId);
+    state.posts[index].comments++;
   },
   SET_MESSAGE(state, data) {
     state.message = data;

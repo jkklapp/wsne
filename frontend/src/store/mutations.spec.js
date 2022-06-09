@@ -1,7 +1,8 @@
 import mutations from './mutations';
 
 // destructure assign `mutations`
-const { SET_USER, SET_POSTS, PUSH_MESSAGE, SET_MESSAGE } = mutations;
+const { SET_USER, SET_POSTS, PUSH_MESSAGE, PUSH_COMMENT, SET_MESSAGE } =
+  mutations;
 
 describe('mutations', () => {
   describe('SET_USER', () => {
@@ -43,6 +44,27 @@ describe('mutations', () => {
       PUSH_MESSAGE(state, messageFixture);
       // assert result
       expect(state.posts).toEqual([{ ...messageFixture, userName: 'Test' }]);
+    });
+  });
+  describe('PUSH_COMMENT', () => {
+    it('keeps the parent comment on top', () => {
+      const messageFixture = {
+        id: '1',
+        message: 'Hello World',
+        parentId: '2',
+      };
+      // mock state
+      const state = {
+        posts: [{ id: '2', message: 'I am the parent' }],
+        user: { displayName: 'Test' },
+      };
+      // apply mutation
+      PUSH_COMMENT(state, messageFixture);
+      // assert result
+      expect(state.posts).toEqual([
+        { id: '2', message: 'I am the parent' },
+        { ...messageFixture, userName: 'Test' },
+      ]);
     });
   });
   describe('SET_MESSAGE', () => {

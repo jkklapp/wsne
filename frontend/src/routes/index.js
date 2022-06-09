@@ -37,6 +37,12 @@ const router = createRouter({
       component: About,
     },
     {
+      path: '/:parentId',
+      name: 'Comments',
+      component: Dashboard,
+      props: true,
+    },
+    {
       path: '/',
       name: 'Dashboard',
       component: Dashboard,

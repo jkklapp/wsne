@@ -107,7 +107,8 @@ describe('PostsService', () => {
       dataMock = jest.fn().mockReturnValue({
         message: 'test',
         date: 100000,
-        userId: '1234',
+        userId: 'abc',
+        parentId: '123',
       });
       postsCollectionMock = {
         get: jest.fn().mockResolvedValue({
@@ -124,19 +125,24 @@ describe('PostsService', () => {
       jest.restoreAllMocks();
     });
     it('should return a new post', async () => {
-      const result = await service.create('test', '1234', 'Test');
+      const result = await service.create(
+        { message: 'test', parentId: '123' },
+        'abc',
+      );
 
       expect(result).toEqual({
         date: 100000,
         id: '1',
         message: 'test',
-        userId: '1234',
+        userId: 'abc',
+        parentId: '123',
       });
       expect(postsCollectionMock.doc).toHaveBeenCalled();
       expect(postsCollectionMock.set).toHaveBeenCalledWith({
         date: expect.anything(),
         message: 'test',
-        userId: '1234',
+        userId: 'abc',
+        parentId: '123',
       });
       expect(dataMock).toHaveBeenCalled();
     });

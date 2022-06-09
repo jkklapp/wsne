@@ -1,3 +1,10 @@
+## [1.23.1](https://github.com/jkklapp/wsne/compare/v1.23.0...v1.23.1) (2022-06-09)
+
+
+### Bug Fixes
+
+* toggle likes ([251ae9a](https://github.com/jkklapp/wsne/commit/251ae9aeff35ab775032eabf24ccdd645aadbebf))
+
 # [1.23.0](https://github.com/jkklapp/wsne/compare/v1.22.0...v1.23.0) (2022-06-09)
 
 

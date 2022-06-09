@@ -9,12 +9,7 @@ export default {
     state.parentId = data;
   },
   SET_POSTS(state, results) {
-    if (state.parentId) {
-      const parent = state.posts.filter((post) => post.id === state.parentId);
-      state.posts = [...parent, ...results];
-    } else {
-      state.posts = results;
-    }
+    state.posts = results;
   },
   SET_POST_BY_ID(state, data) {
     const index = state.posts.findIndex((post) => post.id === data.id);

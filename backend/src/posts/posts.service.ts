@@ -56,9 +56,10 @@ export class PostsService {
   ): Promise<PaginatedResults> {
     const _startAfter = startAfter ? parseInt(startAfter, 10) : '';
     const noMoreResults = startAfter ? -1 : null;
-    return this.postsCollection
-      .orderBy('date', 'desc')
-      .startAfter(_startAfter)
+    const query = parentId
+      ? this.postsCollection.orderBy('date').endBefore(_startAfter)
+      : this.postsCollection.orderBy('date', 'desc').startAfter(_startAfter);
+    return query
       .limit(limit)
       .get()
       .then(async (snapshot) => {
@@ -68,7 +69,7 @@ export class PostsService {
             ...doc.data(),
           }))
           .filter((post) => {
-            return post.parentId === parentId;
+            return post.parentId === parentId || post.id === parentId;
           });
         const q = await snapshot.query.offset(limit).get();
 

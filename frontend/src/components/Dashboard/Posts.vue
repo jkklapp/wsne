@@ -52,11 +52,6 @@ export default {
   components: {
     Post,
   },
-  async beforeRouteEnter(to, from) {
-    // react to route changes...
-    this.fetchPosts(to.params.parentId);
-  },
-
   computed: {
     ...mapGetters({
       posts: 'getPosts',
@@ -68,7 +63,7 @@ export default {
   created() {
     this.$watch(
       () => this.$route.params,
-      ({ parentId }, previousParams) => {
+      ({ parentId }) => {
         if (
           this.$route.name === 'Dashboard' ||
           this.$route.name === 'Comments'

@@ -15,6 +15,7 @@ import { UsersModule } from './users/users.module';
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
         keyFilename: configService.get<string>('SA_KEY'),
+        ignoreUndefinedProperties: true,
       }),
       inject: [ConfigService],
     }),

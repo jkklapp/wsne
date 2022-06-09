@@ -1,3 +1,10 @@
+## [1.24.1](https://github.com/jkklapp/wsne/compare/v1.24.0...v1.24.1) (2022-06-09)
+
+
+### Bug Fixes
+
+* fetching docs by parent ID null ([56949b9](https://github.com/jkklapp/wsne/commit/56949b98438437c566c156b13d9c8b70cdc4b252))
+
 # [1.24.0](https://github.com/jkklapp/wsne/compare/v1.23.1...v1.24.0) (2022-06-09)
 
 

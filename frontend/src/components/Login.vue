@@ -57,7 +57,7 @@
                 />
               </div>
             </div>
-            <div class="grid place-items-center">
+            <div class="flex place-items-stretch">
               <button
                 type="submit"
                 :disabled="!form.email || !form.password"
@@ -67,6 +67,15 @@
                 Login
               </button>
               <div class="mb-2 md:mx-14"></div>
+              <div class="mt-2">
+                <a
+                  class="text-gray-700 dark:text-gray-300 align-bottom"
+                  href="#"
+                  @click.prevent="forgotPassword"
+                >
+                  <small>Forgot password?</small>
+                </a>
+              </div>
             </div>
           </form>
         </div>
@@ -77,7 +86,10 @@
 
 <script>
 import { getAuth } from '../auth';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import {
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+} from 'firebase/auth';
 import Email from './misc/icons/Email.vue';
 import Password from './misc/icons/Password.vue';
 
@@ -108,6 +120,17 @@ export default {
           this.$root.$toast.error(err.message);
           console.log(err);
         });
+    },
+    async forgotPassword() {
+      try {
+        await sendPasswordResetEmail(getAuth(), this.form.email);
+      } catch {
+        // empty
+      } finally {
+        this.$root.$toast.success(
+          'An email has been sent to your email address with instructions to reset your password.',
+        );
+      }
     },
   },
 };

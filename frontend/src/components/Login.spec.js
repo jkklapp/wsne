@@ -45,4 +45,13 @@ describe('Login', () => {
       });
     });
   });
+  describe('forgot password link', () => {
+    it('is enabled', () => {
+      const wrapper = mountComponent();
+
+      const link = wrapper.find('a');
+
+      expect(link.exists()).toBe(true);
+    });
+  });
 });

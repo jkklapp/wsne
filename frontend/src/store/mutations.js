@@ -10,8 +10,8 @@ export default {
   },
   SET_POSTS(state, results) {
     if (state.parentId) {
-      const parent = state.posts.find((post) => post.id === state.parentId);
-      state.posts = [parent, ...results];
+      const parent = state.posts.filter((post) => post.id === state.parentId);
+      state.posts = [...parent, ...results];
     } else {
       state.posts = results;
     }

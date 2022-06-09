@@ -6,68 +6,16 @@
         :key="p.id"
         class="bg-gray-200 dark:bg-gray-500 text-gray-800 dark:text-gray-100 px-4 pt-2 pb-2 mb-2 shadow-xl ring-1 ring-gray-900/5 max-w-sm mx-2 md:max-w-lg sm:mx-auto sm:rounded-lg"
       >
-        <div class="flex flex-wrap">
-          <div>
-            <small class="text-gray-500 dark:text-gray-400"
-              >{{ p.userName }} · {{ date(p.date) }}
-              <span v-show="p.likes > 0"
-                >· {{ p.likes }} like<span v-show="p.likes > 1">s</span></span
-              ></small
-            >
-          </div>
-          <div
-            v-if="!p.id && isPosting"
-            class="xs:w-90 w-100 place-items-center"
-          >
-            <div class="lds-ring-small align-text-top">
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-            </div>
-          </div>
-        </div>
-        <div>
-          <span class="message">{{ p.message }}</span>
-        </div>
-        <div class="flex flex-wrap place-items-end">
-          <div class="w-100 mr-auto"></div>
-          <a
-            v-if="!p.parentId"
-            href="#"
-            class="text-gray-500 dark:text-gray-400"
-            @click.prevent="() => fetchPosts(p.id)"
-          >
-            <small
-              >{{ p.comments }} comment<small v-show="p.comments != 1"
-                >s</small
-              ></small
-            >
-          </a>
-          <div class="mr-1"></div>
-          <a
-            v-show="likingPost != p.id"
-            class="mb-[5px]"
-            href="#"
-            @click.prevent="() => toggleLike(!p.likedByMe, p)"
-            ><LightBulb
-              :on="p.likedByMe"
-              :class-names="
-                p.likedByMe
-                  ? 'fill-blue-700 dark:fill-gray-200 w-5 h-5'
-                  : 'fill-gray-300 dark:fill-gray-400 w-5 h-5'
-              "
-          /></a>
-          <div
-            v-show="likingPost == p.id"
-            class="lds-ring-small align-text-bottom"
-          >
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
-        </div>
+        <Post
+          :id="p.id"
+          :user-name="p.userName"
+          :date="p.date"
+          :message="p.message"
+          :likes="p.likes"
+          :comments="p.comments"
+          :liked-by-me="p.likedByMe"
+          :parent-id="p.parentId"
+        />
       </div>
       <div class="grid flex-wrap place-items-center">
         <button
@@ -98,27 +46,43 @@
 </template>
 <script>
 import { mapGetters } from 'vuex';
-import moment from 'moment';
-import LightBulb from '../misc/icons/LightBulb';
+import Post from './Post';
 
 export default {
   components: {
-    LightBulb,
+    Post,
   },
+  async beforeRouteEnter(to, from) {
+    // react to route changes...
+    this.fetchPosts(to.params.parentId);
+  },
+
   computed: {
     ...mapGetters({
       posts: 'getPosts',
       renderBackToTopButton: 'shouldRenderBackToTopButton',
       renderLoadMoreButton: 'shouldRenderLoadMoreButton',
       isLoading: 'isLoadingPosts',
-      isPosting: 'isCreatingPost',
-      likingPost: 'getLikingPost',
     }),
   },
+  created() {
+    this.$watch(
+      () => this.$route.params,
+      ({ parentId }, previousParams) => {
+        if (
+          this.$route.name === 'Dashboard' ||
+          this.$route.name === 'Comments'
+        ) {
+          this.fetchPosts(parentId);
+        }
+      },
+    );
+  },
+  mounted() {
+    const parentId = this.$route.params.parentId;
+    this.fetchPosts(parentId);
+  },
   methods: {
-    date(date) {
-      return moment(date).fromNow();
-    },
     fetchPosts(parentId) {
       this.$store.dispatch('setParentId', parentId);
       this.$store.dispatch('fetchPosts', this.$store.state);
@@ -126,9 +90,6 @@ export default {
     reset() {
       this.$store.dispatch('resetPostsPagination');
       this.fetchPosts();
-    },
-    toggleLike(like, post) {
-      this.$store.dispatch('toggleLike', { post, like });
     },
   },
 };

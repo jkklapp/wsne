@@ -1,3 +1,10 @@
+# [1.23.0](https://github.com/jkklapp/wsne/compare/v1.22.0...v1.23.0) (2022-06-09)
+
+
+### Features
+
+* add forgot password feature ([dc716e5](https://github.com/jkklapp/wsne/commit/dc716e54cdba5a7d49d367002f7d767f7ea4cc7a))
+
 # [1.22.0](https://github.com/jkklapp/wsne/compare/v1.21.0...v1.22.0) (2022-06-09)
 
 

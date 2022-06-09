@@ -1,3 +1,10 @@
+# [1.24.0](https://github.com/jkklapp/wsne/compare/v1.23.1...v1.24.0) (2022-06-09)
+
+
+### Features
+
+* **posts:** empty states ([60d47a1](https://github.com/jkklapp/wsne/commit/60d47a1743ea1dbe63ab11fbe4cf574935fc3802))
+
 ## [1.23.1](https://github.com/jkklapp/wsne/compare/v1.23.0...v1.23.1) (2022-06-09)
 
 

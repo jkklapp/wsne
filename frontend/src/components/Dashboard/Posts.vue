@@ -17,6 +17,14 @@
           :parent-id="p.parentId"
         />
       </div>
+      <div
+        v-if="
+          posts.length == 0 || (posts.length == 1 && !!$route.params.parentId)
+        "
+        class="mt-4 text-center text-gray-600 dark:text-gray-400"
+      >
+        No {{ $route.params.parentId ? 'comments' : 'posts' }} yet.
+      </div>
       <div class="grid flex-wrap place-items-center">
         <button
           v-if="renderLoadMoreButton"

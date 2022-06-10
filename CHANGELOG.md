@@ -1,3 +1,10 @@
+## [1.24.3](https://github.com/jkklapp/wsne/compare/v1.24.2...v1.24.3) (2022-06-10)
+
+
+### Bug Fixes
+
+* **Login:** margin of button and link ([1d4147d](https://github.com/jkklapp/wsne/commit/1d4147ddb42013ae98add5100bda0189cfd43f86))
+
 ## [1.24.2](https://github.com/jkklapp/wsne/compare/v1.24.1...v1.24.2) (2022-06-09)
 
 

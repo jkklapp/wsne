@@ -52,4 +52,23 @@ describe('getters', () => {
       expect(result).toEqual(state.posts);
     });
   });
+  describe('getPostById', () => {
+    it('should return the post by id', () => {
+      const state = {
+        posts: [
+          {
+            id: '1',
+            message: 'Hello World',
+          },
+          {
+            id: '2',
+            message: 'Hello World 2',
+          },
+        ],
+      };
+      const result = getters.getPostById(state, '2');
+
+      expect(result).toEqual(state.posts[1]);
+    });
+  });
 });

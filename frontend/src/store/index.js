@@ -21,6 +21,7 @@ const store = createStore({
     isCheckingEmail: false,
     isCheckingName: false,
     parentId: null,
+    theme: null,
   },
   getters,
   mutations,

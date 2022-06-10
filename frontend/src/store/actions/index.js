@@ -89,4 +89,7 @@ export default {
       commit('SET_IS_CHECKING_NAME', false);
     }
   },
+  setTheme({ commit }, theme) {
+    commit('SET_THEME', theme);
+  },
 };

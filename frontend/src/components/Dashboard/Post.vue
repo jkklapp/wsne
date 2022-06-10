@@ -9,14 +9,7 @@
           ></small
         >
       </div>
-      <div v-if="!id && isPosting" class="xs:w-90 w-100 place-items-center">
-        <div class="lds-ring-small align-text-top">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
-      </div>
+      <Loading v-if="!id && isPosting" small class-names="mb-[5px]" />
     </div>
     <div>
       <span class="message">{{ message }}</span>
@@ -47,26 +40,20 @@
               : 'fill-gray-300 dark:fill-gray-400 w-5 h-5'
           "
       /></a>
-      <div
-        v-show="likingPost == id"
-        class="mb-[5px] lds-ring-small align-text-bottom"
-      >
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
+      <Loading v-show="likingPost == id" small class-names="mb-[5px]" />
     </div>
   </div>
 </template>
 <script>
 import LightBulb from '../misc/icons/LightBulb';
+import Loading from '../misc/Loading';
 import moment from 'moment';
 import { mapGetters } from 'vuex';
 
 export default {
   components: {
     LightBulb,
+    Loading,
   },
   props: {
     userName: {

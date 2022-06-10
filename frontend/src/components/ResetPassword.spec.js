@@ -1,14 +1,14 @@
 import { mount } from '@vue/test-utils';
-import Login from './Login.vue';
+import ResetPassword from './ResetPassword.vue';
 
 const mountComponent = () =>
-  mount(Login, {
+  mount(ResetPassword, {
     global: {
       stubs: ['router-link'],
     },
   });
 
-describe('Login', () => {
+describe('ResetPassword', () => {
   describe('Email field', () => {
     describe('when entering "test@test.com"', () => {
       it('sets the input value to "test@test.com', async () => {
@@ -35,23 +35,12 @@ describe('Login', () => {
         const wrapper = mountComponent();
 
         const input = wrapper.find('input[type="email"]');
-        const password = wrapper.find('input[type="password"]');
 
         await input.setValue('test@test.com');
-        await password.setValue('password');
 
         const button = wrapper.find('button');
         expect(button.element.disabled).toBe(false);
       });
-    });
-  });
-  describe('forgot password link', () => {
-    it('is enabled', () => {
-      const wrapper = mountComponent();
-
-      const link = wrapper.find('.forgot-password-link');
-
-      expect(link.exists()).toBe(true);
     });
   });
 });

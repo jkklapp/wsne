@@ -122,8 +122,14 @@ describe('actions', () => {
     });
   });
   describe('postMessage', () => {
+    const date = new Date(2020, 3, 1);
     afterEach(() => {
       jest.resetAllMocks();
+      jest.useRealTimers();
+    });
+    beforeEach(() => {
+      jest.useFakeTimers('modern');
+      jest.setSystemTime(date);
     });
     it('posts the message to the API', (done) => {
       apiRequest.mockResolvedValueOnce({ data: POSTS_RESPONSE_FIXTURE[0] });
@@ -152,6 +158,56 @@ describe('actions', () => {
         () => {
           expect(apiRequest).toHaveBeenCalledWith('POST', '/posts', null, {
             message: 'Hello World',
+          });
+          done();
+        },
+      );
+    });
+    it('can post a comment to a message', (done) => {
+      apiRequest.mockResolvedValueOnce({
+        data: { ...POSTS_RESPONSE_FIXTURE[0], parentId: '1' },
+      });
+
+      testAction(
+        actions.postMessage,
+        'Hello World 2',
+        {
+          posts: [{ id: '1', message: 'hello world' }],
+          creatingPost: false,
+          parentId: '1',
+        },
+        [
+          {
+            type: 'IS_CREATING_POST',
+            payload: true,
+          },
+          {
+            type: 'PUSH_COMMENT',
+            payload: {
+              message: 'Hello World 2',
+              date: date.getTime(),
+              parentId: '1',
+            },
+          },
+          { type: 'POP_COMMENT' },
+          {
+            type: 'PUSH_COMMENT',
+            payload: {
+              message: 'Hello World 2',
+              date: 1555555555555,
+              parentId: '1',
+            },
+          },
+          { type: 'INCREMENT_COMMENTS_COUNT' },
+          {
+            type: 'IS_CREATING_POST',
+            payload: false,
+          },
+        ],
+        () => {
+          expect(apiRequest).toHaveBeenCalledWith('POST', '/posts', null, {
+            message: 'Hello World 2',
+            parentId: '1',
           });
           done();
         },

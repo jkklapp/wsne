@@ -57,7 +57,9 @@
                 />
               </div>
             </div>
-            <div class="flex place-items-stretch">
+            <div
+              class="flex flex-wrap place-items-center sm:place-items-stretch"
+            >
               <button
                 type="submit"
                 :disabled="!form.email || !form.password"
@@ -66,8 +68,8 @@
               >
                 Login
               </button>
-              <div class="mb-2 md:mx-14"></div>
-              <div class="mt-2">
+              <div class="mb-2 sm:mx-auto md:mx-16"></div>
+              <div class="mt-2 mx-auto sm:mx-0">
                 <a
                   class="text-gray-700 dark:text-gray-300 align-bottom"
                   href="#"

@@ -1,11 +1,7 @@
 <template>
   <div>
     <div v-if="!isLoading">
-      <div
-        v-for="p in posts"
-        :key="p.id"
-        class="bg-gray-200 dark:bg-gray-500 text-gray-800 dark:text-gray-100 px-4 pt-2 pb-2 mb-2 shadow-xl ring-1 ring-gray-900/5 max-w-sm mx-2 md:max-w-lg sm:mx-auto sm:rounded-lg"
-      >
+      <div v-for="p in posts" :key="p.id">
         <Post
           :id="p.id"
           :user-name="p.userName"

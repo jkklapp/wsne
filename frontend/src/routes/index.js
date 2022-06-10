@@ -5,6 +5,7 @@ import Dashboard from '../components/Dashboard';
 import Terms from '../components/misc/Terms';
 import PrivacyPolicy from '../components/misc/PrivacyPolicy';
 import About from '../components/misc/About';
+import ResetPassword from '../components/ResetPassword';
 
 const router = createRouter({
   mode: 'history',
@@ -15,6 +16,11 @@ const router = createRouter({
       path: '/login',
       name: 'Login',
       component: Login,
+    },
+    {
+      path: '/reset-password',
+      name: 'ResetPassword',
+      component: ResetPassword,
     },
     {
       path: '/register',

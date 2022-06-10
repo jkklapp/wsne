@@ -10,8 +10,9 @@
         class="dark:text-white bg-gray-200 dark:bg-gray-500 px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 md:rounded-lg md:w-1/2 mx-auto"
       >
         <p>
-          What if you could only <strong>share 10 ideas a day</strong>? Would
-          you start typing or rather
+          What if you could only
+          <strong>share {{ maxMessagesPerDay }} ideas a day</strong>? Would you
+          start typing or rather
           <strong>take a pause and think?</strong>
         </p>
         <br />
@@ -22,7 +23,9 @@
         <br />
         <p>
           Therefore, in {{ appName }}
-          <strong>only 10 messages can be created a day.</strong>
+          <strong
+            >only {{ maxMessagesPerDay }} messages can be created a day.</strong
+          >
         </p>
         <br />
         <p>
@@ -72,6 +75,7 @@ export default {
   computed: {
     appName: () => process.env.VUE_APP_NAME,
     supportEmail: () => process.env.VUE_APP_SUPPORT_EMAIL,
+    maxMessagesPerDay: () => process.env.VUE_APP_MAX_MESSAGES_PER_DAY,
   },
 };
 </script>

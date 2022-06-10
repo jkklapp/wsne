@@ -12,7 +12,11 @@
       <Loading v-if="!id && isPosting" small class-names="mb-[5px]" />
     </div>
     <div>
-      <span class="message">{{ message }}</span>
+      <span
+        class="message"
+        :class="$store.state.parentId && !parentId ? 'text-3xl' : 'text-md'"
+        >{{ message }}</span
+      >
     </div>
     <div class="flex flex-wrap place-items-end">
       <div class="w-100 mr-auto"></div>

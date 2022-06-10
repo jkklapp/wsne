@@ -75,4 +75,7 @@ export default {
   SET_IS_CHECKING_NAME(state, data) {
     state.isCheckingName = data;
   },
+  SET_THEME(state, data) {
+    state.theme = data;
+  },
 };

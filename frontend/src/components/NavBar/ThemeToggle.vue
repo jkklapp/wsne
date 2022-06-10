@@ -50,6 +50,7 @@ export default {
     } else {
       themeToggleDarkIcon && themeToggleDarkIcon.classList.remove('hidden');
     }
+    this.$store.dispatch('setTheme', localStorage.getItem('color-theme'));
   },
   methods: {
     toggleTheme() {
@@ -82,6 +83,7 @@ export default {
           localStorage.setItem('color-theme', 'dark');
         }
       }
+      this.$store.dispatch('setTheme', localStorage.getItem('color-theme'));
     },
   },
 };

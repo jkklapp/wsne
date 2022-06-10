@@ -42,23 +42,20 @@
         </button>
       </div>
     </div>
-    <div v-if="isLoading" class="flex justify-center items-center">
-      <div class="lds-ring">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
+    <div class="flex justify-center items-center">
+      <Loading v-if="isLoading" />
     </div>
   </div>
 </template>
 <script>
 import { mapGetters } from 'vuex';
 import Post from './Post';
+import Loading from '../misc/Loading';
 
 export default {
   components: {
     Post,
+    Loading,
   },
   computed: {
     ...mapGetters({

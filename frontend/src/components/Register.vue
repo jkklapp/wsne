@@ -43,17 +43,11 @@
                   >This username already exists</span
                 >
                 <div class="m-auto"></div>
-                <div
+                <Loading
                   v-show="isCheckingName"
-                  class="loading-spinner xs:w-90 w-100"
-                >
-                  <div class="lds-ring-small align-text-top">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                  </div>
-                </div>
+                  small
+                  class-names="xs:w-90 w-100"
+                />
               </div>
             </div>
             <div class="mb-6">
@@ -87,17 +81,11 @@
                   >This email already exists</span
                 >
                 <div class="m-auto"></div>
-                <div
+                <Loading
                   v-show="isCheckingName"
-                  class="loading-spinner xs:w-90 w-100"
-                >
-                  <div class="lds-ring-small align-text-top">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                  </div>
-                </div>
+                  small
+                  class-names="xs:w-90 w-100"
+                />
               </div>
             </div>
             <div class="mb-6">
@@ -198,12 +186,14 @@ import {
 } from 'firebase/auth';
 import Email from './misc/icons/Email.vue';
 import Password from './misc/icons/Password.vue';
+import Loading from './misc/Loading.vue';
 import { mapGetters } from 'vuex';
 
 export default {
   components: {
     Email,
     Password,
+    Loading,
   },
   data() {
     return {

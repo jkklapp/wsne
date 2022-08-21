@@ -88,6 +88,9 @@ jobs:
       - uses: actions/setup-node@v2-beta
         with:
           node-version: '14'
+      - name: Install Dependencies
+        run: yarn
+        working-directory: backend/dist
       - name: Download Artifact
         uses: actions/download-artifact@master
         with:

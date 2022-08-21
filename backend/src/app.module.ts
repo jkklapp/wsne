@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { FirebaseAuthStrategy } from './firebase/firebase-auth.strategy';
 import { FirestoreModule } from './firestore/firestore.module';
-import { cache, PostsModule } from './posts/posts.module';
+import { PostsModule } from './posts/posts.module';
 import { UsersModule } from './users/users.module';
 
 @Module({
@@ -19,7 +19,6 @@ import { UsersModule } from './users/users.module';
       }),
       inject: [ConfigService],
     }),
-    cache,
     PostsModule,
     UsersModule,
   ],

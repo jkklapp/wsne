@@ -10,11 +10,14 @@ const mockRouter = {
   replace: jest.fn(),
 };
 
+const mockDispatch = jest.fn();
+
 const mountComponent = (
   userEmailExists = false,
   userNameExists = false,
   isCheckingEmail = false,
   isCheckingName = false,
+  state = {},
 ) =>
   mount(Register, {
     computed: {
@@ -44,6 +47,10 @@ const mountComponent = (
       stubs: ['router-link'],
       mocks: {
         $router: mockRouter,
+        $store: {
+          dispatch: mockDispatch,
+          state: state,
+        },
       },
     },
   });

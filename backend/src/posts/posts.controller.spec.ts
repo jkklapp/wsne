@@ -1,6 +1,5 @@
 import { PostsController } from './posts.controller';
 import { PostsService } from './posts.service';
-import { Cache } from 'cache-manager';
 
 jest.mock('./utils', () => {
   return {

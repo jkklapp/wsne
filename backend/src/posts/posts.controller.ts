@@ -1,11 +1,9 @@
 import {
   BadRequestException,
   Body,
-  CACHE_MANAGER,
   Controller,
   Get,
   HttpCode,
-  Inject,
   Param,
   ParseIntPipe,
   Post,
@@ -23,24 +21,10 @@ import {
 import { PostsService } from './posts.service';
 import { FirebaseAuthGuard } from '../firebase/firebase-auth.guard';
 import { getDisplayNameByUserId } from './utils';
-import { Cache } from 'cache-manager';
 
 @Controller('posts')
 export class PostsController {
-  constructor(
-    private readonly service: PostsService,
-    @Inject(CACHE_MANAGER) private cacheManager: Cache,
-  ) {}
-
-  private async resolveUserName(userId: string): Promise<string> {
-    const key = `username-${userId}`;
-    let userName: string = await this.cacheManager.get(key);
-    if (!userName) {
-      userName = await getDisplayNameByUserId(userId);
-      await this.cacheManager.set(key, userName);
-    }
-    return userName;
-  }
+  constructor(private readonly service: PostsService) {}
 
   @Get()
   @UseGuards(FirebaseAuthGuard)
@@ -65,7 +49,7 @@ export class PostsController {
         ...parentPost,
         likes: (parentPost.likes || []).length,
         likedByMe: (parentPost.likes || []).includes(userId),
-        userName: await this.resolveUserName(parentPost.userId),
+        userName: await getDisplayNameByUserId(parentPost.userId),
         comments: await this.service.countAllForParentId(parentPost.id),
       });
     }
@@ -74,7 +58,7 @@ export class PostsController {
         ...results[p],
         likes: (results[p].likes || []).length,
         likedByMe: (results[p].likes || []).includes(userId),
-        userName: await this.resolveUserName(results[p].userId),
+        userName: await getDisplayNameByUserId(results[p].userId),
         comments: await this.service.countAllForParentId(results[p].id),
       });
     }
@@ -210,7 +194,7 @@ export class PostsController {
 
     const post = await this.service.get(id);
 
-    const userName = await this.resolveUserName(post.userId);
+    const userName = await getDisplayNameByUserId(post.userId);
     const comments = post.parentId
       ? await this.service.countAllForParentId(post.parentId)
       : 0;

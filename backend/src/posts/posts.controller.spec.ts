@@ -14,26 +14,12 @@ jest.mock('./utils', () => {
 describe('PostsController', () => {
   let c: PostsController;
   let s: PostsService;
-  let cache: Cache;
   let old_env;
 
   beforeEach(() => {
     const collection = null;
     s = new PostsService(collection);
-    cache = {
-      get: jest.fn(),
-      set: jest.fn(),
-      wrap: jest.fn(),
-      del: jest.fn(),
-      reset: jest.fn(),
-      store: {
-        get: jest.fn(),
-        set: jest.fn(),
-      },
-    };
-    jest.spyOn(cache, 'get').mockResolvedValue(null); // cache fails
-    jest.spyOn(cache, 'set');
-    c = new PostsController(s, cache);
+    c = new PostsController(s);
     old_env = process.env;
     process.env = { MAX_NUMBER_POSTS_PER_DAY: '5', MAX_MESSAGE_LENGTH: '100' };
     jest.spyOn(s, 'countAllforUserByDate').mockResolvedValue(0);

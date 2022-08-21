@@ -1,3 +1,15 @@
+## [1.24.4](https://github.com/jkklapp/wsne/compare/v1.24.3...v1.24.4) (2022-08-21)
+
+
+### Bug Fixes
+
+* cache resolver hit check ([f498078](https://github.com/jkklapp/wsne/commit/f498078afc96a92dc286136c3638ad300ff07874))
+
+
+### Performance Improvements
+
+* cache user name resolution by id ([d7eeb60](https://github.com/jkklapp/wsne/commit/d7eeb60a27c5964750c27f57133d15f48c4dfbd2))
+
 ## [1.24.3](https://github.com/jkklapp/wsne/compare/v1.24.2...v1.24.3) (2022-06-10)
 
 

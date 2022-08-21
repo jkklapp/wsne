@@ -35,7 +35,7 @@ export class PostsController {
   private async resolveUserName(userId: string): Promise<string> {
     const key = `username-${userId}`;
     let userName: string = await this.cacheManager.get(key);
-    if (userName === null) {
+    if (!userName) {
       userName = await getDisplayNameByUserId(userId);
       await this.cacheManager.set(key, userName);
     }

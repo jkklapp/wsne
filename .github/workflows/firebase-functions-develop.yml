@@ -90,7 +90,7 @@ jobs:
           node-version: '14'
       - name: Install Dependencies
         run: yarn
-        working-directory: backend/dist
+        working-directory: backend
       - name: Download Artifact
         uses: actions/download-artifact@master
         with:

@@ -77,6 +77,7 @@ jobs:
           args: deploy --only functions:api_live --debug
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          FB_PARAMS_PRIVATE_KEY: ${{ secrets.FB_PARAMS_PRIVATE_KEY }}
       - name: Archive Production Artifact
         uses: actions/upload-artifact@master
         with:

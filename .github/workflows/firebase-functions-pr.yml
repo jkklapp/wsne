@@ -56,7 +56,7 @@ jobs:
         run: yarn && yarn test:cov
 
   build:
-    name: Build
+    name: Build & Deploy
     needs: [lint, test, e2e-test, coverage]
     runs-on: ubuntu-latest
     steps:
@@ -71,6 +71,13 @@ jobs:
       - name: Build
         working-directory: backend
         run: yarn build
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only functions:api_live --debug
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          FB_PARAMS_PRIVATE_KEY: ${{ secrets.FB_PARAMS_PRIVATE_KEY }}
       - name: Archive Production Artifact
         uses: actions/upload-artifact@master
         with:

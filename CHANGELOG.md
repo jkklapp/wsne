@@ -1,3 +1,10 @@
+## [1.24.5](https://github.com/jkklapp/wsne/compare/v1.24.4...v1.24.5) (2023-01-28)
+
+
+### Bug Fixes
+
+* correct working directory ([db5bf43](https://github.com/jkklapp/wsne/commit/db5bf43f34cc8440efcd4c254cab3905975374e2))
+
 ## [1.24.4](https://github.com/jkklapp/wsne/compare/v1.24.3...v1.24.4) (2022-08-21)
 
 

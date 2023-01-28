@@ -67,6 +67,9 @@ export default {
     inputLabel: () => process.env.VUE_APP_INPUT_LABEL,
     inputCtaLabel: () => process.env.VUE_APP_INPUT_CTA_LABEL,
     placeholder() {
+      if (this.remainingMessagesForUser === -1) {
+        return 'I am not sure how many fluus you have yet...';
+      }
       return `You have ${this.remainingMessagesForUser} ${process.env.VUE_APP_MESSAGE_NAME}s left today`;
     },
     isInputDisabled() {

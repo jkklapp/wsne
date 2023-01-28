@@ -4,7 +4,7 @@ import mutations from './mutations';
 import actions from './actions';
 import getters from './getters';
 
-const store = createStore({
+export const store = {
   state: {
     user: { displayName: '', email: '' },
     startAfter: null,
@@ -14,7 +14,7 @@ const store = createStore({
     loadingPosts: false,
     creatingPost: false,
     loggedIn: false,
-    remainingMessages: 0,
+    remainingMessages: -1,
     likingPost: null,
     userEmailExists: false,
     userNameExists: false,
@@ -26,5 +26,6 @@ const store = createStore({
   getters,
   mutations,
   actions,
-});
-export default store;
+};
+
+export default createStore(store);

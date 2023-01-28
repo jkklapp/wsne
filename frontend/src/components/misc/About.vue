@@ -12,8 +12,9 @@
         <p>
           What if you could only
           <strong
-            >share {{ maxMessagesPerDay }} idea{% if maxMessagesPerDay > 1 %}s{%
-            endif %} a day</strong
+            >share {{ maxMessagesPerDay }} idea
+            <p v-if="maxMessagesPerDay > 1">s</p>
+            a day</strong
           >? Would you start typing or rather
           <strong>take a pause and think?</strong>
         </p>

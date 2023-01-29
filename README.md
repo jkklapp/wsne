@@ -1,5 +1,5 @@
 # WSNE
 
-Micro-blogging application build in Firebase using NestJS and VueJS.
+## Start the emulator locally
 
-This repo powers [Fluunker](https://fluunker.com).
+`firebase emulators:start`

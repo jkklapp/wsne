@@ -32,4 +32,21 @@ describe('Profile', () => {
       getByText('Name: ?');
     });
   });
+
+  describe('when user loaded', () => {
+    test('it renders the user name', async () => {
+      const component = renderComponent({
+        state: {
+          user: {
+            email: '',
+            displayName: 'John',
+          },
+        },
+      });
+
+      const { getByText } = component;
+
+      getByText('Name: John');
+    });
+  });
 });

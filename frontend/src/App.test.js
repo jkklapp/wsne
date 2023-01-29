@@ -59,7 +59,7 @@ describe('when logged in', () => {
           posts: [],
         },
       };
-      console.log(initialState);
+
       const storeInstance = createStore(initialState);
 
       const routerInstance = createRouter({

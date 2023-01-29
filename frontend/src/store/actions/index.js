@@ -16,12 +16,10 @@ export default {
       parentId,
     });
     const { results, nextPageToken, remainingMessages } = data;
-    console.log(results, nextPageToken, remainingMessages);
     commit('SET_POSTS', results);
     commit('SET_START_AFTER', nextPageToken);
     commit('SET_REMAINING_MESSAGES', remainingMessages || 0);
     commit('IS_LOADING_POSTS', false);
-    console.log('set loading to false');
   },
   setMessage({ commit }, message) {
     commit('SET_MESSAGE', message);

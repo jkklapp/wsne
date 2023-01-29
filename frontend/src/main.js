@@ -4,7 +4,7 @@ import 'firebase/compat/auth';
 import 'flowbite';
 import App from './App.vue';
 import store from './store';
-import router from './routes/index';
+import router from './router/index';
 import './index.css';
 import VueToast from 'vue-toast-notification';
 import 'vue-toast-notification/dist/theme-default.css';

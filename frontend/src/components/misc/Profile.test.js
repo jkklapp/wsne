@@ -30,6 +30,7 @@ describe('Profile', () => {
       const { getByText } = component;
 
       getByText('Name: ?');
+      getByText('Email: ?');
     });
   });
 
@@ -38,7 +39,7 @@ describe('Profile', () => {
       const component = renderComponent({
         state: {
           user: {
-            email: '',
+            email: 'john@email.com',
             displayName: 'John',
           },
         },
@@ -47,6 +48,7 @@ describe('Profile', () => {
       const { getByText } = component;
 
       getByText('Name: John');
+      getByText('Email: john@email.com');
     });
   });
 });

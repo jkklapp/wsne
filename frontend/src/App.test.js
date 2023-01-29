@@ -2,15 +2,13 @@
 /* eslint-disable vue/one-component-per-file */
 
 import '@testing-library/jest-dom';
-import { waitFor } from '@testing-library/dom';
-import { render, fireEvent } from '@testing-library/vue';
+import { render } from '@testing-library/vue';
 import App from './App';
 import { store } from './store';
 import router from './router';
 import { getAuth } from './auth';
 import { createStore } from 'vuex';
 import { apiRequest } from './store/actions/api';
-import { createRouter, createWebHashHistory } from 'vue-router';
 
 jest.mock('./auth');
 jest.mock('./store/actions/api');
@@ -29,17 +27,20 @@ Object.defineProperty(window, 'matchMedia', {
   })),
 });
 
+const userFixture = {
+  email: 'test',
+  displayName: 'John Doe',
+  emailVerified: true,
+};
+
 describe('when logged in', () => {
   beforeEach(() => {
     getAuth.mockReturnValue({
-      onAuthStateChanged: jest.fn(() => ({
-        email: 'test',
-        displayName: 'John Doe',
-        emailVerified: true,
-      })),
+      onAuthStateChanged: jest.fn(() => userFixture),
     });
   });
   describe('when no posts exist', () => {
+    let component;
     beforeEach(() => {
       apiRequest.mockResolvedValueOnce({
         data: {
@@ -48,30 +49,42 @@ describe('when logged in', () => {
           nextPageToken: null,
         },
       });
-    });
-    test('it renders "No posts yet"', async () => {
       const initialState = {
         ...store,
         state: {
           ...store.state,
+          user: userFixture,
           loggedIn: true,
         },
       };
 
       const storeInstance = createStore(initialState);
-
-      router.push('/');
-      await router.isReady();
-
-      const component = render(App, {
+      component = render(App, {
         global: {
           plugins: [storeInstance, router],
         },
       });
+    });
+    describe('when navigating to /', () => {
+      test('it renders "No posts yet"', async () => {
+        router.push('/');
+        await router.isReady();
 
-      const { findByText } = component;
+        const { findByText } = component;
 
-      await findByText('No posts yet.');
+        await findByText('No posts yet.');
+      });
+    });
+    describe('when navigating to /profile', () => {
+      test('it shows name and email', async () => {
+        router.push('/profile');
+        await router.isReady();
+
+        const { findByText } = component;
+
+        await findByText('Name: John Doe');
+        await findByText('Email: test');
+      });
     });
   });
 });

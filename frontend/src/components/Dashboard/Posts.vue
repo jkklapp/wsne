@@ -1,6 +1,5 @@
 <template>
   <div>
-    isLoading: {{ isLoading }}
     <div v-if="!isLoading" class="mb-4">
       <div v-for="p in posts" :key="p.id">
         <Post

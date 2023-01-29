@@ -6,7 +6,7 @@ import { waitFor } from '@testing-library/dom';
 import { render, fireEvent } from '@testing-library/vue';
 import App from './App';
 import { store } from './store';
-import { routes } from './router';
+import router from './router';
 import { getAuth } from './auth';
 import { createStore } from 'vuex';
 import { apiRequest } from './store/actions/api';
@@ -15,15 +15,32 @@ import { createRouter, createWebHashHistory } from 'vue-router';
 jest.mock('./auth');
 jest.mock('./store/actions/api');
 
+Object.defineProperty(window, 'matchMedia', {
+  writable: true,
+  value: jest.fn().mockImplementation((query) => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: jest.fn(), // Deprecated
+    removeListener: jest.fn(), // Deprecated
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+    dispatchEvent: jest.fn(),
+  })),
+});
+
 describe('when logged in', () => {
+  beforeEach(() => {
+    getAuth.mockReturnValue({
+      onAuthStateChanged: jest.fn(() => ({
+        email: 'test',
+        displayName: 'John Doe',
+        emailVerified: true,
+      })),
+    });
+  });
   describe('when no posts exist', () => {
-    test('it renders "No posts yet"', async () => {
-      getAuth.mockReturnValue({
-        onAuthStateChanged: jest.fn(() => ({
-          email: 'test',
-          displayName: 'John Doe',
-        })),
-      });
+    beforeEach(() => {
       apiRequest.mockResolvedValueOnce({
         data: {
           results: [],
@@ -31,50 +48,24 @@ describe('when logged in', () => {
           nextPageToken: null,
         },
       });
-
-      Object.defineProperty(window, 'matchMedia', {
-        writable: true,
-        value: jest.fn().mockImplementation((query) => ({
-          matches: false,
-          media: query,
-          onchange: null,
-          addListener: jest.fn(), // Deprecated
-          removeListener: jest.fn(), // Deprecated
-          addEventListener: jest.fn(),
-          removeEventListener: jest.fn(),
-          dispatchEvent: jest.fn(),
-        })),
-      });
-
+    });
+    test('it renders "No posts yet"', async () => {
       const initialState = {
         ...store,
         state: {
           ...store.state,
-          user: {
-            email: 'test',
-            displayName: 'John Doe',
-            emailVerified: true,
-          },
           loggedIn: true,
-          posts: [],
         },
       };
 
       const storeInstance = createStore(initialState);
 
-      const routerInstance = createRouter({
-        mode: 'history',
-        base: process.env.BASE_URL,
-        history: createWebHashHistory(),
-        routes,
-      });
-
-      routerInstance.push('/');
-      await routerInstance.isReady();
+      router.push('/');
+      await router.isReady();
 
       const component = render(App, {
         global: {
-          plugins: [storeInstance, routerInstance],
+          plugins: [storeInstance, router],
         },
       });
 

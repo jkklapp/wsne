@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Lint Check
         working-directory: frontend
         run: yarn && yarn lint
@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Test
         working-directory: frontend
         run: yarn && yarn test
@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Test coverage
         working-directory: frontend
         run: yarn && yarn test:cov
@@ -39,7 +39,7 @@ jobs:
     needs: [lint, test, coverage]
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Build
         working-directory: frontend
         run: yarn && yarn build:preview

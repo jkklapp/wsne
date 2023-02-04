@@ -70,7 +70,14 @@ export default {
       if (this.remainingMessagesForUser === -1) {
         return 'I am not sure how many fluus you have yet...';
       }
-      return `You have ${this.remainingMessagesForUser} ${process.env.VUE_APP_MESSAGE_NAME}s left today`;
+      return `You have ${this.remainingMessagesForUser} ${
+        process.env.VUE_APP_MESSAGE_NAME
+      }${
+        this.remainingMessagesForUser === 0 ||
+        this.remainingMessagesForUser === 0 > 1
+          ? 's'
+          : ''
+      } left today`;
     },
     isInputDisabled() {
       return (
@@ -84,9 +91,6 @@ export default {
       return this.message.length > 100;
     },
     remainingMessagesForUser() {
-      if (process.env.NODE_ENV === 'local') {
-        return 10;
-      }
       return this.user.emailVerified
         ? this.remainingMessages
         : parseInt(this.remainingMessages / 10, 10);

@@ -67,13 +67,20 @@ describe('when logged in', () => {
       });
     });
     describe('when navigating to /', () => {
-      test('it renders "No posts yet"', async () => {
+      beforeEach(async () => {
         router.push('/');
-        await router.isReady();
 
+        await router.isReady();
+      });
+      test('it renders "No posts yet"', async () => {
         const { findByText } = component;
 
         await findByText('No posts yet.');
+      });
+      test('it says 1 message remaining today', async () => {
+        const { findByPlaceholderText } = component;
+
+        await findByPlaceholderText('You have 1 fluu left today');
       });
     });
     describe('when navigating to /profile', () => {

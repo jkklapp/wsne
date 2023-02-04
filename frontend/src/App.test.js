@@ -5,6 +5,7 @@ import '@testing-library/jest-dom';
 import { render } from '@testing-library/vue';
 import App from './App';
 import { store } from './store';
+import { waitFor } from '@testing-library/vue';
 import router from './router';
 import { getAuth } from './auth';
 import { createStore } from 'vuex';
@@ -80,10 +81,11 @@ describe('when logged in', () => {
         router.push('/profile');
         await router.isReady();
 
-        const { findByText } = component;
-
-        await findByText('Name: John Doe');
-        await findByText('Email: test');
+        const { getByText } = component;
+        await waitFor(() => {
+          getByText('Name: John Doe');
+          getByText('Email: test');
+        });
       });
     });
   });

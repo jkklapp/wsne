@@ -9,7 +9,7 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
-      - uses: actions/setup-node@v3.6.0
+      - uses: actions/setup-node@v3.8.0
         with:
           node-version: '14'
       - name: Lint Check
@@ -22,7 +22,7 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
-      - uses: actions/setup-node@v3.6.0
+      - uses: actions/setup-node@v3.8.0
         with:
           node-version: '14'
       - name: Test
@@ -35,7 +35,7 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
-      - uses: actions/setup-node@v3.6.0
+      - uses: actions/setup-node@v3.8.0
         with:
           node-version: '14'
       - name: E2E Test
@@ -48,7 +48,7 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
-      - uses: actions/setup-node@v3.6.0
+      - uses: actions/setup-node@v3.8.0
         with:
           node-version: '14'
       - name: Test coverage
@@ -62,7 +62,7 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
-      - uses: actions/setup-node@v3.6.0
+      - uses: actions/setup-node@v3.8.0
         with:
           node-version: '14'
       - name: Install Dependencies
